@@ -1,0 +1,23 @@
+{
+  "_display_name": "العربية",
+  "about": {
+    "operating_system_abbr": "نظام التشغيل:",
+    "version": "الإصدار:"
+  },
+  "common": {
+    "continue": "استمر",
+    "done": "تم",
+    "next": "تم"
+  },
+  "label": {
+    "launch_enable_notif": "فعل الإشعارات",
+    "launch_get_started": "ابدأ",
+    "launch_screen1_header": "طريق العودة إلى الوضع الطبيعي يبدأ من هنا"
+  },
+  "onboarding": {
+    "terms_header_title": "تعليمات الاستخدام"
+  },
+  "screen_titles": {
+    "legal": "النظام القانوني"
+  }
+}

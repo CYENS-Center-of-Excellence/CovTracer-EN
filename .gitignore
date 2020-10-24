@@ -1,0 +1,106 @@
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+jetificableGroups.json
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+*.jks
+!debug.keystore
+
+# i18next-parser
+/app/locales/*_old.json
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+
+# CocoaPods
+/ios/Pods/
+.vscode/launch.json
+
+# Ruby gems
+ios/vendor/bundle/*
+android/vendor/bundle/*
+
+# VSCode
+.vscode/*
+
+# Local iOS build artifacts
+ios/COVIDSafePaths.ipa
+ios/COVIDSafePaths.app
+ios/COVIDSafePaths.app.dSYM.zip
+
+ios/COVIDSafePaths-staging.ipa
+ios/COVIDSafePaths-staging.app
+ios/COVIDSafePaths-staging.app.dSYM.zip
+
+ios/COVIDSafePaths-bt.ipa
+ios/COVIDSafePaths-bt.app
+ios/COVIDSafePaths-bt.app.dSYM.zip
+
+ios/COVIDSafePaths-staging-bt.ipa
+ios/COVIDSafePaths-staging-bt.app
+ios/COVIDSafePaths-stating-bt.app.dSYM.zip
+
+# Local Android build artifacts
+android/app/src/main/assets/index.android.bundle
+
+# Local Realm Artifact
+safepaths.realm
+
+# env files
+.env
+.env.bt*
+
+# swift packages
+ios/COVIDSafePaths.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# test coverage
+test-coverage

@@ -1,0 +1,212 @@
+{
+  "_display_name": "日本語",
+  "about": {
+    "description": "{{applicationName}}アプリは{{healthAuthorityName}}によって利用可能になります",
+    "operating_system_abbr": "OS：",
+    "version": "バージョン："
+  },
+  "common": {
+    "back": "戻る",
+    "close": "閉じる",
+    "continue": "継続する",
+    "done": "完成です",
+    "maybe_later": "あとで",
+    "next": "次へ進む",
+    "no_thanks": "結構です",
+    "settings": "設定を開く",
+    "skip": "スキップ",
+    "something_went_wrong": "問題が発生しました",
+    "start": "開始",
+    "submit": "送信",
+    "success": "成功"
+  },
+  "errors": {
+    "description": "エラーが発生しました。アプリを再読み込みしてください。",
+    "reload": "リロード",
+    "title": "不明なエラー"
+  },
+  "export": {
+    "code_input_body_bluetooth": "確認コードを入力してください",
+    "code_input_button_cancel": "キャンセル",
+    "code_input_title_bluetooth": "診断を確認する",
+    "complete_body_bluetooth": "あなたはウイルスの蔓延を封じ込め、あなたのコミュニティの他の人々を保護するのを手伝っています。",
+    "complete_title": "コミュニティを安全に守るためへのご協力ありがとう！",
+    "consent_body_0": "あなたの陽性診断を共有することは任意であり、あなたの同意によってのみ行うことができます。",
+    "consent_body_1": "これを選択した場合は、コミュニティの他のユーザーが自分の健康に関する情報に基づいた意思決定を行い、ウイルスの蔓延を封じ込めるために自分の役割を果たすことを支援しています。",
+    "consent_body_2": "共有される唯一の情報は、あなたの電話が過去14日間に近くにあった他の電話とBluetooth経由で交換したランダムな数のセットと、症状が発生したときの加重リスクスコアのみです。",
+    "consent_button_title": "私は理解し、同意します",
+    "consent_subheader_1": "なぜ共有する必要があるのですか？",
+    "consent_subheader_2": "それはどのように機能しますか？",
+    "enable_exposure_notifications_body": "陽性の検査結果を報告するには、接触通知を有効にする必要があります。",
+    "enable_exposure_notifications_title": "続行するには接触通知を有効にしてください",
+    "error": {
+      "invalid_code": "別のコードを試す",
+      "invalid_format": "無効な形式です",
+      "unknown_code_verification_error": "別のコードを試す",
+      "verification_code_used": "確認コードは既に使用されています"
+    },
+    "publish_consent_title_bluetooth": "コミュニティの他のユーザーに通知する",
+    "publish_keys": {
+      "errors": {
+        "description": "操作を完了できませんでした。 {{message}}",
+        "internal_server_error": "サーバーで問題が発生しています。しばらくしてからもう一度お試しください",
+        "timeout": "リクエストの完了に時間がかかりすぎました",
+        "unknown": "露出データの送信に失敗しました"
+      },
+      "no_op": {
+        "no_token_for_existing_keys": "既存のデータがサーバーに送信されました。これは通常、このプロセスが以前にこのデバイスから試みられたが、別のアプリケーションで試みられたことを意味します。これを、使用された検証コードを提供した機関に伝えることができます。{{newKeysInserted}} 新しいキーが追加されました。",
+        "no_token_for_existing_keys_title": "既存のキーを送信しようとしています"
+      }
+    },
+    "start_header_bluetooth": "ウイルスの蔓延を封じ込め、コミュニティ内の他のユーザーを保護する活動にご協力ください"
+  },
+  "exposure_history": {
+    "exposure_detail": {
+      "6ft_apart": "6フィート間隔を取る",
+      "ha_guidance_header": "私は何をすべきか？",
+      "header": "新型コロナウイルス感染者と遭遇していた可能性があります。",
+      "isolate": "隔離する",
+      "next_steps": "次へ進む",
+      "wash_your_hands": "手洗い",
+      "wear_a_mask": "マスクを着用する"
+    },
+    "exposure_window": {
+      "four_to_six_days_ago": "4~6日前",
+      "seven_to_fourteen_days_ago": "7~14日前",
+      "today_to_three_days_ago": "過去 3 日以内"
+    },
+    "health_guidelines": {
+      "six_feet_apart": "6フィート間隔を取る",
+      "stay_home": "病気のときは家にいる",
+      "title": "健康ガイドライン",
+      "wash_your_hands": "手をよく洗う",
+      "wear_a_mask": "マスクを着用する"
+    },
+    "how_does_this_work": "これはどのように機能しますか?",
+    "how_does_this_work_para": "接触通知がオンの場合、携帯電話はBluetoothを使用して、接触通知が有効になっている携帯電話から乱数列（ランダムIDと呼ばれます）を交換して保存します。ランダムIDは、他のユーザーに対して個人を特定することはなく、プライバシーを保護するために1日に何度も変更されます。",
+    "last_days": "過去14日間",
+    "learn_more": "詳細情報",
+    "no_connectivity_message": "インターネットに接続されていません！",
+    "no_exposure_reports": "接触のリポートはありません",
+    "no_exposure_reports_over_past": "過去14日間、接触のレポートを受け取っていません",
+    "possible_exposure": "COVID-19への接触の可能性",
+    "protect_yourself_and_others": "自分とコミュニティの他の人を守る",
+    "review_guidance_from_ha": "からのガイダンスを確認する {{healthAuthorityName}}",
+    "updated": "更新",
+    "why_did_i_get_an_en": "接触通知を受け取ったのはなぜですか？",
+    "why_did_i_get_an_en_para": "近くにいた誰かが後でCOVID-19の陽性テストを受け取り、他の人に通知することを選択すると、接触の通知を受け取ります。"
+  },
+  "home": {
+    "bluetooth_info_body": "お使いの携帯電話は、Bluetooth低エネルギーを使用して近接して時間を過ごす他の携帯電話を検出します。これにより、アプリをデバイスで開いていなくても、アプリは毎日のログインを匿名で記録できます。",
+    "bluetooth": {
+      "all_services_on_subheader": "{{applicationName}}は、アプリが閉じられた後もアクティブのままになります",
+      "bluetooth_disabled_error_message": "アプリ設定に移動し、Bluetoothを有効にしてこのエラーを修正してください",
+      "bluetooth_disabled_error_title": "設定でブルートゥースを有効にする",
+      "bluetooth_header": "ブルートゥース",
+      "location_disabled_error_message": "露出通知テクノロジーを有効にするには、設定アプリで位置情報へのアクセスを許可してください",
+      "location_disabled_error_title": "設定での承認",
+      "location_header": "ロケーション",
+      "proximity_tracing_header": "近接トレース",
+      "share": "アプリを共有して、自分自身と他の人を保護します。",
+      "share_message": "このアプリ{{applicationName}}チェックしてください。COVID-19の封じ込めに役立ちます！ {{appDownloadLink}}",
+      "tracing_off_header": "非 アクティブ",
+      "tracing_off_subheader": "Bluetoothおよび近接トレースを有効にして、可能性のある接触に関する情報を取得します",
+      "tracing_on_header": "アクティブ"
+    },
+    "call_emergency_services": "緊急サービスに電話する",
+    "fix": "{{technology}} の問題を修正する",
+    "get_more_info": "{{technology}}に関する詳細情報",
+    "location_info_body_1": "露出通知テクノロジーはBluetoothスキャンを使用して、どのデバイスが互いに近くにあるかを判断します。 Android 6.0以降を実行しているすべてのスマートフォンでBluetoothスキャンを使用するには、露出通知システムで構築されたアプリだけでなく、すべてのアプリでデバイスの場所の設定をオンにする必要があります。",
+    "location_info_subheader_1": "位置情報を有効にする必要があるのはなぜですか?",
+    "proximity_tracing_info_body_1": "アプリがインストールされているスマートフォンがオンになっている場合、Bluetoothが有効になっていて、一定期間お互いの近くにある場合は、デバイスにエンカウンターが登録されます。",
+    "proximity_tracing_info_body_2": "遭遇した場合、データと情報は匿名のままです。アプリは個人データを保存しません。ランダムな ID のみが交換されます。これらは 14 日以内に削除されます。",
+    "proximity_tracing_info_subheader_1": "近接トレースはどのように機能しますか？",
+    "proximity_tracing_info_subheader_2": "データは安全ですか?"
+  },
+  "label": {
+    "check": "チェックマーク",
+    "checked_checkbox": "チェックされたチェックボックス",
+    "go_to_home_view": "ホーム ビューに移動する",
+    "launch_enable_notif": "お知らせを有効にする",
+    "launch_get_started": "開始する",
+    "launch_screen1_header": "へようこそ",
+    "privacy_policy": "個人情報保護方針",
+    "question_icon": "クエスチョンマーク",
+    "unchecked_checkbox": "未チェックのチェックボックス"
+  },
+  "navigation": {
+    "exposure": "接触",
+    "exposure_history": "感染リスクの履歴",
+    "home": "ホーム",
+    "more_info": "より詳しい情報"
+  },
+  "onboarding": {
+    "activation_header_title": "アプリの設定",
+    "app_setup_complete_body": "{{applicationName}}はアクティブです。感染の連鎖をくい止める活動にご協力いただきありがとうございます。",
+    "app_setup_complete_header": "アプリのセットアップが完了しました！",
+    "app_setup_incomplete_body": "{{applicationName}}は、いつ、どこでCOVID 19に接触したかを知るために、近接トレースおよびBluetoothへの権限が必要です。これは[設定]で承認できます。",
+    "app_setup_incomplete_header": "アプリのセットアップが完了していません",
+    "app_setup_incomplete_location_body": "{{applicationName}}は、いつ、どこでCOVID 19に接触したかを知るために、近接トレース、Bluetooth、および位置情報への権限が必要です。これは[設定]で承認できます。",
+    "eula": "エンドユーザーの法的合意",
+    "eula_agree_terms_of_use": "利用規約を読んで同意したことに同意します",
+    "location_alert_body": "Bluetoothスキャンを使用するには、デバイスの場所の設定をオンにする必要があります。",
+    "location_alert_header": "「 {{applicationName}} 」からの位置情報アクセスを有効にします",
+    "location_body": "Bluetooth スキャンを使用するには、デバイスの位置情報の設定をオンにする必要があります。アプリは位置情報を使用せず、個々のデバイスを追跡できません。",
+    "location_header": "位置情報を有効にする",
+    "location_subheader": "携帯電話の位置情報設定をオンにする必要があるのはなぜですか?",
+    "notification_body1": "COVID-19の陽性を報告した人と経路を横断した可能性がある場合、通知を受け取ります。",
+    "notification_body2": "アプリは、Bluetooth Low Energyを使用してこれを実行し、あなたが誰であるか、どこにいたかを知ることなくランダムコードを保護します。これは設定でいつでもオフにできます。",
+    "notification_header": "接触の可能性がある場合は通知を受け取ります",
+    "notification_subheader1": "いつ通知されますか？",
+    "notification_subheader2": "それはどのように機能しますか？",
+    "notification_subheader3": "このアプリはCOVID-19感染からあなたを守るものではありません。",
+    "please_read_the": "をお読みください",
+    "privacy_policy": "個人情報保護方針",
+    "protect_privacy_button": "プライバシーを保護する方法",
+    "protect_privacy": {
+      "body_1": "これらの ID には個人情報は含まれておらず、10 分から 20 分ごとに変更されて身元を保護します。",
+      "body_2": "電話は、ブルートゥース低エネルギーを使用して他のデバイスとランダムなIDを交換します。これにより、{{applicationName}}は、デバイスで開かれていない場合でも、毎日の接触を匿名で追跡することができます。",
+      "body_3": "COVID-19のテストで陽性診断された後、ユーザーは診断を確認するために{{applicationName}}とパスコードを共有することができます。携帯電話の最近のランダムなIDはフラグが立てられ、安全にサーバーにアップロードされます。この検証プロセスは、誤検知の報告を防ぐのに役立ちます。",
+      "body_4": "フラグが立てられたIDが携帯電話に保存されているIDと一致する場合、COVID-19の検査で陽性と判定された人物に遭遇した可能性があります。これは、 {{applicationName}}がウイルスに感染した可能性があるかどうかを判断する方法です。",
+      "body_5": "一致する場合は、 {{applicationName}}が通知し、保健部門からの詳細なガイダンスを提供します。 \n\nこのようにして、 {{applicationName}}は、自分が誰であるか、どこにいたかを知らなくても、健康に関する意思決定を行い、コミュニティを安全に保つことができます。",
+      "subheader_1": "近接トレースをオンにすると、頻繁に変更されるランダムな ID が携帯電話にタグ付けされます。",
+      "subheader_2": "近接トレースが有効な電話機は、他のデバイスとのスワップ ID を検出します",
+      "subheader_3": "もし陽性と診断された場合、あなたのデータを匿名で提供する事ができます。",
+      "subheader_4": "各電話は、フラグが設定されたIDのリストを定期的にサーバーにピングし、一致するものを探します",
+      "subheader_5": "{{applicationName}} がフラグ付き ID との一致を検出した場合は通知されます"
+    },
+    "proximity_tracing_body1": "アプリがインストールされているスマートフォンがオンになっている場合、Bluetoothが有効になっていて、一定期間お互いの近くにある場合は、デバイスにエンカウンターが登録されます。",
+    "proximity_tracing_body2": "接触した場合、あなたのデータと情報は匿名のままです。アプリは個人データを保存しません。ランダムIDのみが交換されます。これらは14日以内に削除されます。",
+    "proximity_tracing_button": "近接トレースを有効にする",
+    "proximity_tracing_header": "近接トレースを有効にする",
+    "proximity_tracing_subheader1": "それはどのように機能しますか？",
+    "proximity_tracing_subheader2": "データは安全ですか？",
+    "proximity_tracing_subheader3": "このアプリはCOVID-19感染からあなたを守るものではありません。",
+    "screen1_button": "それはどのように機能しますか？",
+    "screen1_header": "一緒に、私たちはCOVID-19の感染をスピードを遅らせることができます。",
+    "screen1_image_label": "ハイタッチしている二人",
+    "screen2_button": "プライバシーは保護されていますか?",
+    "screen2_header": "あなたの携帯電話は、接触した他のデバイスを覚えていますが、あなたを誰かに特定することはありません。",
+    "screen2_image_label": "自分の電話で2人",
+    "screen3_button": "接触した場合どうなりますか？",
+    "screen3_header": "個人を特定できる情報は、お使いの携帯電話から漏れることはありません。",
+    "screen3_image_label": "ロックされた電話の前にいる人",
+    "screen4_button": "病気になった場合はどうなりますか？",
+    "screen4_header": "アプリは、COVID-19に接触した可能性がある場合に通知します。",
+    "screen4_image_label": "スマートフォンで通知を受け取る人",
+    "terms_header_title": "利用規約",
+    "welcome_image_label": "ネットワーク内のノードのように接続されたマスクを使用した人物のイラスト。"
+  },
+  "screen_titles": {
+    "bluetooth": "ブルートゥース",
+    "exposure_history": "接触履歴",
+    "home": "ホーム",
+    "legal": "リーガル",
+    "location": "ロケーション",
+    "protect_privacy": "プライバシーを保護する方法",
+    "select_language": "言語を選択する"
+  },
+  "settings": {
+    "i_understand_and_consent": "私は理解して同意します"
+  }
+}

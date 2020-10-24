@@ -1,0 +1,44 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  lane :deploy_to_appcenter do |options|
+    # Push to AppCenter
+    # more details: https://github.com/Microsoft/fastlane-plugin-appcenter/
+    changeLogs = format_last_commit
+
+      appcenter_upload(
+        api_token: options[:apiToken],
+        owner_name: "PathCheck",
+        app_name: options[:appName],
+        notify_testers: false,
+        destinations: options[:destinations],        
+        release_notes: changeLogs,
+        file: options[:ipa_path]
+      )
+    end
+
+  desc "Format last commit"
+  private_lane :format_last_commit do
+    commit = last_git_commit
+    resources_commit = sh("ruby -r ../../bin/helpers.rb -e 'p mobile_resources_commit' | tr -d '\"'")
+
+    "Changes: " + commit[:message] + "\n\n" +
+    "Commit: " + commit[:commit_hash] + "\n\n" +
+    "Configuration: https://github.com/Path-Check/pathcheck-mobile-resources/tree/" + resources_commit
+  end  
+end

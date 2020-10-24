@@ -1,0 +1,25 @@
+{
+  "_display_name": "Português do Brasil",
+  "about": {
+    "operating_system_abbr": "SO:",
+    "version": "Versão:"
+  },
+  "common": {
+    "continue": "Continuar",
+    "done": "Feito",
+    "next": "Feito"
+  },
+  "label": {
+    "launch_enable_notif": "Permitir Notificações",
+    "launch_get_started": "Começar",
+    "launch_screen1_header": "Bem-vindo ao ",
+    "privacy_policy": "Política de Privacidade"
+  },
+  "onboarding": {
+    "privacy_policy": "Política de Privacidade",
+    "terms_header_title": "Termos de uso"
+  },
+  "screen_titles": {
+    "legal": "Legal"
+  }
+}

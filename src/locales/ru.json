@@ -1,0 +1,48 @@
+{
+  "_display_name": "Русский",
+  "about": {
+    "operating_system_abbr": "Операционная система:",
+    "version": "Версия:"
+  },
+  "common": {
+    "continue": "Продолжить",
+    "done": "Готово",
+    "next": "Готово",
+    "something_went_wrong": "Что-то пошло не так",
+    "start": "Начать"
+  },
+  "export": {
+    "code_input_body_bluetooth": "Введите код подтверждения, предоставленный {{name}} вместе с результатом теста, чтобы подтвердить свой диагноз.",
+    "code_input_title_bluetooth": "Проверьте свой диагноз",
+    "complete_body_bluetooth": "Сообщая о своём статусе и анонимно уведомляя других, вы помогаете сдерживать распространение вируса и защищать других людей в вашем регионе.",
+    "complete_title": "Спасибо, что заботитесь о безопасности окружающих!",
+    "consent_button_title": "Я понимаю и даю согласие",
+    "publish_consent_title_bluetooth": "Уведомить других в вашем регионе"
+  },
+  "home": {
+    "bluetooth": {
+      "all_services_on_subheader": "Уведомления об опасности включены",
+      "tracing_off_header": "Уведомления об опасности отключены",
+      "tracing_off_subheader": "Включить уведомления об опасности, чтобы получать информацию о нахождении в опасных зонах"
+    },
+    "call_emergency_services": "Скорая помощь"
+  },
+  "label": {
+    "launch_enable_notif": "Включить уведомления",
+    "launch_get_started": "Начать",
+    "launch_screen1_header": "Добро пожаловать в ",
+    "privacy_policy": "Политика конфиденциальности"
+  },
+  "navigation": {
+    "home": "Главная страница"
+  },
+  "onboarding": {
+    "notification_header": "Хотите получать уведомления, если окажетесь поблизости с носителем вируса?",
+    "privacy_policy": "Политика конфиденциальности",
+    "terms_header_title": "Условия использования"
+  },
+  "screen_titles": {
+    "home": "Главная страница",
+    "legal": "Правовая информация"
+  }
+}

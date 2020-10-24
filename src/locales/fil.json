@@ -1,0 +1,14 @@
+{
+  "_display_name": "Filipino",
+  "common": {
+    "continue": "Ituloy",
+    "next": "Susunod"
+  },
+  "label": {
+    "launch_enable_notif": "Paganahin ang notipikasyon",
+    "launch_get_started": "Magsimula"
+  },
+  "screen_titles": {
+    "legal": "Legal"
+  }
+}

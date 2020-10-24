@@ -1,0 +1,101 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Increment version code"
+  lane :release_increment_version_code do |options|
+    increment_version_code(
+      gradle_file_path: "app/build.gradle",
+      version_code: options[:versionCode]
+    )
+  end
+
+  desc "Build a Debug APK"
+  lane :debug_bt do
+    gradle(
+      task: "assemble",
+      build_type: "debug",
+      print_command: false
+    )
+  end
+
+  desc "Build a Staging APK"
+  lane :staging_apk do |options|
+    gradle(
+      task: "assemble",
+      build_type: "staging",
+      print_command: false
+    )
+  end
+
+  desc "Build a Release APK"
+  lane :release_apk do |options|
+    gradle(
+      task: "assemble",
+      build_type: "release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.password" => options[:keyStorePassword],
+        "android.injected.signing.key.alias" => options[:keyAlias],
+        "android.injected.signing.key.password" =>  options[:keyPassword],
+        "outputSuffix" => options[:outputSuffix]
+      }
+    )
+  end
+
+  desc "Build a Release AAB"
+  lane :release_aab do |options|
+    gradle(
+      task: "bundle",
+      build_type: "release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.password" => options[:keyStorePassword],
+        "android.injected.signing.key.alias" => options[:keyAlias],
+        "android.injected.signing.key.password" =>  options[:keyPassword],
+        "outputSuffix" => options[:outputSuffix]
+      }
+    )
+  end
+
+  desc "Submit APK to AppCenter"
+  lane :android_alpha_apk do |options|
+    # Push to AppCenter
+    # more details: https://github.com/Microsoft/fastlane-plugin-appcenter/
+    changeLogs = format_last_commit
+
+    appcenter_upload(
+      api_token: options[:apiToken],
+      owner_name: "PathCheck",
+      app_name: options[:appName],
+      notify_testers: false,
+      destinations: options[:destinations],
+      release_notes: changeLogs,
+      file: options[:apkPath]
+    )
+  end
+
+  desc "Format last commit"
+  private_lane :format_last_commit do
+    commit = last_git_commit
+    resources_commit = sh("ruby -r ../../bin/helpers.rb -e 'p mobile_resources_commit' | tr -d '\"'")
+
+    "Changes: " + commit[:message] + "\n\n" +
+    "Commit: " + commit[:commit_hash] + "\n\n" +
+    "Configuration: https://github.com/Path-Check/pathcheck-mobile-resources/tree/" + resources_commit
+  end
+end

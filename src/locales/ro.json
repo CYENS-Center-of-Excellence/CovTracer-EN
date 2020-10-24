@@ -1,0 +1,16 @@
+{
+  "_display_name": "Română",
+  "common": {
+    "next": "Înainte"
+  },
+  "label": {
+    "launch_enable_notif": "Permite Notificari",
+    "launch_get_started": "Începe"
+  },
+  "onboarding": {
+    "terms_header_title": "Termeni de folosire"
+  },
+  "screen_titles": {
+    "legal": "Legal"
+  }
+}

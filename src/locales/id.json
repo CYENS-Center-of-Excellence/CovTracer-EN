@@ -1,0 +1,17 @@
+{
+  "_display_name": "Indonesia",
+  "common": {
+    "next": "Selanjutnya"
+  },
+  "label": {
+    "launch_enable_notif": "Aktifkan Notifikasi",
+    "launch_get_started": "Mulai",
+    "launch_screen1_header": "Selamat datang di "
+  },
+  "onboarding": {
+    "terms_header_title": "Syarat Penggunaan"
+  },
+  "screen_titles": {
+    "legal": "Hukum"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_display_name": "Nederlands",
+  "about": {
+    "operating_system_abbr": "OS:",
+    "version": "Versie:"
+  },
+  "common": {
+    "continue": "Ga verder",
+    "done": "Klaar",
+    "next": "Klaar"
+  },
+  "label": {
+    "launch_enable_notif": "Meldingen inschakelen",
+    "launch_get_started": "Aan de slag"
+  },
+  "onboarding": {
+    "terms_header_title": "Gebruiksvoorwaarden"
+  },
+  "screen_titles": {
+    "legal": "Juridisch"
+  }
+}
