@@ -16,6 +16,11 @@ import SickEmoji from "./sickEmoji.png"
 import SmileEmoji from "./smileEmoji.png"
 import WelcomeImage from "./welcomeImage.png"
 
+import LogoRise from "./logo-rise.png"
+import LogoKios from "./logo-kios.png"
+import LogoMoh from "./logo-moh.png"
+import LogoMorni from "./logo-morni.png"
+
 export const Images = {
   CheckInCircle,
   ExclamationInCircle,
@@ -34,4 +39,9 @@ export const Images = {
   SickEmoji,
   SmileEmoji,
   WelcomeImage,
+
+  LogoRise,
+  LogoKios,
+  LogoMoh,
+  LogoMorni,
 }

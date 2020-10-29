@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react"
-import { Platform, ScrollView, View, StyleSheet } from "react-native"
+import { Platform, ScrollView, View, StyleSheet, Image } from 'react-native'
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
 import env from "react-native-config"
@@ -24,7 +24,7 @@ import {
   applyTranslations,
 } from "../configuration/authorityLinks"
 
-import { Icons } from "../assets"
+import { Images, Icons } from "../assets"
 import { Colors, Spacing, Typography } from "../styles"
 import ShareAnonymizedDataListItem from "./ShareAnonymizedDataListItem"
 
@@ -156,6 +156,14 @@ const Settings: FunctionComponent = () => {
             return <ExternalLink key={label} url={url} label={label} />
           })}
           <View style={style.infoRowContainer}>
+            <View style={style.logoRow}>
+              <Image source={Images.LogoMoh} style={style.logo} />
+              <Image source={Images.LogoMorni} style={style.logo} />
+            </View>
+            <View style={style.logoRow}>
+              <Image source={Images.LogoRise} style={style.logo} />
+              <Image source={Images.LogoKios} style={style.logo} />
+            </View>
             <View style={style.infoRow}>
               <Text style={style.infoRowLabel}>{t("about.version")}</Text>
               <Text style={style.infoRowValue}>{versionInfo}</Text>
@@ -205,6 +213,15 @@ const style = StyleSheet.create({
   infoRowValue: {
     ...Typography.body1,
     marginTop: Spacing.small,
+  },
+  logoRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  logo: {
+    height: 100,
+    width: 100
   },
 })
 

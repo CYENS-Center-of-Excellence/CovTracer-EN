@@ -148,7 +148,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.pathcheck.covidsafepaths.bt"
+        applicationId project.env.get("ANDROID_APPLICATION_ID")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
@@ -157,7 +157,7 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        versionCode 11
+        versionCode 24
         versionName "1.0.8"
 
         //Fix problem in bt where .env.bt is not recognized
