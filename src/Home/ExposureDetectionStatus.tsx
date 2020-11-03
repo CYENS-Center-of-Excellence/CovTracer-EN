@@ -3,16 +3,15 @@ import { Alert, Platform, ScrollView, StyleSheet } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
 
-import { useExposureDetectionStatus } from "./useExposureDetectionStatus"
-import { useStatusBarEffect, HomeStackScreens } from "../navigation"
-import { useSystemServicesContext } from "../SystemServicesContext"
-import { useApplicationName } from "../hooks/useApplicationInfo"
+import { useApplicationName } from "../Device/useApplicationInfo"
+import { useExposureDetectionStatus } from "../Device/useExposureDetectionStatus"
 import {
   usePermissionsContext,
   ENPermissionStatus,
-} from "../PermissionsContext"
-import { openAppSettings } from "../gaen/nativeModule"
+} from "../Device/PermissionsContext"
+import { openAppSettings } from "../Device"
 import ActivationStatusView from "./ActivationStatusView"
+import { useStatusBarEffect, HomeStackScreens } from "../navigation"
 import { Text } from "../components"
 
 import { Colors, Spacing, Typography } from "../styles"
@@ -22,8 +21,11 @@ const ExposureDetectionStatus: FunctionComponent = () => {
   const { t } = useTranslation()
   const navigation = useNavigation()
   const { exposureDetectionStatus } = useExposureDetectionStatus()
-  const { isBluetoothOn, locationPermissions } = useSystemServicesContext()
-  const { exposureNotifications } = usePermissionsContext()
+  const {
+    exposureNotifications,
+    isBluetoothOn,
+    locationPermissions,
+  } = usePermissionsContext()
   const { applicationName } = useApplicationName()
 
   const BluetoothActivationStatus: FunctionComponent = () => {
@@ -198,12 +200,12 @@ const style = StyleSheet.create({
     backgroundColor: Colors.background.primaryLight,
   },
   headerText: {
-    ...Typography.header1,
-    ...Typography.bold,
+    ...Typography.header.x60,
+    ...Typography.style.bold,
     marginBottom: Spacing.xSmall,
   },
   subheaderText: {
-    ...Typography.body1,
+    ...Typography.body.x30,
     marginBottom: Spacing.xLarge,
   },
 })
