@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react"
-import { Platform, ScrollView, View, StyleSheet, Image } from 'react-native'
+import { Platform, ScrollView, View, StyleSheet, Image } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
 import env from "react-native-config"
@@ -217,11 +217,11 @@ const style = StyleSheet.create({
   logoRow: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   logo: {
     height: 100,
-    width: 100
+    width: 100,
   },
 })
 
