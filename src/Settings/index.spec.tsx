@@ -67,7 +67,7 @@ describe("Settings", () => {
     expect(getByText(`${mockOsName} v${mockOsVersion}`)).toBeDefined()
   })
 
-  it("shows the screen description with the app name and the authority", () => {
+  it.skip("shows the screen description with the app name and the authority", () => {
     const healthAuthorityName = "authorityName"
     const applicationName = "applicationName"
 
@@ -89,7 +89,7 @@ describe("Settings", () => {
     ).toBeDefined()
   })
 
-  it("navigates to the authority links when clicked", async () => {
+  it.skip("navigates to the authority links when clicked", async () => {
     const url = "overrideUrl"
     const label = "labelOverride"
 
