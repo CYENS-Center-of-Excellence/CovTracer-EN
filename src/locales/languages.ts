@@ -36,8 +36,8 @@ import ur from "./ur.json"
 import vi from "./vi.json"
 import zh_Hant from "./zh_Hant.json"
 
-import enCustom from './en-custom.json'
-import elCustom from './el-custom.json'
+import enCustom from "./en-custom.json"
+import elCustom from "./el-custom.json"
 
 // Refer this for checking the codes and creating new folders
 // https://developer.chrome.com/webstore/i18n
@@ -172,7 +172,7 @@ const languageResources = (withLocales: Locale[]): Resource => {
     .filter((key) => withLocales.includes(key))
     .reduce((obj: Resource, key: Locale) => {
       obj[key] = AVAILABLE_TRANSLATIONS[key]
-      
+
       return obj
     }, {})
 
