@@ -104,3 +104,5 @@ ios/COVIDSafePaths.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
 # test coverage
 test-coverage
+
+app.*.apk

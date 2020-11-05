@@ -34,7 +34,6 @@ describe("isToday", () => {
 })
 
 describe("posixToDayjs", () => {
-  // TODO: Properly handle UTC
   it("converts a valid posix timestamp into a Dayjs instance", () => {
     const date = new Date("2020/07/01")
     const posixTimeStamp = date.getTime()
