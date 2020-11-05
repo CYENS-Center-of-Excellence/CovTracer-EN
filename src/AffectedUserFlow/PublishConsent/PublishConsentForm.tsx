@@ -186,6 +186,7 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
             {t("export.consent_subheader_2")}
           </Text>
           <Text style={style.bodyText}>{t("export.consent_body_2")}</Text>
+          <Text style={style.bodyText}>{t("efgs_consent")}</Text>
         </View>
         <TouchableOpacity
           style={style.button}

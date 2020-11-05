@@ -157,7 +157,7 @@ android {
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
-        versionCode 24
+        versionCode 25
         versionName "1.0.8"
 
         //Fix problem in bt where .env.bt is not recognized
