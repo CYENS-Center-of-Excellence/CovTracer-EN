@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next"
 
 import { useOnboardingContext } from "../OnboardingContext"
-import { useAnalyticsContext } from "../ProductAnalytics/Context"
+import { useProductAnalyticsContext } from "../ProductAnalytics/Context"
 
 import { ModalStackScreens, HomeStackScreens } from "./index"
 import { WelcomeStackScreens, Stacks } from "./index"
@@ -28,7 +28,7 @@ import ProtectPrivacy from "../modals/ProtectPrivacy"
 import AffectedUserStack from "../AffectedUserFlow/"
 import AnonymizedDataConsentScreen from "../ProductAnalytics/AnonymizedDataConsentScreen"
 import SelfAssessmentStack from "./SelfAssessmentStack"
-import ExposureDetectionStatus from "../Home/ExposureDetectionStatus"
+import ExposureDetectionStatusScreen from "../Home/ExposureDetectionStatus/Screen"
 import BluetoothInfo from "../Home/BluetoothInfo"
 import ExposureNotificationsInfo from "../Home/ExposureNotificationsInfo"
 import LocationInfo from "../Home/LocationInfo"
@@ -64,7 +64,7 @@ const linking: LinkingOptions = {
 const MainNavigator: FunctionComponent = () => {
   const { t } = useTranslation()
   const { isOnboardingComplete } = useOnboardingContext()
-  const { trackScreenView } = useAnalyticsContext()
+  const { trackScreenView } = useProductAnalyticsContext()
   const navigationRef = useRef<NavigationContainerRef>(null)
   const routeNameRef = useRef<string>()
 
@@ -185,7 +185,7 @@ const MainNavigator: FunctionComponent = () => {
         </Stack.Screen>
         <Stack.Screen
           name={HomeStackScreens.ExposureDetectionStatus}
-          component={ExposureDetectionStatus}
+          component={ExposureDetectionStatusScreen}
           options={{
             ...Headers.headerMinimalOptions,
             headerLeft: applyHeaderLeftBackButton(),
