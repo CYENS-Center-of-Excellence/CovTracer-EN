@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react"
 import { ScrollView, View, StyleSheet } from "react-native"
 import { useTranslation } from "react-i18next"
+import Config from "react-native-config"
 import { VictoryAxis, VictoryBar, VictoryChart } from "victory-native"
 
 import { useStatusBarEffect } from "../navigation"
@@ -143,7 +144,7 @@ const Reporting: FunctionComponent = () => {
           "https://api.airtable.com/v0/app64wWREXGzJWXNJ/Table%201?view=Grid%20view",
           {
             headers: {
-              Authorization: "Bearer key8fwuOvrtxO9J7J",
+              Authorization: "Bearer " + Config.AIRTABLE_API_KEY,
             },
           },
         )
@@ -158,6 +159,12 @@ const Reporting: FunctionComponent = () => {
         data = await res.json()
       } catch (err) {
         console.error(err)
+        setLoadingError(true)
+        return
+      }
+
+      if (!data.records) {
+        console.error('something went wrong', data)
         setLoadingError(true)
         return
       }
