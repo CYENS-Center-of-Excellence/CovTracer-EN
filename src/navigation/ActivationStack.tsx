@@ -35,7 +35,7 @@ const ActivationStack: FunctionComponent = () => {
   const { locationPermissions, isBluetoothOn } = usePermissionsContext()
   const {
     displayAcceptTermsOfService,
-    enableProductAnalytics,
+    // enableProductAnalytics,
   } = useConfigurationContext()
 
   interface ActivationStep {
@@ -92,13 +92,13 @@ const ActivationStack: FunctionComponent = () => {
     default: activationStepsIOS,
   })
 
-  if (enableProductAnalytics) {
-    const anonymizedDataConsent: ActivationStep = {
-      screenName: ActivationStackScreens.AnonymizedDataConsent,
-      component: ProductAnalyticsConsentForm,
-    }
-    activationSteps.push(anonymizedDataConsent)
+  // if (enableProductAnalytics) {
+  const anonymizedDataConsent: ActivationStep = {
+    screenName: ActivationStackScreens.AnonymizedDataConsent,
+    component: ProductAnalyticsConsentForm,
   }
+  activationSteps.push(anonymizedDataConsent)
+  // }
 
   const activationSummary: ActivationStep = {
     screenName: ActivationStackScreens.ActivationSummary,

@@ -165,6 +165,14 @@ export const SettingsStackScreens: {
   ProductAnalyticsConsent: "ProductAnalyticsConsent",
 }
 
+export type ReportingStackScreen = "Reporting"
+
+export const ReportingStackScreens: {
+  [key in ReportingStackScreen]: ReportingStackScreen
+} = {
+  Reporting: "Reporting",
+}
+
 export type AffectedUserFlowStackScreen =
   | "AffectedUserStart"
   | "AffectedUserCodeInput"
@@ -239,6 +247,7 @@ export type Stack =
   | "Settings"
   | "Home"
   | "SymptomHistory"
+  | "Reporting"
 
 export const Stacks: { [key in Stack]: Stack } = {
   Activation: "Activation",
@@ -249,6 +258,7 @@ export const Stacks: { [key in Stack]: Stack } = {
   Settings: "Settings",
   Home: "Home",
   SymptomHistory: "SymptomHistory",
+  Reporting: "Reporting",
 }
 
 export const useStatusBarEffect = (

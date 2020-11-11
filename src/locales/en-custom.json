@@ -1,3 +1,20 @@
 {
-  "efgs_consent": "The pseudonymized diagnosis keys of the user are transmitted to the EFGS, which then forwards them without further processing to the official contact tracing apps provided by other EU Member States, so that the users of such apps across the EU can receive notification about possible exposure to COVID-19."
+  "efgs_consent": "The pseudonymized diagnosis keys of the user are transmitted to the EFGS, which then forwards them without further processing to the official contact tracing apps provided by other EU Member States, so that the users of such apps across the EU can receive notification about possible exposure to COVID-19.",
+  "navigation": {
+    "reporting": "Statistics"
+  },
+  "screen_titles": {
+    "reporting": "Statistics"
+  },
+  "reporting": {
+    "headers": {
+      "daily_cases": "Daily Cases",
+      "total_cases": "Total Cases",
+      "daily_deaths": "Daily Deaths",
+      "total_deaths": "Total Deaths",
+      "daily_tests": "Daily Tests"
+    },
+    "loading": "Loading..",
+    "loading_error": "Something went wrong"
+  }
 }

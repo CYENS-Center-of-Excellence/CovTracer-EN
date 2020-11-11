@@ -13,6 +13,7 @@ import { useConfigurationContext } from "../ConfigurationContext"
 import { Stacks } from "./index"
 import { TabBarIcons } from "../assets/svgs/TabBarNav"
 import { Colors } from "../styles"
+import ReportingStack from "./ReportingStack"
 
 const Tab = createBottomTabNavigator()
 
@@ -79,6 +80,16 @@ const MainTabNavigator: FunctionComponent = () => {
     return tabIcon
   }
 
+  const ReportingIcon: FunctionComponent<TabBarIconProps> = ({
+    focused,
+    size,
+  }) => {
+    const tabIcon = (
+      <TabIcon icon={TabBarIcons.Chart} focused={focused} size={size} />
+    )
+    return tabIcon
+  }
+
   const tabBarOptions = {
     showLabel: false,
     style: {
@@ -117,6 +128,14 @@ const MainTabNavigator: FunctionComponent = () => {
           }}
         />
       )}
+      <Tab.Screen
+        name={Stacks.Reporting}
+        component={ReportingStack}
+        options={{
+          tabBarLabel: t("navigation.reporting"),
+          tabBarIcon: ReportingIcon,
+        }}
+      />
       <Tab.Screen
         name={Stacks.Settings}
         component={SettingsStack}

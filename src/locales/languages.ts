@@ -5,7 +5,7 @@ import i18next, { Resource } from "i18next"
 import { initReactI18next, useTranslation } from "react-i18next"
 import { NativeModules, Platform } from "react-native"
 
-import { StorageUtils } from "../utils"
+import { mergeDeep, StorageUtils } from "../utils"
 
 import ar from "./ar.json"
 import ch from "./ch.json"
@@ -81,7 +81,7 @@ const AVAILABLE_TRANSLATIONS: Resource = {
   ar: { label: ar._display_name, translation: ar },
   ch: { label: ch._display_name, translation: ch },
   da: { label: da._display_name, translation: da },
-  el: { label: el._display_name, translation: { ...el, ...elCustom } },
+  el: { label: el._display_name, translation: mergeDeep(el, elCustom) },
   es: { label: es._display_name, translation: es },
   es_PR: { label: es_PR._display_name, translation: es_PR },
   es_419: { label: es_419._display_name, translation: es_419 },
@@ -164,7 +164,7 @@ export function supportedDeviceLanguageOrEnglish(): Locale {
 }
 
 const FALLBACK_TRANSLATION_RESOURCES: Resource = {
-  en: { label: en._display_name, translation: { ...en, ...enCustom } },
+  en: { label: en._display_name, translation: mergeDeep(en, enCustom) },
 }
 
 const languageResources = (withLocales: Locale[]): Resource => {
