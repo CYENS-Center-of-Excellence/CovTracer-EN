@@ -164,7 +164,7 @@ const Reporting: FunctionComponent = () => {
       }
 
       if (!data.records) {
-        console.error('something went wrong', data)
+        console.error("something went wrong", data)
         setLoadingError(true)
         return
       }
