@@ -28,7 +28,7 @@ describe("Settings", () => {
 
       const { getByLabelText } = render(<SettingsScreen />)
 
-      const deleteMyDataButton = getByLabelText("Delete My Data")
+      const deleteMyDataButton = getByLabelText("Delete my data")
       fireEvent.press(deleteMyDataButton)
       expect(navigateSpy).toHaveBeenCalledWith(
         SettingsStackScreens.DeleteConfirmation,
@@ -85,7 +85,9 @@ describe("Settings", () => {
     )
 
     expect(
-      getByText(/The applicationName app is made available by authorityName/),
+      getByText(
+        /The applicationName app is made available by the authorityName/,
+      ),
     ).toBeDefined()
   })
 

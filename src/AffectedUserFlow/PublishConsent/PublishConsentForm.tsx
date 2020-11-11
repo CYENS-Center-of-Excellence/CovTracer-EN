@@ -18,6 +18,7 @@ import {
   AffectedUserFlowStackScreens,
   ModalStackScreens,
 } from "../../navigation"
+import { useExposureContext } from "../../ExposureContext"
 import { useProductAnalyticsContext } from "../../ProductAnalytics/Context"
 import { Icons } from "../../assets"
 import { Colors, Spacing, Iconography, Typography, Buttons } from "../../styles"
@@ -53,6 +54,7 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
   const navigation = useNavigation()
   const { t } = useTranslation()
   const { trackEvent } = useProductAnalyticsContext()
+  const { getCurrentExposures } = useExposureContext()
   const [isLoading, setIsLoading] = useState(false)
   const insets = useSafeAreaInsets()
   const style = createStyle(insets)
@@ -79,6 +81,17 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
           ),
       },
     ])
+  }
+
+  const trackEvents = async () => {
+    const currentExposures = await getCurrentExposures()
+    trackEvent("product_analytics", "key_submission_consented_to")
+    trackEvent(
+      "epi_analytics",
+      "ens_preceding_positive_diagnosis_count",
+      undefined,
+      currentExposures.length,
+    )
   }
 
   const noOpAlertContent = ({ reason, newKeysInserted }: PostKeysNoOp) => {
@@ -149,11 +162,7 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
     setIsLoading(false)
     if (response.kind === "success") {
       storeRevisionToken(response.revisionToken)
-      trackEvent(
-        "product_analytics",
-        "button_tap",
-        "key_submission_consented_to",
-      )
+      trackEvents()
       navigation.navigate(AffectedUserFlowStackScreens.AffectedUserComplete)
     } else if (response.kind === "no-op") {
       handleNoOpResponse(response)
@@ -178,13 +187,6 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
             {t("export.publish_consent_title_bluetooth")}
           </Text>
           <Text style={style.bodyText}>{t("export.consent_body_0")}</Text>
-          <Text style={style.subheaderText}>
-            {t("export.consent_subheader_1")}
-          </Text>
-          <Text style={style.bodyText}>{t("export.consent_body_1")}</Text>
-          <Text style={style.subheaderText}>
-            {t("export.consent_subheader_2")}
-          </Text>
           <Text style={style.bodyText}>{t("export.consent_body_2")}</Text>
           <Text style={style.bodyText}>{t("efgs_consent")}</Text>
         </View>
@@ -235,12 +237,6 @@ const createStyle = (insets: EdgeInsets) => {
     header: {
       ...Typography.header.x60,
       paddingBottom: Spacing.medium,
-    },
-    subheaderText: {
-      ...Typography.body.x30,
-      ...Typography.style.medium,
-      color: Colors.neutral.black,
-      marginBottom: Spacing.xxSmall,
     },
     bodyText: {
       ...Typography.body.x30,

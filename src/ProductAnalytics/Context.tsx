@@ -7,15 +7,15 @@ import React, {
 } from "react"
 
 import { StorageUtils } from "../utils"
-import { useConfigurationContext } from "../ConfigurationContext"
 
 export type ProductAnalyticsContextState = {
   userConsentedToAnalytics: boolean
   updateUserConsent: (consent: boolean) => Promise<void>
   trackEvent: (
     category: EventCategory,
-    action: EventAction,
-    name: string,
+    action: string,
+    name?: string,
+    value?: number,
   ) => Promise<void>
   trackScreenView: (screen: string) => Promise<void>
 }
@@ -28,12 +28,12 @@ const initialContext = {
 }
 
 export type EventCategory = "product_analytics" | "epi_analytics"
-export type EventAction = "button_tap" | "event_emitted"
 export type ProductAnalyticsClient = {
   trackEvent: (
     category: EventCategory,
-    action: EventAction,
-    name: string,
+    action: string,
+    name?: string,
+    value?: number,
   ) => Promise<void>
   trackView: (route: string[]) => Promise<void>
 }
@@ -44,7 +44,6 @@ const ProductAnalyticsContext = createContext<ProductAnalyticsContextState>(
 const ProductAnalyticsProvider: FunctionComponent<{
   productAnalyticsClient: ProductAnalyticsClient
 }> = ({ productAnalyticsClient, children }) => {
-  const { healthAuthoritySupportsAnalytics } = useConfigurationContext()
   const [userConsentedToAnalytics, setUserConsentedToAnalytics] = useState<
     boolean
   >(false)
@@ -56,23 +55,21 @@ const ProductAnalyticsProvider: FunctionComponent<{
     }
 
     checkAnalyticsConsent()
-  }, [userConsentedToAnalytics])
-
-  const supportAnalyticsTracking =
-    healthAuthoritySupportsAnalytics && userConsentedToAnalytics
+  }, [])
 
   const trackEvent = async (
     category: EventCategory,
-    action: EventAction,
-    name: string,
+    action: string,
+    name?: string,
+    value?: number,
   ): Promise<void> => {
-    if (supportAnalyticsTracking) {
-      productAnalyticsClient.trackEvent(category, action, name)
+    if (userConsentedToAnalytics) {
+      productAnalyticsClient.trackEvent(category, action, name, value)
     }
   }
 
   const trackScreenView = async (screen: string): Promise<void> => {
-    if (supportAnalyticsTracking) {
+    if (userConsentedToAnalytics) {
       productAnalyticsClient.trackView([screen])
     }
   }

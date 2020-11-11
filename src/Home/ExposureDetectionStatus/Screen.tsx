@@ -109,11 +109,7 @@ const ExposureDetectionStatus: FunctionComponent = () => {
         if (status !== ENPermissionStatus.ENABLED) {
           showNotAuthorizedAlert()
         } else {
-          trackEvent(
-            "product_analytics",
-            "button_tap",
-            "exposure_notifications_enabled",
-          )
+          trackEvent("product_analytics", "exposure_notifications_enabled")
         }
       } catch {
         showNotAuthorizedAlert()
@@ -168,6 +164,9 @@ const ExposureDetectionStatus: FunctionComponent = () => {
     return (
       <ActivationStatusView
         headerText={t("home.bluetooth.location_header")}
+        subheaderText={t("home.bluetooth.location_subheader", {
+          applicationName,
+        })}
         isActive={isLocationOn}
         infoAction={handleOnPressShowInfo}
         fixAction={handleOnPressFix}

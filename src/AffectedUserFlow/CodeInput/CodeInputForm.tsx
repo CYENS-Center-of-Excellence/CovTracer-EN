@@ -70,7 +70,7 @@ const CodeInputForm: FunctionComponent = () => {
   const handleOnPressSubmit = async () => {
     setIsLoading(true)
     setErrorMessage(defaultErrorMessage)
-    trackEvent("product_analytics", "button_tap", "verification_code_submitted")
+    trackEvent("product_analytics", "verification_code_submitted")
     try {
       const response = await API.postCode(code)
 
@@ -161,6 +161,8 @@ const CodeInputForm: FunctionComponent = () => {
 
   const isIOS = Platform.OS === "ios"
 
+  const shouldBeAccessible = errorMessage !== ""
+
   return (
     <KeyboardAvoidingView
       contentContainerStyle={style.outerContentContainer}
@@ -194,7 +196,12 @@ const CodeInputForm: FunctionComponent = () => {
           onSubmitEditing={Keyboard.dismiss}
           blurOnSubmit={false}
         />
-        <Text style={style.errorSubtitle}>{errorMessage}</Text>
+        <View
+          accessibilityElementsHidden={!shouldBeAccessible}
+          accessible={shouldBeAccessible}
+        >
+          <Text style={style.errorSubtitle}>{errorMessage}</Text>
+        </View>
         <TouchableOpacity
           style={isDisabled ? style.buttonDisabled : style.button}
           onPress={handleOnPressSubmit}
