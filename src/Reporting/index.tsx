@@ -140,14 +140,7 @@ const Reporting: FunctionComponent = () => {
     async function loadData() {
       let res
       try {
-        res = await fetch(
-          "https://api.airtable.com/v0/app64wWREXGzJWXNJ/Table%201?view=Grid%20view",
-          {
-            headers: {
-              Authorization: "Bearer " + Config.AIRTABLE_API_KEY,
-            },
-          },
-        )
+        res = await fetch(Config.AIRTABLE_URL)
       } catch (err) {
         console.error(err)
         setLoadingError(true)

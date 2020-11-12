@@ -187,7 +187,11 @@ const PublishConsentForm: FunctionComponent<PublishConsentFormProps> = ({
             {t("export.publish_consent_title_bluetooth")}
           </Text>
           <Text style={style.bodyText}>{t("export.consent_body_0")}</Text>
+
           <Text style={style.bodyText}>{t("export.consent_body_2")}</Text>
+
+          <Text style={style.bodyText}>{t("export.consent_body_3")}</Text>
+
           <Text style={style.bodyText}>{t("efgs_consent")}</Text>
         </View>
         <TouchableOpacity
