@@ -27,7 +27,8 @@ function extractDataValue(
   let max = -1
 
   const values = data
-    .slice(data.length - 7, data.length)
+    .slice(0, 7)
+    .reverse()
     .map((el: DataRecordFields) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
