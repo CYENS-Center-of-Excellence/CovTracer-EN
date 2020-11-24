@@ -18,9 +18,7 @@ import { TabBarIcons } from "../assets/svgs/TabBarNav"
 import { Text } from "../components"
 
 import { Colors, Layout, Outlines, Spacing, Typography } from "../styles"
-
 import ReportingStack from "./ReportingStack"
-import Chart from '../assets/svgs/TabBarNav/chart'
 
 type Tab = {
   name: TabRoute
@@ -42,14 +40,24 @@ const MainTabNavigator: FunctionComponent = () => {
     name: TabRoutes.SymptomHistory,
     component: SymptomHistoryStack,
   }
+  const reportingTab = {
+    name: TabRoutes.Reporting,
+    component: ReportingStack,
+  }
   const settingsTab = {
     name: TabRoutes.Settings,
     component: SettingsStack,
   }
 
   const tabs: Tab[] = displaySymptomHistory
-    ? [homeTab, exposureHistoryTab, symptomHistoryTab, settingsTab]
-    : [homeTab, exposureHistoryTab, settingsTab]
+    ? [
+        homeTab,
+        exposureHistoryTab,
+        symptomHistoryTab,
+        reportingTab,
+        settingsTab,
+      ]
+    : [homeTab, exposureHistoryTab, reportingTab, settingsTab]
 
   const TabNavigator = createBottomTabNavigator()
 

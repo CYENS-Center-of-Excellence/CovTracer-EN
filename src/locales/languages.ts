@@ -36,6 +36,7 @@ import tl from "./tl.json"
 import ur from "./ur.json"
 import vi from "./vi.json"
 import zh_Hant from "./zh_Hant.json"
+import tr from "./tr.json"
 
 import enCustom from "./en-custom.json"
 import elCustom from "./el-custom.json"
@@ -81,6 +82,7 @@ const LANGUAGE_RESOURCES: Resource = {
   ur: { label: ur._display_name, translation: ur },
   vi: { label: vi._display_name, translation: vi },
   zh_Hant: { label: zh_Hant._display_name, translation: zh_Hant },
+  tr: { label: tr._display_name, translation: tr },
 }
 
 export const initializei18next = (): void => {
@@ -151,6 +153,7 @@ export const enabledLocales = (): Array<{
   label: string
 }> => {
   const envLocales = env.SUPPORTED_LOCALES
+
   const locales = parseEnvLocales(envLocales)
   return locales.map((locale) => {
     return {

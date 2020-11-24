@@ -170,7 +170,10 @@ const Settings: FunctionComponent = () => {
               <Image source={Images.LogoKios} style={style.logo} />
             </View>
             <View style={style.logoRow}>
-              <Image source={Images.LogoNicosiaMunicipality} style={style.logo} />
+              <Image
+                source={Images.LogoNicosiaMunicipality}
+                style={style.logo}
+              />
               <Image source={Images.LogoPathCheck} style={style.logo} />
             </View>
             <View style={style.infoRow}>

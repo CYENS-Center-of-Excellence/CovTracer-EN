@@ -9,10 +9,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  KeyboardTypeOptions,
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useTranslation } from "react-i18next"
 import { SvgXml } from "react-native-svg"
+import env from "react-native-config"
 
 import { Text, LoadingIndicator } from "../../components"
 import { useAffectedUserContext } from "../AffectedUserContext"
@@ -41,6 +43,9 @@ const CodeInputForm: FunctionComponent = () => {
     setExposureSubmissionCredentials,
     setExposureKeys,
   } = useAffectedUserContext()
+
+  const verificationCodeKeyboardType = (env.VERIFICATION_CODE_KEYBOARD_TYPE ||
+    "default") as KeyboardTypeOptions
 
   const [code, setCode] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -185,6 +190,7 @@ const CodeInputForm: FunctionComponent = () => {
         <TextInput
           testID="code-input"
           value={code}
+          keyboardType={verificationCodeKeyboardType}
           placeholder={t("export.code_input_placeholder").toUpperCase()}
           placeholderTextColor={Colors.text.placeholder}
           maxLength={codeLengthMax}
