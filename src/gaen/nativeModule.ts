@@ -4,11 +4,12 @@ import {
   EventSubscription,
 } from "react-native"
 
-import { RawENPermissionStatus } from "../Device/PermissionsContext"
+import { ENPermissionStatus } from "../Device/PermissionsContext"
 import { ExposureInfo, Posix } from "../exposure"
 import { ENDiagnosisKey } from "../Settings/ENLocalDiagnosisKeyScreen"
 import { ExposureKey } from "../exposureKey"
 import Logger from "../logger"
+import { isPlatformiOS } from "../utils"
 
 import { toExposureInfo, RawExposure } from "./dataConverters"
 
@@ -19,6 +20,7 @@ export const subscribeToExposureEvents = (
   const ExposureEvents = new NativeEventEmitter(
     NativeModules.ExposureEventEmitter,
   )
+
   return ExposureEvents.addListener(
     "onExposureRecordUpdated",
     (rawExposure: string) => {
@@ -29,7 +31,7 @@ export const subscribeToExposureEvents = (
 }
 
 export const subscribeToEnabledStatusEvents = (
-  cb: (status: RawENPermissionStatus) => void,
+  cb: (status: ENPermissionStatus) => void,
 ): EventSubscription => {
   const ExposureEvents = new NativeEventEmitter(
     NativeModules.ExposureEventEmitter,
@@ -45,35 +47,75 @@ export const subscribeToEnabledStatusEvents = (
   )
 }
 
-const toStatus = (data: string[]): RawENPermissionStatus => {
+const toStatus = (data: string[]): ENPermissionStatus => {
   const networkAuthorization = data[0]
   const networkEnablement = data[1]
-  const result: RawENPermissionStatus = ["UNAUTHORIZED", "DISABLED"]
-  if (networkAuthorization === "AUTHORIZED") {
-    result[0] = "AUTHORIZED"
+
+  const isAuthorized = networkAuthorization === "AUTHORIZED"
+  const isEnabled = networkEnablement === "ENABLED"
+  if (!isAuthorized) {
+    if (isPlatformiOS()) {
+      return "NotAuthorized"
+    } else {
+      return "Disabled"
+    }
+  } else if (!isEnabled) {
+    return "Disabled"
+  } else {
+    return "Enabled"
   }
-  if (networkEnablement === "ENABLED") {
-    result[1] = "ENABLED"
-  }
-  return result
 }
 
 // Permissions Module
+
+type GAENAPIError = "ExceededCheckRateLimit" | "Unknown" | "AppRestricted"
+
 const permissionsModule = NativeModules.ENPermissionsModule
 
-export const requestAuthorization = async (): Promise<void> => {
-  return permissionsModule
-    .requestExposureNotificationAuthorization()
-    .catch((error: string) => {
-      Logger.error("Failed to request ExposureNotification API Authorization", {
-        error,
-      })
-      throw new Error(error)
+export type RequestAuthorizationResponse =
+  | RequestAuthorizationSuccess
+  | RequestAuthorizationFailure
+
+export type RequestAuthorizationSuccess = {
+  kind: "success"
+  status: ENPermissionStatus
+}
+
+export type RequestAuthorizationFailure = {
+  kind: "failure"
+  error: GAENAPIError
+}
+
+export const requestAuthorization = async (): Promise<
+  RequestAuthorizationResponse
+> => {
+  try {
+    const status = await permissionsModule.requestExposureNotificationAuthorization()
+    const enStatus = toStatus(status)
+    return {
+      kind: "success",
+      status: enStatus,
+    }
+  } catch (e) {
+    Logger.error("Failed to request ExposureNotification API Authorization", {
+      e,
     })
+    if (e.code.includes("ENErrorDomain error 14.")) {
+      return {
+        kind: "failure",
+        error: "AppRestricted",
+      }
+    } else {
+      return {
+        kind: "failure",
+        error: "Unknown",
+      }
+    }
+  }
 }
 
 export const getCurrentENPermissionsStatus = async (
-  cb: (status: RawENPermissionStatus) => void,
+  cb: (status: ENPermissionStatus) => void,
 ): Promise<void> => {
   const response = await permissionsModule.getCurrentENPermissionsStatus()
   cb(toStatus(response))
@@ -107,14 +149,12 @@ interface NetworkFailure {
   error: GAENAPIError
 }
 
-type GAENAPIError = "ExceededCheckRateLimit" | "Unknown"
-
 export const checkForNewExposures = async (): Promise<NetworkResponse> => {
   try {
     await exposureHistoryModule.detectExposures()
     return { kind: "success" }
   } catch (e) {
-    if (e.message.includes("ENErrorDomain error 13.")) {
+    if (e.underlyingError.includes("ENErrorDomain error 13.")) {
       return { kind: "failure", error: "ExceededCheckRateLimit" }
     } else {
       return { kind: "failure", error: "Unknown" }
@@ -211,10 +251,6 @@ export const showLastProcessedFilePath = async (): Promise<string> => {
 
 export const resetExposure = async (): Promise<"success"> => {
   return debugModule.resetExposure()
-}
-
-export const toggleExposureNotifications = async (): Promise<"success"> => {
-  return debugModule.toggleExposureNotifications()
 }
 
 export const simulateExposureDetectionError = async (): Promise<"success"> => {

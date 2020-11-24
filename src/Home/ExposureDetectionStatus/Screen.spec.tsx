@@ -13,11 +13,10 @@ import { HomeStackScreens } from "../../navigation"
 import {
   PermissionsContext,
   ENPermissionStatus,
-  PermissionStatus,
 } from "../../Device/PermissionsContext"
 import { LocationPermissions } from "../../Device/useLocationPermissions"
 import { factories } from "../../factories"
-
+import { RequestAuthorizationResponse } from "../../gaen/nativeModule"
 import ExposureDetectionStatusScreen from "./Screen"
 
 jest.mock("@react-navigation/native")
@@ -40,7 +39,7 @@ describe("ExposureDetectionStatusScreen", () => {
 
   describe("When Bluetooth is off", () => {
     it("shows a disabled message for Bluetooth and a general disabled message", () => {
-      const enPermissionStatus = ENPermissionStatus.ENABLED
+      const enPermissionStatus = "Enabled"
       const isBluetoothOn = false
       const locationPermissions = "NotRequired"
 
@@ -71,7 +70,7 @@ describe("ExposureDetectionStatusScreen", () => {
     })
 
     it("allows the user to get info on enabling Bluetooth", () => {
-      const enPermissionStatus = ENPermissionStatus.ENABLED
+      const enPermissionStatus = "Enabled"
       const isBluetoothOn = false
       const locationPermissions = "RequiredOn"
 
@@ -106,7 +105,7 @@ describe("ExposureDetectionStatusScreen", () => {
       const navigateSpy = jest.fn()
       ;(useNavigation as jest.Mock).mockReturnValue({ navigate: navigateSpy })
 
-      const enPermissionStatus = ENPermissionStatus.ENABLED
+      const enPermissionStatus = "Enabled"
       const isBluetoothOn = true
       const locationPermissions = "RequiredOn"
       const permissionProviderValue = createPermissionProviderValue(
@@ -128,7 +127,7 @@ describe("ExposureDetectionStatusScreen", () => {
 
   describe("When the app is not authorized", () => {
     it("shows a disabled message for Exposure Notifications and a general disabled message", () => {
-      const enPermissionStatus = ENPermissionStatus.NOT_AUTHORIZED
+      const enPermissionStatus = "NotAuthorized"
       const isBluetoothOn = true
       const locationPermissions = "NotRequired"
       const permissionProviderValue = createPermissionProviderValue(
@@ -159,7 +158,7 @@ describe("ExposureDetectionStatusScreen", () => {
     })
 
     it("allows the user to get info on how to fix exposure notifications and shows a not authorized alert", async () => {
-      const enPermissionStatus = ENPermissionStatus.NOT_AUTHORIZED
+      const enPermissionStatus = "NotAuthorized"
       const requestSpy = jest.fn()
       const permissionProviderValue = createPermissionProviderValue(
         true,
@@ -177,7 +176,7 @@ describe("ExposureDetectionStatusScreen", () => {
       const alertSpy = jest.spyOn(Alert, "alert")
 
       const expectedMessage =
-        "To enable Exposure Notifications, go to the Exposure Notification section in Settings and Share Exposure Information and set the Active Region to applicationName"
+        "Open Settings, then navigate to the Exposure Notifications settings for this app. Ensure Share Exposure Information is turned on, then press 'Set As Active Region'."
 
       fireEvent.press(getByTestId("exposure-notifications-status-container"))
       expect(requestSpy).toHaveBeenCalled()
@@ -196,7 +195,7 @@ describe("ExposureDetectionStatusScreen", () => {
 
   describe("When the app is not enabled", () => {
     it("allows the user to request exposure notification permissions", () => {
-      const enPermissionStatus = ENPermissionStatus.DISABLED
+      const enPermissionStatus = "Disabled"
       const requestSpy = jest.fn()
       const permissionProviderValue = createPermissionProviderValue(
         true,
@@ -223,7 +222,7 @@ describe("ExposureDetectionStatusScreen", () => {
         navigate: navigateSpy,
       })
 
-      const enPermissionStatus = ENPermissionStatus.ENABLED
+      const enPermissionStatus = "Enabled"
       const permissionProviderValue = createPermissionProviderValue(
         true,
         "RequiredOn",
@@ -328,13 +327,14 @@ const createPermissionProviderValue = (
   isBluetoothOn = true,
   locationPermissions: LocationPermissions = "RequiredOn",
   enPermissionStatus: ENPermissionStatus,
-  requestPermission: () => Promise<void> = () => Promise.resolve(),
+  requestPermission: () => Promise<RequestAuthorizationResponse> = () =>
+    Promise.resolve({ kind: "failure" as const, error: "Unknown" as const }),
 ) => {
   return {
     isBluetoothOn,
     locationPermissions,
     notification: {
-      status: PermissionStatus.UNKNOWN,
+      status: "Unknown" as const,
       check: () => {},
       request: () => {},
     },

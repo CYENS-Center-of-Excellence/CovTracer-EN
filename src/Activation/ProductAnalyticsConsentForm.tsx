@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next"
 import { useConfigurationContext } from "../ConfigurationContext"
 import { useProductAnalyticsContext } from "../ProductAnalytics/Context"
 import { ActivationStackScreens, useStatusBarEffect } from "../navigation"
+import { useCustomCopy } from "../configuration/useCustomCopy"
 import { Text } from "../components"
 
 import { Colors, Typography, Spacing, Buttons } from "../styles"
@@ -20,19 +21,17 @@ const ProductAnalyticsConsentForm: FunctionComponent = () => {
   useStatusBarEffect("dark-content", Colors.secondary.shade10)
   const { t } = useTranslation()
   const navigation = useNavigation()
-  const {
-    healthAuthorityName,
-    healthAuthorityPrivacyPolicyUrl,
-  } = useConfigurationContext()
+  const { healthAuthorityPrivacyPolicyUrl } = useConfigurationContext()
+  const { healthAuthorityName } = useCustomCopy()
   const { updateUserConsent } = useProductAnalyticsContext()
 
-  const handleOnPressButton = async () => {
+  const handleOnPressYes = async () => {
     updateUserConsent(true)
-    navigation.navigate(ActivationStackScreens.ActivationSummary)
+    navigation.navigate(ActivationStackScreens.ActivateExposureNotifications)
   }
 
   const handleOnPressMaybeLater = () => {
-    navigation.navigate(ActivationStackScreens.ActivationSummary)
+    navigation.navigate(ActivationStackScreens.ActivateExposureNotifications)
   }
 
   const handleOnPressPrivacyPolicy = () => {
@@ -78,7 +77,7 @@ const ProductAnalyticsConsentForm: FunctionComponent = () => {
       <View style={style.buttonsContainer}>
         <TouchableOpacity
           style={style.button}
-          onPress={handleOnPressButton}
+          onPress={handleOnPressYes}
           accessibilityLabel={buttonText}
         >
           <Text style={style.buttonText}>{buttonText}</Text>

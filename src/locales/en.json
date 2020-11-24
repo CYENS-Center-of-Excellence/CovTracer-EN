@@ -16,10 +16,11 @@
     "success_header": "You're in the queue"
   },
   "common": {
-    "select_language": "Select language",
     "back": "Back",
+    "cancel": "Cancel",
     "close": "Close",
     "close_screen": "Close screen",
+    "confirm": "Confirm",
     "continue": "Continue",
     "done": "Done",
     "edit": "Edit",
@@ -32,6 +33,7 @@
     "off": "OFF",
     "on": "ON",
     "save": "Save",
+    "select_language": "Select language",
     "settings": "Open Settings",
     "skip": "Skip",
     "something_went_wrong": "Something went wrong",
@@ -81,6 +83,8 @@
     "consent_button_title": "I Understand and Consent",
     "consent_subheader_1": "Why should I share?",
     "consent_subheader_2": "How does it work?",
+    "consent_warning_message": "Continuing will void your verification code. If you would like to share your positive diagnosis in the future, you will first need to get a new verification code.",
+    "consent_warning_title": "Warning!",
     "enable_exposure_notifications_body": "You must enable exposure notifications to report a positive test result.",
     "enable_exposure_notifications_title": "Enable exposure notifications to continue",
     "error": {
@@ -91,6 +95,7 @@
       "unknown_code_verification_error": "Try a different code",
       "verification_code_used": "Verification code has already been used"
     },
+    "never_mind_button_title": "Never mind",
     "person_and_health_expert": "A person talking to a health expert",
     "publish_consent_title_bluetooth": "Notify others in your community",
     "publish_keys": {
@@ -182,24 +187,24 @@
     "enter_symptoms": "Enter symptoms",
     "fix": "Fix issues with {{technology}}",
     "get_more_info": "Get more info on {{technology}}",
-    "have_a_positive_test": "Have a positive test result code?",
+    "have_a_positive_test": "Have a verification code?",
     "if_you_have_a_code": "Report your result to help keep your community safe.",
-    "location_info_body": "Google requires that devices running Android 10 or below have location services enabled to use Exposure Detection. However, {{applicationName}} does NOT track or keep a record of your location.",
-    "location_info_subheader": "{{applicationName}} never accesses your location data and your device is never tracked.",
+    "location_info_body": "Google requires that devices running Android 10 or below have location services enabled to use Exposure Detection. {{applicationName}} does NOT track or keep a record of your location.",
+    "location_info_subheader": "{{applicationName}} does not track or keep a record of your location",
     "not_feeling_well": "Not feeling well?",
     "proximity_tracing_info_body_1": "If smartphones with the app installed are turned on, have Bluetooth enabled, and are near each other for a period of time, an encounter is registered on your device.",
     "proximity_tracing_info_body_2": "In the event of an encounter, your data, and information remain anonymous. The app doesn’t store any personal data. Only random IDs are exchanged. These are deleted within 14 days.",
     "proximity_tracing_info_subheader_1": "How does Exposure Notifications work?",
     "proximity_tracing_info_subheader_2": "Is my data secure?",
     "proximity_tracing": {
-      "unauthorized_error_message_android": "To enable Exposure Notifications, go to the COVID-19 Exposure Notifications of your Settings App and enable 'Use Exposure Notifications'",
-      "unauthorized_error_message_ios": "To enable Exposure Notifications, go to the Exposure Notification section in Settings and Share Exposure Information and set the Active Region to {{applicationName}}",
+      "unauthorized_error_message_android": "To enable Exposure Notifications, go to the COVID-19 Exposure Notifications screen of your Settings app and enable 'Use Exposure Notifications'",
+      "unauthorized_error_message_ios": "Open Settings, then navigate to the Exposure Notifications settings for this app. Ensure Share Exposure Information is turned on, then press 'Set As Active Region'.",
       "unauthorized_error_title": "Enable Exposure Notifications"
     },
     "report_result": "Report Result",
     "request_call": "Request Call",
     "take_assessment": "Take Assessment",
-    "to_submit_your_test": "To submit your positive test result, you'll need to get your positive test result code from a contact tracer."
+    "to_submit_your_test": "To submit your positive test result, you'll need to get your verification code from a contact tracer."
   },
   "label": {
     "check": "Checkmark",
@@ -214,11 +219,11 @@
   },
   "navigation": {
     "exposure": "Exposure",
-    "exposure_history": "Exposure History",
+    "exposure_history": "Exposures",
     "home": "Dashboard",
     "more_info": "More Info",
     "settings": "Settings",
-    "symptom_history": "Symptom History"
+    "symptom_history": "Symptoms"
   },
   "onboarding": {
     "activation_header_title": "App Setup",
@@ -237,7 +242,7 @@
     "i_am_over": "Yes, I am over {{minimumAge}}",
     "location_alert_body": "To use Bluetooth scanning, the device location setting needs to be turned on.",
     "location_alert_header": "Enable Location access from \"{{applicationName}}\"",
-    "location_body": "Google requires that devices running Android 10 or below have location services enabled to use Exposure Detection. However, {{applicationName}} does NOT track or keep a record of your location.",
+    "location_body": "Google requires that devices running Android 10 or below have location services enabled to use Bluetooth scanning for Exposure Detection. However, {{applicationName}} does NOT track or keep a record of your location.",
     "location_header": "Activate Location",
     "location_subheader": "{{applicationName}} never accesses your location data and your device is never tracked.",
     "no_take_me": "No, take me back",
@@ -253,7 +258,7 @@
     "protect_privacy": {
       "body_1": "These IDs do not contain any personal information and change every 10-20 minutes to protect your identity.",
       "body_2": "Phones swap random IDs with other devices using Bluetooth Low Energy. This allows {{applicationName}} to keep track of your daily encounters anonymously, even when you don’t have it open on your device.",
-      "body_3": "After testing positive for COVID-19, users can share a passcode with {{applicationName}} to verify their diagnosis. Their phone’s recent random IDs are flagged and securely uploaded to the server. This verification process helps prevent false positive reports.",
+      "body_3": "After testing positive for COVID-19, users can share a verification code with {{applicationName}} to verify their diagnosis. Their phone’s recent random IDs are flagged and securely uploaded to the server. This verification process helps prevent false positive reports.",
       "body_4": "If a flagged ID matches with an ID stored on your phone, this indicates you may have encountered someone who has tested positive for COVID-19. This is how {{applicationName}} can determine if you may have been exposed to the virus.",
       "body_5": "If there’s a match, {{applicationName}} will notify you and provide further guidance from your health department.\n\nThis is how {{applicationName}} can empower you to make decisions about your health, and keep your community safe, all without knowing who you are or where you’ve been.",
       "subheader_1": "When you turn on Exposure Notifications, your phone is tagged with frequently-changing, random IDs",
@@ -286,9 +291,21 @@
     "welcome_image_label": "An illustration of people with masks on, connected like nodes in a network.",
     "you_must_be": "You must be {{minimumAge}} or older to use {{applicationName}}. Are you over {{minimumAge}}?"
   },
+  "product_analytics": {
+    "i_understand_and_consent": "I Understand and Consent",
+    "not_sharing_anonymized_data": "Not sharing anonymized data",
+    "privacy_policy": "Privacy Policy",
+    "share_anonymized_data": "Share Anonymized Data",
+    "share_anonymized_data_disclaimer": "By proceeding, you agree to share anonymized answers to screening questions with the {{healthAuthorityName}}",
+    "share_data_para_1": "Anonymous and aggregated data about how communities are using this app helps the {{healthAuthorityName}} Commission, analyze, understand, and contain the spread of COVID-19.",
+    "share_data_para_2": "This data contains no personally-identifying information.",
+    "sharing_anonymized_data": "Sharing anonymized data",
+    "stop_sharing_data": "Stop Sharing Data",
+    "you_are_sharing_data": "You are sharing anonymized data"
+  },
   "screen_titles": {
     "bluetooth": "Bluetooth",
-    "exposure_history": "Exposure History",
+    "exposure_history": "Exposures",
     "exposure_notifications": "Exposure Notifications",
     "exposure_scanning": "Exposure Detection",
     "home": "Dashboard",
@@ -370,6 +387,7 @@
       "covid19_self_assessment": "COVID-19 Self Assessment",
       "find_out_how_to_care": "Find out how to care for yourself and others after close contact with someone positive for COVID-19",
       "if_this_is": "If this is an emergency, please call {{emergencyPhoneNumber}}",
+      "learn_more": "Learn more about the CDC Coronavirus Self-Checker this Self Assessment is based on",
       "this_is_based_on": "This is based on the latest guidance from the CDC and may be updated over time as we learn more about how the virus spreads and the illness it causes",
       "this_is_not_intended": "This is not intended for diagnosis or treatment",
       "you_are_a_resident": "You are a resident of the community supported by {{ healthAuthorityName }}"
@@ -391,30 +409,24 @@
       "weakened_immune_system": "Weakened immune system or taking medications that may cause immune suppression"
     }
   },
-  "product_analytics": {
-    "not_sharing_anonymized_data": "Not sharing anonymized data",
-    "share_anonymized_data": "Share Anonymized Data",
-    "share_anonymized_data_disclaimer": "By proceeding, you agree to share anonymized answers to screening questions with the {{healthAuthorityName}}",
-    "share_data_para_1": "Anonymous and aggregated data about how communities are using this app helps the {{healthAuthorityName}} Commission, analyze, understand, and contain the spread of COVID-19.",
-    "share_data_para_2": "This data contains no personally-identifying information.",
-    "sharing_anonymized_data": "Sharing anonymized data",
-    "privacy_policy": "Privacy Policy",
-    "stop_sharing_data": "Stop Sharing Data",
-    "you_are_sharing_data": "You are sharing anonymized data",
-    "i_understand_and_consent": "I Understand and Consent"
-  },
   "settings": {
     "data_deleted": "Data deleted",
-    "delete_data_disclosure1": "When you tap the \"Delete My Data\" button below, the app will delete the Symptom History data that is stored on your phone.",
-    "delete_data_disclosure2": "This does not delete the data created or collected by your phone for Exposure Notifications.\n\nYou can delete this additional data in your device Settings.",
+    "delete_data_are_you_sure": "Are you sure?",
+    "delete_data_disclosure1": "When you press \"Delete My Data\", all data stored by {{applicationName}} will be deleted:",
+    "delete_data_disclosure2": "This does not delete the data created or collected by your device for Exposure Notifications.\n\nYou can delete this additional data in your device Settings.",
+    "delete_data_language_token": "A token stored on your device that saves your language preference",
     "delete_data_note": "Note",
+    "delete_data_onboarding_token": "A token stored on your device that saves whether you have completed the app onboarding",
+    "delete_data_product_analytics": "A token stored on your device that saves whether you have consented to sharing product analytics data",
+    "delete_data_symptom_history": "Any symptom logs stored on your device",
+    "delete_data_this_action": "This action will delete all data stored by {{applicationName}}.",
     "delete_my_data": "Delete my data",
     "errors": {
       "deleting_data": "Sorry, we could not delete your data"
     },
+    "not_sharing_anonymized_data": "Not sharing anonymized data",
     "share_anonymized_data": "Share anonymized data",
-    "sharing_anonymized_data": "Sharing anonymized data",
-    "not_sharing_anonymized_data": "Not sharing anonymized data"
+    "sharing_anonymized_data": "Sharing anonymized data"
   },
   "symptom_history": {
     "did_not_feel_well": "You did not feel well",
@@ -431,7 +443,7 @@
       "you_did_not_feel_well": "You did not feel well, symptoms included: {{symptomList}}",
       "you_felt_well": "You felt well"
     },
-    "symptom_history": "Symptom History",
+    "symptom_history": "Symptoms",
     "to_protect_your_privacy": "To protect your privacy, entries are stored on your device and deleted automatically after {{days}} days."
   },
   "symptom": {

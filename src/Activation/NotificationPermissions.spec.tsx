@@ -5,8 +5,6 @@ import { useNavigation } from "@react-navigation/native"
 import {
   PermissionsContext,
   PermissionsContextState,
-  ENPermissionStatus,
-  PermissionStatus,
 } from "../Device/PermissionsContext"
 import { ActivationStackScreens } from "../navigation"
 import NotificationPermissions from "./NotificationPermissions"
@@ -88,14 +86,17 @@ const createPermissionProviderValue = (
     isBluetoothOn: true,
     locationPermissions: "RequiredOn" as const,
     notification: {
-      status: PermissionStatus.UNKNOWN,
+      status: "Unknown" as const,
       check: () => {},
       request: requestPermission,
     },
     exposureNotifications: {
-      status: ENPermissionStatus.ENABLED,
-      check: () => {},
-      request: () => Promise.resolve(),
+      status: "Enabled",
+      request: () =>
+        Promise.resolve({
+          kind: "failure" as const,
+          error: "Unknown" as const,
+        }),
     },
   }
 }

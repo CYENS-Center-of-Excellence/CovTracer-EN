@@ -14,10 +14,11 @@ import {
 import { useNavigation } from "@react-navigation/native"
 
 import { useStatusBarEffect, CallbackStackScreens } from "../navigation"
-import { useConfigurationContext } from "../ConfigurationContext"
+import { useCustomCopy } from "../configuration/useCustomCopy"
 import { LoadingIndicator, Text } from "../components"
 import * as API from "./callbackAPI"
 import Logger from "../logger"
+import { useConfigurationContext } from "../ConfigurationContext"
 
 import { Spacing, Forms, Colors, Typography, Buttons } from "../styles"
 
@@ -26,8 +27,9 @@ const defaultErrorMessage = " "
 const CallbackForm: FunctionComponent = () => {
   useStatusBarEffect("dark-content", Colors.background.primaryLight)
   const { t } = useTranslation()
-  const { healthAuthorityName } = useConfigurationContext()
   const navigation = useNavigation()
+  const { healthAuthorityName } = useCustomCopy()
+  const { minimumPhoneDigits } = useConfigurationContext()
 
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
@@ -84,7 +86,7 @@ const CallbackForm: FunctionComponent = () => {
     }
   }
 
-  const buttonDisabled = phoneNumber.length === 0
+  const buttonDisabled = phoneNumber.length < minimumPhoneDigits
 
   const showError = (error: string): string => {
     switch (error) {

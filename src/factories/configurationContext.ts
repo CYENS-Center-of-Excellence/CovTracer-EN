@@ -18,11 +18,11 @@ export default Factory.define<Configuration>(() => ({
   healthAuthorityCovidDataUrl: "authorityCovidDataUrl",
   healthAuthorityLearnMoreUrl: "authorityLearnMoreUrl",
   healthAuthorityEulaUrl: "healthAuthorityEulaUrl",
-  healthAuthorityName: "authorityName",
   healthAuthorityPrivacyPolicyUrl: "authorityPrivacyPolicyUrl",
   healthAuthorityLegalPrivacyPolicyUrl: "authorityLegalPrivacyPolicyUrl",
   measurementSystem: "Imperial",
   minimumAge: "18",
+  minimumPhoneDigits: 0,
   regionCodes: ["REGION"],
   stateAbbreviation: null,
 }))

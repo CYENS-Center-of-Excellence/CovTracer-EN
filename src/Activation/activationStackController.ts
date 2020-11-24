@@ -19,7 +19,7 @@ export const nextScreenFromBluetooth = ({
     console.log("isLocationRequiredAndOff", isLocationRequiredAndOff)
     return isLocationRequiredAndOff
       ? ActivationStackScreens.ActivateLocation
-      : ActivationStackScreens.AnonymizedDataConsent
+      : ActivationStackScreens.ActivationSummary
   }
 }
 

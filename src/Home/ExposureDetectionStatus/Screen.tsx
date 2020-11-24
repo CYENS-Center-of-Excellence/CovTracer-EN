@@ -5,10 +5,7 @@ import { useNavigation } from "@react-navigation/native"
 
 import { useApplicationName } from "../../Device/useApplicationInfo"
 import { useExposureDetectionStatus } from "../../Device/useExposureDetectionStatus"
-import {
-  usePermissionsContext,
-  ENPermissionStatus,
-} from "../../Device/PermissionsContext"
+import { usePermissionsContext } from "../../Device/PermissionsContext"
 import { useProductAnalyticsContext } from "../../ProductAnalytics/Context"
 import { openAppSettings } from "../../Device"
 import { useStatusBarEffect, HomeStackScreens } from "../../navigation"
@@ -104,14 +101,16 @@ const ExposureDetectionStatus: FunctionComponent = () => {
 
     const handleOnPressFix = async () => {
       try {
-        await exposureNotifications.request()
-
-        if (status !== ENPermissionStatus.ENABLED) {
-          showNotAuthorizedAlert()
+        const response = await exposureNotifications.request()
+        if (response.kind === "success") {
+          if (response.status !== "Enabled") {
+            showNotAuthorizedAlert()
+          }
         } else {
-          trackEvent("product_analytics", "exposure_notifications_enabled")
+          showNotAuthorizedAlert()
         }
-      } catch {
+        trackEvent("product_analytics", "exposure_notifications_enabled")
+      } catch (e) {
         showNotAuthorizedAlert()
       }
     }
@@ -120,7 +119,7 @@ const ExposureDetectionStatus: FunctionComponent = () => {
       navigation.navigate(HomeStackScreens.ExposureNotificationsInfo)
     }
 
-    const isENEnabled = status === ENPermissionStatus.ENABLED
+    const isENEnabled = status === "Enabled"
 
     return (
       <ActivationStatusView

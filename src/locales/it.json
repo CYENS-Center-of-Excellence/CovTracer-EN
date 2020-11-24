@@ -5,6 +5,7 @@
     "version": "Versione:"
   },
   "common": {
+    "cancel": "Annulla",
     "continue": "Continua",
     "done": "Fatto",
     "more": "Altro",
@@ -50,9 +51,15 @@
     "privacy_policy": "Informativa sulla privacy",
     "terms_header_title": "Termini per l'utilizzo"
   },
+  "product_analytics": {
+    "privacy_policy": "Informativa sulla privacy"
+  },
   "screen_titles": {
     "exposure_history": "Cronologia delle esposizioni",
     "home": "Home",
     "legal": "Legale"
+  },
+  "settings": {
+    "delete_data_are_you_sure": "Sei sicuro?"
   }
 }

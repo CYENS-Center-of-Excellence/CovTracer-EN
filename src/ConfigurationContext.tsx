@@ -22,10 +22,10 @@ export interface Configuration {
   healthAuthorityEulaUrl: string | null
   healthAuthorityLearnMoreUrl: string
   healthAuthorityLegalPrivacyPolicyUrl: string | null
-  healthAuthorityName: string
   healthAuthorityPrivacyPolicyUrl: string
   measurementSystem: MeasurementSystem
   minimumAge: string
+  minimumPhoneDigits: number
   regionCodes: string[]
   stateAbbreviation: string | null
 }
@@ -48,10 +48,10 @@ const initialState: Configuration = {
   healthAuthorityEulaUrl: null,
   healthAuthorityLearnMoreUrl: "",
   healthAuthorityLegalPrivacyPolicyUrl: "",
-  healthAuthorityName: "",
   healthAuthorityPrivacyPolicyUrl: "",
   measurementSystem: "Imperial" as const,
   minimumAge: "18",
+  minimumPhoneDigits: 0,
   regionCodes: [],
   stateAbbreviation: "",
 }
@@ -65,7 +65,6 @@ const ConfigurationProvider: FunctionComponent = ({ children }) => {
     EMERGENCY_PHONE_NUMBER: emergencyPhoneNumber,
     EULA_URL: eulaUrl,
     FIND_A_TEST_CENTER_URL: findATestCenterUrl,
-    GAEN_AUTHORITY_NAME: healthAuthorityName,
     LEARN_MORE_URL: healthAuthorityLearnMoreUrl,
     LEGAL_PRIVACY_POLICY_URL: legalPrivacyPolicyUrl,
     PRIVACY_POLICY_URL: healthAuthorityPrivacyPolicyUrl,
@@ -86,6 +85,7 @@ const ConfigurationProvider: FunctionComponent = ({ children }) => {
     env.MEASUREMENT_SYSTEM === "metric" ? "Metric" : "Imperial"
 
   const minimumAge = env.MINIMUM_AGE
+  const minimumPhoneDigits = parseInt(env.MINIMUM_PHONE_DIGITS) || 0
 
   const appDownloadLink = env.SHARE_APP_LINK
   const appPackageName = Platform.select({
@@ -117,10 +117,10 @@ const ConfigurationProvider: FunctionComponent = ({ children }) => {
         healthAuthorityEulaUrl: eulaUrl || null,
         healthAuthorityLearnMoreUrl,
         healthAuthorityLegalPrivacyPolicyUrl: legalPrivacyPolicyUrl || null,
-        healthAuthorityName,
         healthAuthorityPrivacyPolicyUrl,
         measurementSystem,
         minimumAge,
+        minimumPhoneDigits,
         regionCodes,
         stateAbbreviation,
       }}
