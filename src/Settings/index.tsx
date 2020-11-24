@@ -174,6 +174,10 @@ const Settings: FunctionComponent = () => {
               <Image source={Images.LogoRise} style={style.logo} />
               <Image source={Images.LogoKios} style={style.logo} />
             </View>
+            <View style={style.logoRow}>
+              <Image source={Images.LogoNicosiaMunicipality} style={style.logo} />
+              <Image source={Images.LogoPathCheck} style={style.logo} />
+            </View>
             <View style={style.infoRow}>
               <Text style={style.infoRowLabel}>{t("about.version")}</Text>
               <Text style={style.infoRowValue}>{versionInfo}</Text>
