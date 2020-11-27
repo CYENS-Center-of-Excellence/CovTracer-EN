@@ -1,6 +1,6 @@
 {
-  "name": "PathCheckBT",
-  "version": "0.0.1",
+  "name": "covtracer",
+  "version": "1.2.0-31",
   "license": "MIT",
   "private": true,
   "scripts": {
