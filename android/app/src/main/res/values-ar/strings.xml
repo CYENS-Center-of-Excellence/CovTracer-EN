@@ -2,6 +2,6 @@
 <resources>
   <string name="exposure_notification_channel_description">تنبيهات الإخطار التعرض.</string>
   <string name="exposure_notification_channel_name">إخطار التعرض</string>
-  <string name="exposure_notification_message">تم تشخيص شخص كان قريبًا منك بالاصابة بمرض COVID-19</string>
+  <string name="exposure_notification_message">تم تشخيص شخص بالقرب منك مؤخرًا بالرمز 19. نوصي بالاتصال بطبيبك العام للحصول على المشورة بشأن الخطوات الإضافية. في غضون ذلك ، نحثك على الابتعاد عن نفسك وتجنب الاتصال المطول مع من حولك.</string>
   <string name="exposure_notification_title">التعرض المحتمل لـ COVID-19</string>
 </resources>

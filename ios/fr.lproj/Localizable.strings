@@ -1,2 +1,3 @@
 /* Body text of notification when app is closed on iOS */
 "ios.app_closed_alert_text" = "PathCheck stocke en toute sécurité vos coordonnées GPS une fois toutes les cinq minutes sur cet appareil.";
+"newExposureNotificationBody" = "Si quelqu'un qui était près de chez vous récemment et il a reçu un diagnostic de Covid-19, nous vous suggérons de faire appel à votre médecin généraliste pour dea conseils sur les étapes qu'il faut suivre. En attendant nous vous demandona de vous auto-isoler et d' éviter tout contact prolongé avec votee entourage.";

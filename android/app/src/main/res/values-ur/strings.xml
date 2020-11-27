@@ -2,5 +2,5 @@
 <resources>
   <string name="exposure_notification_channel_description">ایکسپوژر کی اطلاع</string>
   <string name="exposure_notification_channel_name">ایکسپوژر کی اطلاع</string>
-  <string name="exposure_notification_message">کوئی آپ کے قریب تھا CoVID-19 مثبت ٹیسٹ کریں۔ مزید تفصیلات کے لئے تھپتھپائیں۔ </string>
+  <string name="exposure_notification_message">حال ہی میں آپ کے قریب موجود کسی کو کوڈ 19 میں تشخیص کیا گیا ہے۔ ہم آپ کو مشورہ دیتے ہیں کہ مزید اقدامات کے بارے میں مشورہ کے ل your اپنے جنرل پریکٹیشنر کو فون کریں۔ اس دوران ، ہم آپ کو خود سے الگ تھلگ رہنے اور اپنے آس پاس کے لوگوں سے طویل رابطے سے گریز کرنے کا کہتے ہیں۔</string>
 </resources>

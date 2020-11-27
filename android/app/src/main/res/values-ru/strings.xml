@@ -2,6 +2,6 @@
 <resources>
   <string name="exposure_notification_channel_description">Уведомление об экспозиции.</string>
   <string name="exposure_notification_channel_name">Уведомление об экспозиции</string>
-  <string name="exposure_notification_message">Кто-то, с кем вы были рядом, получил положительный результат на КОВИД-19. Нажмите для получения дополнительной информации.</string>
+  <string name="exposure_notification_message">У кого-то из ваших близких недавно был диагностирован код 19. Мы рекомендуем обратиться к вашему терапевту за советом о дополнительных действиях. А пока мы рекомендуем вам дистанцироваться и избегать длительного контакта с окружающими.</string>
   <string name="exposure_notification_title">Возможная экспозиция COVID-19</string>
 </resources>
