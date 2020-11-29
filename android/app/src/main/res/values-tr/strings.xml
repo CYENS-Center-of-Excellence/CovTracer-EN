@@ -2,6 +2,6 @@
 <resources>
   <string name="exposure_notification_channel_description">Maruz kalma bildirimi uyarıları</string>
   <string name="exposure_notification_channel_name">Maruz Kalma Bildirimi</string>
-  <string name="exposure_notification_message">Yakın zamanda yakınınızdaki birine COVID-19 teşhisi kondu. Sonraki adımlar konusunda tavsiye almak için aile hekiminizi aramanızı öneririz. Bu arada, kendinizi izole etmenizi ve çevrenizdeki insanlarla uzun süreli temastan kaçınmanızı istiyoruz.</string>
+  <string name="exposure_notification_message">Kısa süre önce yakınınızda bulunmuş olan birisine Covid-19 tanısı konuldu. Yapılması gerekenlerle ilgili tavsiye almak amacıyla doktorunuzu aramanızı öneririz. Bu süre içinde de kendinizi izole etmeli ve etrafınızdaki insanlarla uzun süreli temastan kaçınmalısınız.</string>
   <string name="exposure_notification_title">Olası COVID-19 maruziyeti</string>
 </resources>
