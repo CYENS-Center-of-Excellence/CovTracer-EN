@@ -6,7 +6,7 @@ import dayjs from "dayjs"
 
 import "./dayjs-locales"
 import * as Locale from "./locale"
-import { StorageUtils } from "../utils"
+import { mergeDeep, StorageUtils } from "../utils"
 
 import ar from "./ar.json"
 import ch from "./ch.json"
@@ -37,6 +37,9 @@ import ur from "./ur.json"
 import vi from "./vi.json"
 import zh_Hant from "./zh_Hant.json"
 
+import enCustom from "./en-custom.json"
+import elCustom from "./el-custom.json"
+
 // Refer this for checking the codes and creating new folders
 // https://developer.chrome.com/webstore/i18n
 
@@ -53,8 +56,8 @@ const LANGUAGE_RESOURCES: Resource = {
   ar: { label: ar._display_name, translation: ar },
   ch: { label: ch._display_name, translation: ch },
   da: { label: da._display_name, translation: da },
-  el: { label: el._display_name, translation: el },
-  en: { label: en._display_name, translation: en },
+  el: { label: el._display_name, translation: mergeDeep(el, elCustom) },
+  en: { label: en._display_name, translation: mergeDeep(en, enCustom) },
   es: { label: es._display_name, translation: es },
   es_PR: { label: es_PR._display_name, translation: es_PR },
   es_419: { label: es_419._display_name, translation: es_419 },
