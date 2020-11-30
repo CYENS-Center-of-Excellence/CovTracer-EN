@@ -20,7 +20,7 @@ export type ActivationStackScreen =
   | "ActivateExposureNotifications"
   | "ActivateLocation"
   | "ActivationSummary"
-  | "AnonymizedDataConsent"
+  | "ProductAnalyticsConsent"
   | "NotificationPermissions"
 
 export const ActivationStackScreens: {
@@ -31,7 +31,7 @@ export const ActivationStackScreens: {
   ActivateExposureNotifications: "ActivateExposureNotifications",
   ActivateLocation: "ActivateLocation",
   ActivationSummary: "ActivationSummary",
-  AnonymizedDataConsent: "AnonymizedDataConsent",
+  ProductAnalyticsConsent: "ProductAnalyticsConsent",
   NotificationPermissions: "NotificationPermissions",
 }
 
@@ -120,7 +120,7 @@ export type ModalStackScreen =
   | "ProtectPrivacy"
   | "HowItWorksReviewFromSettings"
   | "HowItWorksReviewFromConnect"
-  | "AnonymizedDataConsent"
+  | "ProductAnalyticsConsent"
   | "AtRiskRecommendation"
   | "SelfAssessmentFromExposureDetails"
   | "SelfAssessmentFromHome"
@@ -134,7 +134,7 @@ export const ModalStackScreens: {
   ProtectPrivacy: "ProtectPrivacy",
   HowItWorksReviewFromSettings: "HowItWorksReviewFromSettings",
   HowItWorksReviewFromConnect: "HowItWorksReviewFromConnect",
-  AnonymizedDataConsent: "AnonymizedDataConsent",
+  ProductAnalyticsConsent: "ProductAnalyticsConsent",
   AtRiskRecommendation: "AtRiskRecommendation",
   SelfAssessmentFromExposureDetails: "SelfAssessmentFromExposureDetails",
   SelfAssessmentFromHome: "SelfAssessmentFromHome",
@@ -175,6 +175,7 @@ export const ReportingStackScreens: {
 
 export type AffectedUserFlowStackScreen =
   | "AffectedUserStart"
+  | "VerificationCodeInfo"
   | "AffectedUserCodeInput"
   | "AffectedUserPublishConsent"
   | "AffectedUserConfirmUpload"
@@ -185,6 +186,7 @@ export const AffectedUserFlowStackScreens: {
   [key in AffectedUserFlowStackScreen]: AffectedUserFlowStackScreen
 } = {
   AffectedUserStart: "AffectedUserStart",
+  VerificationCodeInfo: "VerificationCodeInfo",
   AffectedUserCodeInput: "AffectedUserCodeInput",
   AffectedUserPublishConsent: "AffectedUserPublishConsent",
   AffectedUserConfirmUpload: "AffectedUserConfirmUpload",

@@ -28,7 +28,14 @@ import {
 } from "../../navigation"
 import Logger from "../../logger"
 
-import { Spacing, Forms, Colors, Typography, Buttons } from "../../styles"
+import {
+  Spacing,
+  Forms,
+  Colors,
+  Typography,
+  Buttons,
+  Iconography,
+} from "../../styles"
 import { Icons } from "../../assets"
 
 const defaultErrorMessage = ""
@@ -70,6 +77,10 @@ const CodeInputForm: FunctionComponent = () => {
 
   const handleOnToggleFocus = () => {
     setIsFocused(!isFocused)
+  }
+
+  const handleOnPressSecondaryButton = () => {
+    navigation.navigate(AffectedUserFlowStackScreens.VerificationCodeInfo)
   }
 
   const handleOnPressSubmit = async () => {
@@ -180,18 +191,14 @@ const CodeInputForm: FunctionComponent = () => {
       >
         <View style={style.headerContainer}>
           <Text style={style.header}>
-            {t("export.code_input_title_bluetooth")}
-          </Text>
-
-          <Text style={style.subheader}>
-            {t("export.code_input_body_bluetooth")}
+            {t("export.enter_verification_code")}
           </Text>
         </View>
         <TextInput
           testID="code-input"
           value={code}
           keyboardType={verificationCodeKeyboardType}
-          placeholder={t("export.code_input_placeholder").toUpperCase()}
+          placeholder={t("export.code").toUpperCase()}
           placeholderTextColor={Colors.text.placeholder}
           maxLength={codeLengthMax}
           style={codeInputStyle}
@@ -224,6 +231,23 @@ const CodeInputForm: FunctionComponent = () => {
             fill={isDisabled ? Colors.text.primary : Colors.neutral.white}
           />
         </TouchableOpacity>
+        <TouchableOpacity
+          style={style.secondaryButton}
+          onPress={handleOnPressSecondaryButton}
+          accessibilityLabel={t("common.start")}
+        >
+          <View style={style.secondaryButtonIconContainer}>
+            <SvgXml
+              xml={Icons.QuestionMark}
+              fill={Colors.primary.shade125}
+              width={Iconography.xxxSmall}
+              height={Iconography.xxxSmall}
+            />
+          </View>
+          <Text style={style.secondaryButtonText}>
+            {t("export.intro.what_is_a")}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
       {isLoading && <LoadingIndicator />}
     </KeyboardAvoidingView>
@@ -243,14 +267,10 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
   headerContainer: {
-    marginBottom: Spacing.xxLarge,
+    marginBottom: Spacing.medium,
   },
   header: {
     ...Typography.header.x60,
-    marginBottom: Spacing.xxSmall,
-  },
-  subheader: {
-    ...Typography.body.x30,
   },
   errorSubtitle: {
     ...Typography.utility.error,
@@ -273,9 +293,11 @@ const style = StyleSheet.create({
   },
   button: {
     ...Buttons.primary.base,
+    marginBottom: Spacing.small,
   },
   buttonDisabled: {
     ...Buttons.primary.disabled,
+    marginBottom: Spacing.small,
   },
   buttonText: {
     ...Typography.button.primary,
@@ -284,6 +306,15 @@ const style = StyleSheet.create({
   buttonDisabledText: {
     ...Typography.button.primaryDisabled,
     marginRight: Spacing.small,
+  },
+  secondaryButton: {
+    ...Buttons.secondary.leftIcon,
+  },
+  secondaryButtonIconContainer: {
+    ...Buttons.circle.base,
+  },
+  secondaryButtonText: {
+    ...Typography.button.secondaryLeftIcon,
   },
 })
 

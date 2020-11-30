@@ -8,8 +8,10 @@ import {
 } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useNavigation } from "@react-navigation/native"
+import { SvgXml } from "react-native-svg"
 
 import {
+  AffectedUserFlowStackScreens,
   HomeStackScreens,
   ModalStackScreens,
   useStatusBarEffect,
@@ -23,8 +25,16 @@ import SectionButton from "./SectionButton"
 import ShareLink from "./ShareLink"
 import CallEmergencyServices from "./CallEmergencyServices"
 
-import { Images } from "../assets"
-import { Outlines, Spacing, Colors, Typography, Affordances } from "../styles"
+import { Icons, Images } from "../assets"
+import {
+  Outlines,
+  Spacing,
+  Colors,
+  Typography,
+  Affordances,
+  Iconography,
+  Buttons,
+} from "../styles"
 
 const IMAGE_HEIGHT = 170
 
@@ -32,7 +42,6 @@ const Home: FunctionComponent = () => {
   useStatusBarEffect("dark-content", Colors.background.primaryLight)
   const { t } = useTranslation()
   const {
-    displayCallbackForm,
     displayCallEmergencyServices,
     displayCovidData,
     displaySelfAssessment,
@@ -50,7 +59,6 @@ const Home: FunctionComponent = () => {
         <Text style={style.headerText}>{t("screen_titles.home")}</Text>
         <ExposureDetectionStatusCard />
         {displayCovidData && <CovidDataCard />}
-        {displayCallbackForm && <TalkToContactTracer />}
         <ReportTestResult />
         <ShareLink />
         {displaySelfAssessment && <SelfAssessment />}
@@ -65,34 +73,6 @@ const Home: FunctionComponent = () => {
   )
 }
 
-const TalkToContactTracer: FunctionComponent = () => {
-  const navigation = useNavigation()
-  const { t } = useTranslation()
-
-  const handleOnPressTalkToContactTracer = () => {
-    navigation.navigate(ModalStackScreens.CallbackStack)
-  }
-
-  return (
-    <TouchableOpacity
-      onPress={handleOnPressTalkToContactTracer}
-      style={style.floatingContainer}
-    >
-      <Image
-        source={Images.HowItWorksValueProposition}
-        style={style.image}
-        width={200}
-        height={IMAGE_HEIGHT}
-      />
-      <Text style={style.sectionHeaderText}>
-        {t("home.did_you_test_positive")}
-      </Text>
-      <Text style={style.sectionBodyText}>{t("home.to_submit_your_test")}</Text>
-      <SectionButton text={t("home.request_call")} />
-    </TouchableOpacity>
-  )
-}
-
 const ReportTestResult: FunctionComponent = () => {
   const navigation = useNavigation()
   const { t } = useTranslation()
@@ -101,22 +81,43 @@ const ReportTestResult: FunctionComponent = () => {
     navigation.navigate(HomeStackScreens.AffectedUserStack)
   }
 
+  const handleOnPressMoreInfo = () => {
+    navigation.navigate(HomeStackScreens.AffectedUserStack, {
+      screen: AffectedUserFlowStackScreens.VerificationCodeInfo,
+    })
+  }
+
   return (
     <TouchableOpacity
       onPress={handleOnPressReportTestResult}
       style={style.floatingContainer}
     >
-      <Image
-        source={Images.ProtectPrivacySubmitKeys}
-        style={style.image}
-        width={130}
-        height={IMAGE_HEIGHT}
-      />
+      <View style={style.cardTopContainer}>
+        <Image
+          source={Images.ProtectPrivacySubmitKeys}
+          style={style.image}
+          width={130}
+          height={IMAGE_HEIGHT}
+        />
+        <TouchableOpacity
+          onPress={handleOnPressMoreInfo}
+          style={style.moreInfoButton}
+          accessibilityRole="button"
+          accessibilityLabel={t("home.verification_code_card.more_info")}
+        >
+          <SvgXml
+            xml={Icons.QuestionMark}
+            fill={Colors.primary.shade125}
+            width={Iconography.xxxSmall}
+            height={Iconography.xxxSmall}
+          />
+        </TouchableOpacity>
+      </View>
       <Text style={style.sectionHeaderText}>
         {t("home.have_a_positive_test")}
       </Text>
       <Text style={style.sectionBodyText}>{t("home.if_you_have_a_code")}</Text>
-      <SectionButton text={t("home.report_result")} />
+      <SectionButton text={t("home.submit_code")} />
     </TouchableOpacity>
   )
 }
@@ -195,9 +196,16 @@ const style = StyleSheet.create({
   floatingContainer: {
     ...Affordances.floatingContainer,
   },
+  cardTopContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   image: {
     resizeMode: "contain",
     marginBottom: Spacing.small,
+  },
+  moreInfoButton: {
+    ...Buttons.circle.base,
   },
   sectionHeaderText: {
     ...Typography.header.x40,

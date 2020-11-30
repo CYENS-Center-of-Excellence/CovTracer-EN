@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="background_worker_notification_title">Έλεγχος για εκθέσεις...</string>
   <string name="exposure_notification_channel_description">Ειδοποιήσεις έκθεσης</string>
   <string name="exposure_notification_channel_name">Ειδοποίηση έκθεσης</string>
   <string name="exposure_notification_message">Κάποιος που ήταν κοντά σας πρόσφατα έχει διαγνωστεί με τον COVID-19. Σας προτείνουμε να καλέσετε τον προσωπικό σας ιατρό για συμβουλές σχετικά με περαιτέρω ενέργειες. Στο ενδιάμεσο, σας παρακαλούμε να απομονωθείτε και να αποφύγετε την επαφή με άτομα γύρω σας.</string>
