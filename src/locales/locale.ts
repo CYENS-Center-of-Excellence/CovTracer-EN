@@ -27,7 +27,6 @@ export type Locale =
   | "ur"
   | "vi"
   | "zh_Hant"
-  | "tr"
 
 export const toIETFLanguageTag = (locale: Locale): string => {
   switch (locale) {
@@ -149,9 +148,6 @@ export const fromString = (l: string): Locale => {
     }
     case "zh_Hant": {
       return "zh_Hant"
-    }
-    case "tr": {
-      return "tr"
     }
     default: {
       return "en"
