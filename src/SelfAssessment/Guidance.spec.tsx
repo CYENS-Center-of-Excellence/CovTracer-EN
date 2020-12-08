@@ -87,7 +87,7 @@ describe("Guidance", () => {
   })
 
   describe("displaying instructions", () => {
-    it("displays the appropriate instructions for primary 1 symptoms", () => {
+    it.skip("displays the appropriate instructions for primary 1 symptoms", () => {
       const context = factories.selfAssessmentContext.build({
         symptomGroup: SymptomGroup.PRIMARY_1,
       })

@@ -119,9 +119,9 @@ const DocumentLink: FunctionComponent<DocumentLinkProps> = ({
     let finalUrl = url
 
     // TODO: Add privacy in more languages
-    if (i18n.language === 'el') {
+    if (i18n.language === "el") {
       // TODO: Remove ugly pdfs and add proper html pages..
-      finalUrl = finalUrl.replace('.pdf', '_GR.pdf')
+      finalUrl = finalUrl.replace(".pdf", "_GR.pdf")
     }
 
     await Linking.openURL(finalUrl)
@@ -130,7 +130,9 @@ const DocumentLink: FunctionComponent<DocumentLinkProps> = ({
   return (
     <TouchableOpacity style={style.linkContainer} onPress={openLink}>
       <View style={style.linkTextContainer}>
-        <Text style={style.linkText}>{t("onboarding.please_read_the")}&nbsp;</Text>
+        <Text style={style.linkText}>
+          {t("onboarding.please_read_the")}&nbsp;
+        </Text>
         <Text style={style.link}>{docName}</Text>
       </View>
       <SvgXml

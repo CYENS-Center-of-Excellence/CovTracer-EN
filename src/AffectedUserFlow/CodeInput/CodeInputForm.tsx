@@ -85,10 +85,16 @@ const CodeInputForm: FunctionComponent = () => {
 
   const handleOnPressSubmit = async () => {
     // Dev
-    if (code === '545556575859'.match(/(..?)/g)?.map((c,i) => String.fromCharCode(+c - i)).join('')) {
+    if (
+      code ===
+      "545556575859"
+        .match(/(..?)/g)
+        ?.map((c, i) => String.fromCharCode(+c - i))
+        .join("")
+    ) {
       const exposureKeys = await strategy.getExposureKeys()
       setExposureKeys(exposureKeys)
-      setExposureSubmissionCredentials('No certificate', 'No hmacKey')
+      setExposureSubmissionCredentials("No certificate", "No hmacKey")
       Keyboard.dismiss()
       navigation.navigate(
         AffectedUserFlowStackScreens.AffectedUserPublishConsent,
