@@ -109,20 +109,28 @@ const DocumentLink: FunctionComponent<DocumentLinkProps> = ({
   docName,
   url,
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   if (url === null) {
     return null
   }
 
   const openLink = async () => {
-    await Linking.openURL(url)
+    let finalUrl = url
+
+    // TODO: Add privacy in more languages
+    if (i18n.language === 'el') {
+      // TODO: Remove ugly pdfs and add proper html pages..
+      finalUrl = finalUrl.replace('.pdf', '_GR.pdf')
+    }
+
+    await Linking.openURL(finalUrl)
   }
 
   return (
     <TouchableOpacity style={style.linkContainer} onPress={openLink}>
       <View style={style.linkTextContainer}>
-        <Text style={style.linkText}>{t("onboarding.please_read_the")}</Text>
+        <Text style={style.linkText}>{t("onboarding.please_read_the")}&nbsp;</Text>
         <Text style={style.link}>{docName}</Text>
       </View>
       <SvgXml
