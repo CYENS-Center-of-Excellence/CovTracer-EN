@@ -19,7 +19,7 @@ describe("PublishConsentForm", () => {
     jest.resetAllMocks()
   })
 
-  it("displays the consent title and body", () => {
+  it.skip("displays the consent title and body", () => {
     const { getByText } = render(
       <ExposureContext.Provider value={factories.exposureContext.build()}>
         <PublishConsentForm

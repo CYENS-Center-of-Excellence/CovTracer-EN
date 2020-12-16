@@ -35,7 +35,7 @@ const Legal: FunctionComponent = () => {
       </Text>
       {healthAuthorityPrivacyPolicyUrl && (
         <>
-          <Text>{t('settings.privacy_policy_description')}</Text>
+          <Text>{t("settings.privacy_policy_description")}</Text>
           <ExternalLink
             url={healthAuthorityPrivacyPolicyUrl}
             label={t("label.privacy_policy")}
