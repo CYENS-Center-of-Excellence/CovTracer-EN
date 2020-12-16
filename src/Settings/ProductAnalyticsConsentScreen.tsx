@@ -19,7 +19,7 @@ import { Colors, Typography, Spacing, Buttons } from "../styles"
 
 const ProductAnalyticsConsentScreen: FunctionComponent = () => {
   useStatusBarEffect("dark-content", Colors.secondary.shade10)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigation = useNavigation()
   const { healthAuthorityPrivacyPolicyUrl } = useConfigurationContext()
   const {
@@ -36,7 +36,15 @@ const ProductAnalyticsConsentScreen: FunctionComponent = () => {
   }
 
   const handleOnPressPrivacyPolicy = () => {
-    Linking.openURL(healthAuthorityPrivacyPolicyUrl)
+    let finalUrl = healthAuthorityPrivacyPolicyUrl
+
+    // TODO: Add privacy in more languages
+    if (i18n.language === "el") {
+      // TODO: Remove ugly pdfs and add proper html pages..
+      finalUrl = finalUrl.replace("covtracer02_en", "covtracer02_el")
+    }
+
+    Linking.openURL(finalUrl)
   }
   const privacyPolicyLinkText = t("product_analytics.privacy_policy")
 

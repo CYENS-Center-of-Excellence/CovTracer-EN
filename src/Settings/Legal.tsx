@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next"
 import { useApplicationName } from "../Device/useApplicationInfo"
 import { useConfigurationContext } from "../ConfigurationContext"
 import ExternalLink from "./ExternalLink"
-import { useCustomCopy } from "../configuration/useCustomCopy"
 import {
   loadAuthorityLinks,
   applyTranslations,
@@ -22,10 +21,7 @@ const Legal: FunctionComponent = () => {
     i18n: { language: localeCode },
   } = useTranslation()
   const { applicationName } = useApplicationName()
-  const { healthAuthorityLegalPrivacyPolicyUrl } = useConfigurationContext()
-  const { healthAuthorityName, legal: customLegalCopy } = useCustomCopy()
-
-  const legalContent = customLegalCopy || healthAuthorityName
+  const { healthAuthorityPrivacyPolicyUrl } = useConfigurationContext()
 
   const authorityLinks = applyTranslations(
     loadAuthorityLinks("legal"),
@@ -37,12 +33,14 @@ const Legal: FunctionComponent = () => {
       <Text style={style.headerContent} testID={"licenses-legal-header"}>
         {applicationName}
       </Text>
-      <Text style={style.contentText}>{legalContent}</Text>
-      {healthAuthorityLegalPrivacyPolicyUrl && (
-        <ExternalLink
-          url={healthAuthorityLegalPrivacyPolicyUrl}
-          label={t("label.privacy_policy")}
-        />
+      {healthAuthorityPrivacyPolicyUrl && (
+        <>
+          <Text>{t('settings.privacy_policy_description')}</Text>
+          <ExternalLink
+            url={healthAuthorityPrivacyPolicyUrl}
+            label={t("label.privacy_policy")}
+          />
+        </>
       )}
       {authorityLinks?.map(({ url, label }) => {
         return <ExternalLink key={label} url={url} label={label} />

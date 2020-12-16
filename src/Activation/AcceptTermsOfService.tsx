@@ -121,7 +121,7 @@ const DocumentLink: FunctionComponent<DocumentLinkProps> = ({
     // TODO: Add privacy in more languages
     if (i18n.language === "el") {
       // TODO: Remove ugly pdfs and add proper html pages..
-      finalUrl = finalUrl.replace(".pdf", "_GR.pdf")
+      finalUrl = finalUrl.replace("covtracer02_en", "covtracer02_el")
     }
 
     await Linking.openURL(finalUrl)
