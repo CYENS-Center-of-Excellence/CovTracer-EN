@@ -1,17 +1,24 @@
-import React, { FunctionComponent } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
-import { SvgXml } from 'react-native-svg'
+import React, { FunctionComponent } from "react"
+import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import { useTranslation } from "react-i18next"
+import { SvgXml } from "react-native-svg"
 
-import { ModalStackScreens } from '../../navigation'
-import { Text } from '../../components'
-import { useConnectionStatus } from '../../Device/useConnectionStatus'
-import { useCustomCopy } from '../../configuration/useCustomCopy'
+import { ModalStackScreens } from "../../navigation"
+import { Text } from "../../components"
+import { useConnectionStatus } from "../../Device/useConnectionStatus"
+import { useCustomCopy } from "../../configuration/useCustomCopy"
 
-import { Buttons, Colors, Iconography, Outlines, Spacing, Typography, } from '../../styles'
-import { Icons } from '../../assets'
-import { useConfigurationContext } from '../../ConfigurationContext'
+import {
+  Buttons,
+  Colors,
+  Iconography,
+  Outlines,
+  Spacing,
+  Typography,
+} from "../../styles"
+import { Icons } from "../../assets"
+import { useConfigurationContext } from "../../ConfigurationContext"
 
 const ExposureActions: FunctionComponent = () => {
   const { t } = useTranslation()
@@ -37,61 +44,74 @@ const ExposureActions: FunctionComponent = () => {
   //   !displaySelfAssessment && healthAuthorityAdviceUrl !== ''
 
   const stayApartRecommendationText =
-    measurementSystem === 'Imperial'
-      ? t('exposure_history.exposure_detail.6ft_apart')
-      : t('exposure_history.exposure_detail.2m_apart')
+    measurementSystem === "Imperial"
+      ? t("exposure_history.exposure_detail.6ft_apart")
+      : t("exposure_history.exposure_detail.2m_apart")
 
   const recommendations = [
     { icon: Icons.StayApart, text: stayApartRecommendationText },
-    { icon: Icons.Mask, text: t('exposure_history.exposure_detail.wear_a_mask') },
-    { icon: Icons.WashHands, text: t('exposure_history.exposure_detail.wash_your_hands') },
-    { icon: Icons.DisinfectSurfaces, text: t('exposure_history.exposure_detail.disinfect_surfaces') },
-    { icon: Icons.Ventilation, text: t('exposure_history.exposure_detail.ventilation') },
-    { icon: Icons.IsolateBubbles, text: t('exposure_history.exposure_detail.quarantine') },
+    {
+      icon: Icons.Mask,
+      text: t("exposure_history.exposure_detail.wear_a_mask"),
+    },
+    {
+      icon: Icons.WashHands,
+      text: t("exposure_history.exposure_detail.wash_your_hands"),
+    },
+    {
+      icon: Icons.DisinfectSurfaces,
+      text: t("exposure_history.exposure_detail.disinfect_surfaces"),
+    },
+    {
+      icon: Icons.Ventilation,
+      text: t("exposure_history.exposure_detail.ventilation"),
+    },
+    {
+      icon: Icons.IsolateBubbles,
+      text: t("exposure_history.exposure_detail.quarantine"),
+    },
   ].map((el, index) => (
-    <RecommendationBubble key={index} icon={el.icon} text={el.text}/>
+    <RecommendationBubble key={index} icon={el.icon} text={el.text} />
   ))
 
   return (
     <>
       <Text style={style.bottomSubheaderText}>
-        {t('exposure_history.exposure_detail.ha_guidance_header')}
+        {t("exposure_history.exposure_detail.ha_guidance_header")}
       </Text>
       <>
         {displayCallbackForm && (
-          <RequestCallBackActions healthAuthorityName={healthAuthorityName}/>
+          <RequestCallBackActions healthAuthorityName={healthAuthorityName} />
         )}
         <View>
           <Text style={style.instructionText}>
-            {t('exposure_history.exposure_detail.instructions_0')}
+            {t("exposure_history.exposure_detail.instructions_0")}
           </Text>
           <Text style={style.instructionText}>
-            {t('exposure_history.exposure_detail.instructions_1')}
+            {t("exposure_history.exposure_detail.instructions_1")}
           </Text>
           <Text style={style.instructionText}>
-            {t('exposure_history.exposure_detail.instructions_2')}
+            {t("exposure_history.exposure_detail.instructions_2")}
           </Text>
         </View>
         <Text style={style.bottomSubheaderText}>
-          {t('exposure_history.exposure_detail.general_guidance', {
+          {t("exposure_history.exposure_detail.general_guidance", {
             healthAuthorityName,
           })}
         </Text>
-        <View style={style.recommendations}>
-          {recommendations}
-        </View>
+        <View style={style.recommendations}>{recommendations}</View>
         {displaySelfAssessment && (
           <TouchableOpacity
             style={style.buttonOutlined}
             onPress={handleOnPressPersonalizeMyGuidance}
             accessibilityLabel={t(
-              'exposure_history.exposure_detail.personalize_my_guidance',
+              "exposure_history.exposure_detail.personalize_my_guidance",
             )}
           >
             <Text style={style.buttonOutlinedText}>
-              {t('exposure_history.exposure_detail.personalize_my_guidance')}
+              {t("exposure_history.exposure_detail.personalize_my_guidance")}
             </Text>
-            <SvgXml xml={Icons.Arrow} fill={Colors.primary.shade100}/>
+            <SvgXml xml={Icons.Arrow} fill={Colors.primary.shade100} />
           </TouchableOpacity>
         )}
         {/*{displayNextStepsLink && (*/}
@@ -111,7 +131,7 @@ const ExposureActions: FunctionComponent = () => {
         {/*)}*/}
         {!isInternetReachable && (
           <Text style={style.connectivityWarningText}>
-            {t('exposure_history.no_connectivity_message')}
+            {t("exposure_history.no_connectivity_message")}
           </Text>
         )}
       </>
@@ -136,7 +156,7 @@ const RequestCallBackActions: FunctionComponent<RequestCallBackActionsProps> = (
   return (
     <>
       <Text style={style.bottomSubheaderText}>
-        {t('exposure_history.exposure_detail.schedule_callback', {
+        {t("exposure_history.exposure_detail.schedule_callback", {
           healthAuthorityName,
         })}
       </Text>
@@ -144,13 +164,13 @@ const RequestCallBackActions: FunctionComponent<RequestCallBackActionsProps> = (
         style={style.button}
         onPress={handleOnPressRequestCallback}
         accessibilityLabel={t(
-          'exposure_history.exposure_detail.speak_with_contact_tracer',
+          "exposure_history.exposure_detail.speak_with_contact_tracer",
         )}
       >
         <Text style={style.buttonText}>
-          {t('exposure_history.exposure_detail.speak_with_contact_tracer')}
+          {t("exposure_history.exposure_detail.speak_with_contact_tracer")}
         </Text>
-        <SvgXml xml={Icons.Arrow} fill={Colors.background.primaryLight}/>
+        <SvgXml xml={Icons.Arrow} fill={Colors.background.primaryLight} />
       </TouchableOpacity>
     </>
   )
@@ -190,12 +210,12 @@ const style = StyleSheet.create({
     marginBottom: Spacing.medium,
   },
   recommendations: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginBottom: Spacing.xxxLarge,
   },
   recommendation: {
-    display: 'flex',
+    display: "flex",
     marginBottom: Spacing.xxSmall,
     marginRight: Spacing.small,
     maxWidth: 100,
@@ -205,14 +225,14 @@ const style = StyleSheet.create({
     borderRadius: Outlines.borderRadiusMax,
     backgroundColor: Colors.secondary.shade10,
     padding: Spacing.xLarge,
-    marginBottom: Spacing.xSmall
+    marginBottom: Spacing.xSmall,
   },
   recommendationText: {
     ...Typography.body.x10,
   },
   instructionText: {
     ...Typography.body.x10,
-    marginBottom: Spacing.xSmall
+    marginBottom: Spacing.xSmall,
   },
   connectivityWarningText: {
     ...Typography.utility.error,
