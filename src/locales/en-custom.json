@@ -35,5 +35,19 @@
   },
   "settings": {
     "privacy_policy_description": "This privacy notice explains what data is collected when you use the CovTracer-EN, how that data is used, and your rights under data protection law.\n\nTo ensure that this privacy notice can be understood by all users, we have made every effort to make it simple and as non-technical as possible. The CovTracer-EN (the “Mobile App”) has been developed by the Research Centre on Interactive Media, Smart Systems and Emerging Technologies (RISE) (the “RISE CoE”), in collaboration with the KIOS Center of Excellence, University of Cyprus (the “KIOS CoE”) as a Join Project assigned by the Ministry of Health of the Republic of Cyprus (the “MoH”)and Coordinated by the Cyprus National eHealth Authority with the Deputy Ministry of Research Innovation and Digital Policy of the Republic of Cyprus serving a consultative function. The Cyprus National eHealth Authority with the Deputy Ministry of Research Innovation and Digital Policy of the Republic of Cyprus are not involved in any Data Management."
+  },
+  "exposure_history": {
+    "exposure_detail": {
+      "2m_apart": "2 μέτρα απόσταση",
+      "wear_a_mask": "χρήση μάσκας",
+      "wash_your_hands": "συχνό πλύσιμο των χεριών",
+      "disinfect_surfaces": "απολύμανση επιφανειών",
+      "ventilation": "καλός αερισμός των χώρων",
+      "quarantine": "μείνετε σπίτι σε περίπτωση συμπτώματων",
+
+      "instructions_0": "Σε περίπτωση που παρουσιάζετε ή θα παρουσιάσετε στις επόμενες ημέρες συμπτώματα συμβατά με τη νόσο, επικοινωνήστε τηλεφωνικά με τον Προσωπικό σας Ιατρό, ενημερώνοντας τον για την συμπτωματολογία σας καθώς και για το παρόν μήνυμα που έχετε λάβει έτσι ώστε να προγραμματίσει την εξέταση σας.",
+      "instructions_1": "Στην περίπτωση που το επιβεβαιωμένο κρούσμα σας αναφέρει ονομαστικά στην ομάδα ιχνηλάτησης ως στενή επαφή, τότε θα σας αποσταλεί μήνυμα SMS στο τηλέφωνο σας από τη Μονάδα Επιδημιολογικής Επιτήρησης και Ελέγχου Λοιμωδών Νοσημάτων με λεπτομερείς οδηγίες όσον αφορά σε μέτρα δημόσιας υγείας που πρέπει να ακολουθήσετε αλλά και την πραγματοποίηση εργαστηριακής διερεύνησης.",
+      "instructions_2": "Εάν δεν ειδοποιηθείτε από την  Μονάδα Επιδημιολογικής Επιτήρησης(δηλαδή δεν ισχύει το σημείο 1) και επιθυμείτε να εξεταστείτε εργαστηριακά, παρακαλώ όπως καλέσετε τον τηλεφωνικό αριθμό22572610, μεταξύ των ωρών 08:00 π.μ – 06:00 μ.μ, αναφέροντας ότι έχετε εντοπιστεί ως πιθανή επαφή μέσω της εφαρμογής CovTracer-ΕΝ. Σημειώνεται ότι κατά την προσέλευση σας στον εργαστηριακό έλεγχο που θα προγραμματιστεί, θα πρέπει απαραίτητα να επιδείξετε το παρόν μήνυμα της εφαρμογής ως αυτό εμφανίζεται στη συσκευή σας."
+    }
   }
 }

@@ -54,6 +54,8 @@ import WashHands from "./WashHands"
 import Wrench from "./wrench"
 import X from "./x"
 import XInCircle from "./xInCircle"
+import DisinfectSurfaces from "./disinfectSurfaces"
+import Ventilation from "./ventilation"
 
 export const Icons = {
   AlertCircle,
@@ -112,4 +114,6 @@ export const Icons = {
   Wrench,
   X,
   XInCircle,
+  DisinfectSurfaces,
+  Ventilation,
 }
