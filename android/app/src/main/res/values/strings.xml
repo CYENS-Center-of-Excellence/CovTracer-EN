@@ -4,7 +4,7 @@
   <string name="app_name" translatable="false">CovTracer EN</string>
   <string name="exposure_notification_channel_description">Exposure notification alerts.</string>
   <string name="exposure_notification_channel_name">Exposure Notification</string>
-  <string name="exposure_notification_message">Someone who was near you recently has been diagnosed with COVID-19. We suggest you to call your general practitioner for advice on further steps. In the meantime, we ask you to self-isolate and avoid prolonged contact with people around you.</string>
+  <string name="exposure_notification_message">CovTracer-EN has traced POSSIBLE CONTACT WITH A CONFIRMED CASE OF COVID-19 after assessing the  date, duration and proximity of your contact with a confirmed case.</string>
   <string name="exposure_notification_title">Possible COVID-19 exposure</string>
   <string name="background_worker_notification_title">Checking exposures…</string>
 </resources>
