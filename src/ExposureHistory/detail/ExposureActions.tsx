@@ -212,23 +212,27 @@ const style = StyleSheet.create({
   recommendations: {
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "flex-start",
     marginBottom: Spacing.xxxLarge,
   },
   recommendation: {
     display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "50%",
     marginBottom: Spacing.xxSmall,
-    marginRight: Spacing.small,
-    maxWidth: 100,
   },
   recommendationBubbleCircle: {
     ...Iconography.smallIcon,
     borderRadius: Outlines.borderRadiusMax,
     backgroundColor: Colors.secondary.shade10,
     padding: Spacing.xLarge,
-    marginBottom: Spacing.xSmall,
+    marginTop: Spacing.xxSmall,
+    marginBottom: Spacing.xxSmall,
   },
   recommendationText: {
     ...Typography.body.x10,
+    textAlign: "center",
   },
   instructionText: {
     ...Typography.body.x10,
