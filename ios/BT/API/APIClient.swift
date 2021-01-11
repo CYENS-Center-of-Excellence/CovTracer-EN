@@ -30,7 +30,7 @@ protocol APIClient {
 }
 
 class BTAPIClient: APIClient {
-  
+
   let postKeysUrl: URL
   let downloadBaseUrl: URL
   let exposureConfigurationUrl: URL
@@ -45,7 +45,7 @@ class BTAPIClient: APIClient {
       exposureConfigurationUrl: exposureConfigurationUrl
     )
   }()
-  
+
   private let sessionManager: SessionManager
 
   init(postKeysUrl: URL,
@@ -54,17 +54,18 @@ class BTAPIClient: APIClient {
     self.postKeysUrl = postKeysUrl
     self.downloadBaseUrl = downloadBaseUrl
     self.exposureConfigurationUrl = exposureConfigurationUrl
-    
+
     let configuration = URLSessionConfiguration.default
-    
+
     let headers = SessionManager.defaultHTTPHeaders
-    
+
     configuration.httpAdditionalHeaders = headers
     configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-    
+    configuration.urlCredentialStorage = nil
+
     sessionManager = SessionManager(configuration: configuration)
   }
-  
+
   func request<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping GenericCompletion) where T.ResponseType == Void {
     dataRequest(for: request, requestType: requestType)
       .validate(validate)
@@ -77,7 +78,7 @@ class BTAPIClient: APIClient {
         }
     }
   }
-  
+
   func downloadRequest<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T.ResponseType: DownloadableFile {
     downloadRequest(for: request, requestType: requestType).responseData { response in
       guard let data = response.result.value else {
@@ -92,7 +93,7 @@ class BTAPIClient: APIClient {
       }
     }
   }
-  
+
   func request<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<JSONObject>) -> Void) where T.ResponseType == JSONObject {
     dataRequest(for: request, requestType: requestType)
       .validate(validate)
@@ -105,15 +106,15 @@ class BTAPIClient: APIClient {
         }
     }
   }
-  
+
   func request<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T.ResponseType: Decodable {
     requestDecodable(request, requestType: requestType, completion: completion)
   }
-  
+
   func requestList<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<[T.ResponseType.Element]>) -> Void) where T.ResponseType: Collection, T.ResponseType.Element: Decodable {
     requestDecodables(request, requestType: requestType, completion: completion)
   }
-  
+
   func requestString<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T.ResponseType == String {
     dataRequest(for: request, requestType: requestType)
       .validate(validate)
@@ -126,30 +127,30 @@ class BTAPIClient: APIClient {
         }
     }
   }
-  
+
   func cancelAllRequests() {
     sessionManager.session.getAllTasks { tasks in
       tasks.forEach { $0.cancel() }
     }
   }
-  
+
   static var documentsDirectory: URL? {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    
+
     return paths.first
   }
-  
+
 }
 
 // MARK: - Private
 
 private extension BTAPIClient {
-  
+
   enum Key {
     static let error = "error"
     static let errorMessage = "error_description"
   }
-  
+
   func downloadRequest<T: APIRequest>(for request: T,
                                       requestType: RequestType) -> DataRequest {
     let baseUrl = baseUrlFor(requestType)
@@ -170,12 +171,12 @@ private extension BTAPIClient {
     debugPrint(r)
     return r
   }
-  
+
   func validate(request: URLRequest?, response: HTTPURLResponse, data: Data?) -> Request.ValidationResult {
     if (200...399).contains(response.statusCode) {
       return .success
     }
-    
+
     // Attempt to deserialize structured error, if it exists
     if let data = data, let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? JSONObject, let errorJson = json[Key.error] as? JSONObject {
       do {
@@ -184,11 +185,11 @@ private extension BTAPIClient {
         return .failure(error)
       }
     }
-    
+
     // Fallback on a simple status code error
     return .failure(GenericError(statusCode: response.statusCode))
   }
-  
+
   func requestDecodable<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T.ResponseType: Decodable {
     dataRequest(for: request, requestType: requestType)
       .validate(validate)
@@ -207,7 +208,7 @@ private extension BTAPIClient {
         }
     }
   }
-  
+
   func requestDecodables<T: APIRequest>(_ request: T, requestType: RequestType, completion: @escaping (Result<[T.ResponseType.Element]>) -> Void) where T.ResponseType: Collection, T.ResponseType.Element: Decodable {
     requestDecodable(CollectionAPIRequest(request: request), requestType: requestType) { result in
       switch result {
@@ -234,23 +235,23 @@ private extension BTAPIClient {
 }
 
 private struct CollectionAPIRequest<T: APIRequest>: APIRequest where T.ResponseType: Collection, T.ResponseType.Element: Decodable {
-  
+
   typealias ResponseType = ResultsContainer<T.ResponseType.Element>
-  
+
   let request: T
-  
+
   var method: HTTPMethod {
     return request.method
   }
-  
+
   var path: String {
     return request.path
   }
-  
+
   var parameters: Parameters? {
     return request.parameters
   }
-  
+
 }
 
 private struct ResultsContainer<T: Decodable>: Decodable {
@@ -258,7 +259,7 @@ private struct ResultsContainer<T: Decodable>: Decodable {
 }
 
 private extension GenericError {
-  
+
   init(statusCode: Int) {
     switch statusCode {
     case 400:
@@ -271,7 +272,7 @@ private extension GenericError {
       self = .unknown
     }
   }
-  
+
 }
 
 private extension DateFormatter {
