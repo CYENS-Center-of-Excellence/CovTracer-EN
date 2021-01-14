@@ -54,6 +54,7 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background.primaryLight,
     paddingTop: Spacing.large,
+    paddingBottom: Spacing.large,
     paddingHorizontal: Spacing.small,
   },
   headerContent: {

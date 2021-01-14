@@ -40,6 +40,7 @@ import zh_Hant from "./zh_Hant.json"
 
 import enCustom from "./en-custom.json"
 import elCustom from "./el-custom.json"
+import trCustom from "./tr-custom.json"
 
 // Refer this for checking the codes and creating new folders
 // https://developer.chrome.com/webstore/i18n
@@ -79,7 +80,7 @@ const LANGUAGE_RESOURCES: Resource = {
   sk: { label: sk._display_name, translation: sk },
   so: { label: so._display_name, translation: so },
   tl: { label: tl._display_name, translation: tl },
-  tr: { label: tr._display_name, translation: tr },
+  tr: { label: tr._display_name, translation: mergeDeep(tr, trCustom) },
   ur: { label: ur._display_name, translation: ur },
   vi: { label: vi._display_name, translation: vi },
   zh_Hant: { label: zh_Hant._display_name, translation: zh_Hant },

@@ -1,0 +1,25 @@
+{
+  "_display_name": "Türkçe",
+  "export": {
+    "intro": {
+      "body1": "Bulaşıcı Hastalıklar Sürveyans ve Kontrol Birimi (US&CCD) tarafından COVID-19 testinin pozitif olduğu yönünde bilgilendirilmen ve sana doğrulama kodunun gönderilmesi durumunda bu kodu şu ekrandan girebilirsin.",
+      "body2": "Sana böyle bir kod gönderilmemişse, o zaman devam edemezsin."
+    }
+  },
+  "navigation": {
+    "reporting": "İstatistik"
+  },
+  "screen_titles": {
+    "reporting": "İstatistik"
+  },
+  "exposure_history": {
+    "exposure_detail": {
+      "disinfect_surfaces": "Yüzeyin dezenfekte edilmesi",
+      "ventilation": "Doğal yollarla kapalı mekanların havalandırılması",
+
+      "instructions_0": "Hastalıkla uyumlu belirtilerin varsa veya önümüzdeki günlerde bu tarz belirtiler yaşamaya başlarsan, kendi doktorunla telefon aracılığıyla iletişime geç ve laboratuvar testini ayarlayabilmesi amacıyla ona belirtiler ve bu uygulamanın sana gönderdiği mesaj hakkında bilgi ver.",
+      "instructions_1": "Teyit edilmiş vakanın, yakın temaslı olduğuna dair senin ismini Temaslı Takip Ekibi’ne bildirmesi halinde Bulaşıcı Hastalıklar Sürveyans ve Kontrol Birimi’nden (US &CCD) kamu sağlığı açısından uyulması gereken tedbirlerle ilgili detaylı talimatlar ve laboratuvar testi için randevu bilgisi içerecek bir SMS alacaksın.",
+      "instructions_2": "US&CCD size bu bilgileri göndermezse (1. Madde geçerli olmaz) ve laboratuvarda test yaptırmak istersen lütfen 08:00- 18:00 saatleri arasından Halk Sağlığı Klinikleri Koordinasyonu‘nu (tel. 22572610) ara ve CovTracer-EN uygulaması aracılığıyla olası temaslı olarak tespit edildiğini belirt. Test merkezinde, testini yaptırmadan önce senden, uygulama üzerinden aldığın mesajı cep telefonunda görünen şekliyle göstermenin isteneceğini lütfen unutma."
+    }
+  }
+}

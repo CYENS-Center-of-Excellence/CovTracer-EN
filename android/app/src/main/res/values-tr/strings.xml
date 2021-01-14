@@ -2,6 +2,6 @@
 <resources>
   <string name="exposure_notification_channel_description">Maruz kalma bildirimi uyarıları</string>
   <string name="exposure_notification_channel_name">Maruz Kalma Bildirimi</string>
-  <string name="exposure_notification_message">Kısa süre önce yakınınızda bulunmuş olan birisine Covid-19 tanısı konuldu. Yapılması gerekenlerle ilgili tavsiye almak amacıyla doktorunuzu aramanızı öneririz. Bu süre içinde de kendinizi izole etmeli ve etrafınızdaki insanlarla uzun süreli temastan kaçınmalısınız.</string>
+  <string name="exposure_notification_message">CovTracer-EN, tarih, süre ve teyit edilmiş vakayla temasının yakınlığını değerlendirdikten sonra TEYİT EDİLMİŞ BİR COVID-19 VAKASIYLA OLASI TEMASININ olduğunu tespit etmiştir.</string>
   <string name="exposure_notification_title">Olası COVID-19 maruziyeti</string>
 </resources>
