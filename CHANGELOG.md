@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.2 (43)
+- Update tr translations
+
 ## 1.3.1 (41)
 - Exposure details guidance style/ icons update
 
