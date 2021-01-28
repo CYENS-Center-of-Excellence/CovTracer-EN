@@ -10,11 +10,7 @@ import { useNavigation } from "@react-navigation/native"
 import "@testing-library/jest-native/extend-expect"
 
 import { HomeStackScreens } from "../../navigation"
-import {
-  PermissionsContext,
-  ENPermissionStatus,
-} from "../../Device/PermissionsContext"
-import { LocationPermissions } from "../../Device/useLocationPermissions"
+import { PermissionsContext } from "../../Device/PermissionsContext"
 import { factories } from "../../factories"
 import { RequestAuthorizationResponse } from "../../gaen/nativeModule"
 import ExposureDetectionStatusScreen from "./Screen"
@@ -32,6 +28,18 @@ jest.mock("../../Device/useApplicationInfo", () => {
   }
 })
 
+let mockedRequestAuthorizationResponse: RequestAuthorizationResponse = {
+  kind: "success",
+  status: "Active",
+}
+jest.mock("../../gaen/nativeModule", () => {
+  return {
+    requestAuthorization: async () => {
+      return mockedRequestAuthorizationResponse
+    },
+  }
+})
+
 describe("ExposureDetectionStatusScreen", () => {
   beforeEach(() => {
     jest.resetAllMocks()
@@ -39,17 +47,13 @@ describe("ExposureDetectionStatusScreen", () => {
 
   describe("When the app is not authorized", () => {
     it("shows a disabled message for Exposure Notifications and a general disabled message", () => {
-      const enPermissionStatus = "Unauthorized"
-      const locationPermissions = "NotRequired"
-      const permissionProviderValue = createPermissionProviderValue(
-        locationPermissions,
-        enPermissionStatus,
-      )
+      mockedRequestAuthorizationResponse = {
+        kind: "success",
+        status: "Unauthorized",
+      }
 
       const { getByTestId, getByText } = render(
-        <PermissionsContext.Provider value={permissionProviderValue}>
-          <ExposureDetectionStatusScreen />
-        </PermissionsContext.Provider>,
+        <ExposureDetectionStatusScreen />,
       )
 
       const exposureNotificationsStatusContainer = getByTestId(
@@ -68,30 +72,22 @@ describe("ExposureDetectionStatusScreen", () => {
     })
 
     it("allows the user to get info on how to fix exposure notifications and shows a not authorized alert", async () => {
-      const enPermissionStatus = "Unauthorized"
-      const requestSpy = jest.fn()
-      const permissionProviderValue = createPermissionProviderValue(
-        "RequiredOn",
-        enPermissionStatus,
-        requestSpy,
-      )
+      mockedRequestAuthorizationResponse = {
+        kind: "success",
+        status: "Unauthorized",
+      }
 
-      const { getByTestId } = render(
-        <PermissionsContext.Provider value={permissionProviderValue}>
-          <ExposureDetectionStatusScreen />
-        </PermissionsContext.Provider>,
-      )
+      const { getByTestId } = render(<ExposureDetectionStatusScreen />)
 
       const alertSpy = jest.spyOn(Alert, "alert")
 
       const expectedMessage =
-        "Open Settings, then navigate to the Exposure Notifications settings for this app. Ensure Share Exposure Information is turned on, then press 'Set As Active Region'."
+        "Open the Settings app, then navigate to the Exposure Notifications settings for this app. Ensure 'Share Exposure Information' is turned on, then press 'Set As Active Region'."
 
       fireEvent.press(getByTestId("exposure-notifications-status-container"))
-      expect(requestSpy).toHaveBeenCalled()
       await waitFor(() => {
         expect(alertSpy).toHaveBeenCalledWith(
-          "Enable Exposure Notifications",
+          "Share Exposure Information",
           expectedMessage,
           [
             expect.objectContaining({ text: "Back" }),
@@ -102,58 +98,40 @@ describe("ExposureDetectionStatusScreen", () => {
     })
   })
 
-  describe("When the app is not enabled", () => {
-    it("allows the user to request exposure notification permissions", () => {
-      const enPermissionStatus = "Disabled"
-      const requestSpy = jest.fn()
-      const permissionProviderValue = createPermissionProviderValue(
-        "RequiredOn",
-        enPermissionStatus,
-        requestSpy,
-      )
-
-      const { getByTestId } = render(
-        <PermissionsContext.Provider value={permissionProviderValue}>
-          <ExposureDetectionStatusScreen />
-        </PermissionsContext.Provider>,
-      )
-
-      fireEvent.press(getByTestId("exposure-notifications-status-container"))
-      expect(requestSpy).toHaveBeenCalled()
-    })
-  })
-
   describe("When exposure notification permissions are authorized and the app is enabled", () => {
-    it("allows the user to get more info about Exposure Notifications", () => {
+    it("allows the user to get more info about Exposure Notifications", async () => {
       const navigateSpy = jest.fn()
       ;(useNavigation as jest.Mock).mockReturnValue({
         navigate: navigateSpy,
       })
 
-      const enPermissionStatus = "Active"
-      const permissionProviderValue = createPermissionProviderValue(
-        "RequiredOn",
-        enPermissionStatus,
-      )
+      const permissionsState = factories.permissionsContext.build({
+        exposureNotifications: {
+          status: "Active",
+        },
+      })
 
       const { getByTestId } = render(
-        <PermissionsContext.Provider value={permissionProviderValue}>
+        <PermissionsContext.Provider value={permissionsState}>
           <ExposureDetectionStatusScreen />
         </PermissionsContext.Provider>,
       )
 
       fireEvent.press(getByTestId("exposure-notifications-status-container"))
-      expect(navigateSpy).toHaveBeenCalledWith(
-        HomeStackScreens.ExposureNotificationsInfo,
-      )
+      await waitFor(() => {
+        expect(navigateSpy).toHaveBeenCalledWith(
+          HomeStackScreens.ExposureNotificationsInfo,
+        )
+      })
     })
   })
 
-  describe("When the device does not support locationless scanning", () => {
+  describe("When the device needs location to be on", () => {
     describe("and location is on", () => {
       it("shows location as enabled", () => {
         const permissionsState = factories.permissionsContext.build({
-          locationPermissions: "RequiredOn",
+          exposureNotifications: { status: "Active" },
+          locationRequirement: "Required",
         })
 
         const { getByTestId } = render(
@@ -171,7 +149,10 @@ describe("ExposureDetectionStatusScreen", () => {
         const navigateSpy = jest.fn()
         ;(useNavigation as jest.Mock).mockReturnValue({ navigate: navigateSpy })
         const permissionsState = factories.permissionsContext.build({
-          locationPermissions: "RequiredOn",
+          exposureNotifications: {
+            status: "Active",
+          },
+          locationRequirement: "Required",
         })
 
         const { getByTestId } = render(
@@ -188,7 +169,8 @@ describe("ExposureDetectionStatusScreen", () => {
     describe("and location is off", () => {
       it("shows a disabled message for location and a general disabled message", () => {
         const permissionsState = factories.permissionsContext.build({
-          locationPermissions: "RequiredOff",
+          exposureNotifications: { status: "LocationOffAndRequired" },
+          locationRequirement: "Required",
         })
         const { getByTestId, getByText } = render(
           <PermissionsContext.Provider value={permissionsState}>
@@ -208,10 +190,10 @@ describe("ExposureDetectionStatusScreen", () => {
     })
   })
 
-  describe("When the device supports locationless scanning", () => {
+  describe("When the device does not require location to be on", () => {
     it("does not show the location status", () => {
       const permissionsState = factories.permissionsContext.build({
-        locationPermissions: "NotRequired",
+        locationRequirement: "NotRequired",
       })
 
       const { queryByTestId } = render(
@@ -225,24 +207,3 @@ describe("ExposureDetectionStatusScreen", () => {
     })
   })
 })
-
-const createPermissionProviderValue = (
-  locationPermissions: LocationPermissions = "RequiredOn",
-  enPermissionStatus: ENPermissionStatus,
-  requestPermission: () => Promise<RequestAuthorizationResponse> = () =>
-    Promise.resolve({ kind: "failure" as const, error: "Unknown" as const }),
-) => {
-  return {
-    locationPermissions,
-    notification: {
-      status: "Unknown" as const,
-      check: () => {},
-      request: () => {},
-    },
-    exposureNotifications: {
-      status: enPermissionStatus,
-      check: () => {},
-      request: requestPermission,
-    },
-  }
-}

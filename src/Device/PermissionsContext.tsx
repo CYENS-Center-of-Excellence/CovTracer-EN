@@ -5,32 +5,36 @@ import React, {
   useEffect,
   useContext,
 } from "react"
-import { Platform } from "react-native"
 import {
   checkNotifications,
   requestNotifications,
 } from "react-native-permissions"
+import { Platform } from "react-native"
 
 import * as GaenNativeModule from "../gaen/nativeModule"
-import useOnAppStateChange from "./useOnAppStateChange"
-import useLocationPermissions, {
-  LocationPermissions,
-} from "./useLocationPermissions"
+import * as DeviceInfoModule from "../Device/nativeModule"
 
-export type NotificationPermissionStatus = "Unknown" | "Granted" | "Denied"
+import useOnAppStateChange from "./useOnAppStateChange"
+
+export type NotificationPermissionStatus =
+  | "Unavailable"
+  | "Denied"
+  | "Blocked"
+  | "Granted"
+  | "Unknown"
 
 export const notificationPermissionStatusFromString = (
   status: string | void,
 ): NotificationPermissionStatus => {
   switch (status) {
-    case "unknown": {
-      return "Unknown"
+    case "unavailable": {
+      return "Unavailable"
     }
     case "denied": {
       return "Denied"
     }
     case "blocked": {
-      return "Denied"
+      return "Blocked"
     }
     case "granted": {
       return "Granted"
@@ -46,12 +50,14 @@ export type ENPermissionStatus =
   | "Active"
   | "Disabled"
   | "BluetoothOff"
+  | "LocationOffAndRequired"
   | "Restricted"
   | "Paused"
   | "Unauthorized"
 
+export type LocationRequirement = "Required" | "NotRequired" | "Unknown"
+
 export interface PermissionsContextState {
-  locationPermissions: LocationPermissions
   notification: {
     status: NotificationPermissionStatus
     check: () => void
@@ -59,12 +65,11 @@ export interface PermissionsContextState {
   }
   exposureNotifications: {
     status: ENPermissionStatus
-    request: () => Promise<GaenNativeModule.RequestAuthorizationResponse>
   }
+  locationRequirement: LocationRequirement
 }
 
 const initialState = {
-  locationPermissions: "RequiredOff" as const,
   notification: {
     status: "Unknown" as const,
     check: () => {},
@@ -72,26 +77,24 @@ const initialState = {
   },
   exposureNotifications: {
     status: "Unknown" as const,
-    request: () =>
-      Promise.resolve({ kind: "failure" as const, error: "Unknown" as const }),
   },
+  locationRequirement: "Unknown" as const,
 }
 
 const PermissionsContext = createContext<PermissionsContextState>(initialState)
 
 const PermissionsProvider: FunctionComponent = ({ children }) => {
-  const locationPermissions = useLocationPermissions()
-  const { enPermission, requestENPermission } = useENPermissions()
+  const { enPermission } = useENPermissions()
   const {
     notificationPermission,
     checkNotificationPermission,
     requestNotificationPermission,
   } = useNotificationPermissions()
+  const locationRequirement = useLocationRequirement()
 
   return (
     <PermissionsContext.Provider
       value={{
-        locationPermissions,
         notification: {
           status: notificationPermission,
           check: checkNotificationPermission,
@@ -99,8 +102,8 @@ const PermissionsProvider: FunctionComponent = ({ children }) => {
         },
         exposureNotifications: {
           status: enPermission,
-          request: requestENPermission,
         },
+        locationRequirement,
       }}
     >
       {children}
@@ -109,15 +112,18 @@ const PermissionsProvider: FunctionComponent = ({ children }) => {
 }
 
 const useNotificationPermissions = () => {
-  const [notificationPermission, setNotificationPermission] = useState<
-    NotificationPermissionStatus
-  >("Unknown")
+  const [
+    notificationPermission,
+    setNotificationPermission,
+  ] = useState<NotificationPermissionStatus>("Unknown")
 
   useEffect(() => {
-    if (Platform.OS === "ios") {
-      checkNotificationPermission()
-    }
+    checkNotificationPermission()
   }, [])
+
+  useOnAppStateChange(() => {
+    checkNotificationPermission()
+  })
 
   const checkNotificationPermission = async () => {
     const { status } = await checkNotifications()
@@ -138,9 +144,10 @@ const useNotificationPermissions = () => {
 }
 
 const useENPermissions = () => {
-  const [enPermissionStatus, setEnPermissionStatus] = useState<
-    ENPermissionStatus
-  >("Unknown")
+  const [
+    enPermissionStatus,
+    setEnPermissionStatus,
+  ] = useState<ENPermissionStatus>("Unknown")
 
   const checkENPermission = () => {
     const handleNativeResponse = (status: ENPermissionStatus) => {
@@ -167,14 +174,27 @@ const useENPermissions = () => {
     }
   }, [])
 
-  const requestENPermission = async () => {
-    return GaenNativeModule.requestAuthorization()
-  }
-
   return {
     enPermission: enPermissionStatus,
-    requestENPermission,
   }
+}
+
+const useLocationRequirement = (): LocationRequirement => {
+  const doesDeviceSupportLocationlessScanning = async () => {
+    return await DeviceInfoModule.doesDeviceSupportLocationlessScanning()
+  }
+
+  const determineLocationRequirement = () => {
+    if (Platform.OS === "ios") {
+      return "NotRequired"
+    } else if (doesDeviceSupportLocationlessScanning()) {
+      return "NotRequired"
+    } else {
+      return "Required"
+    }
+  }
+
+  return determineLocationRequirement()
 }
 
 const usePermissionsContext = (): PermissionsContextState => {

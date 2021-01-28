@@ -2,9 +2,15 @@ import { Platform } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
 import { useConfigurationContext } from "../ConfigurationContext"
-import { usePermissionsContext } from "../Device/PermissionsContext"
-import { LocationPermissions } from "../Device/useLocationPermissions"
-import { ActivationStackScreen, ActivationStackScreens } from "../navigation"
+import {
+  ENPermissionStatus,
+  usePermissionsContext,
+} from "../Device/PermissionsContext"
+import {
+  ActivationStackScreen,
+  ActivationStackScreens,
+  Stacks,
+} from "../navigation"
 import { useOnboardingContext } from "../OnboardingContext"
 
 type ActivationStep =
@@ -46,18 +52,18 @@ export const useActivationNavigation = (): ActivationNavigation => {
     enableProductAnalytics,
   } = useConfigurationContext()
   const navigation = useNavigation()
-  const { locationPermissions } = usePermissionsContext()
+  const { exposureNotifications } = usePermissionsContext()
   const { completeOnboarding } = useOnboardingContext()
 
   const environment = {
     displayAcceptTermsOfService,
     enableProductAnalytics,
-    locationPermissions,
+    exposureNotificationsStatus: exposureNotifications.status,
   }
 
   const activationSteps = determineActivationSteps(environment)
 
-  const goToNextScreenFrom = (currentStep: ActivationStep) => {
+  const goToNextScreenFrom = async (currentStep: ActivationStep) => {
     const currentStepIndex: number | undefined = activationSteps.findIndex(
       (step) => step === currentStep,
     )
@@ -67,7 +73,8 @@ export const useActivationNavigation = (): ActivationNavigation => {
       const nextScreen = toScreen(nextStepName)
       navigation.navigate(nextScreen)
     } else {
-      completeOnboarding()
+      await completeOnboarding()
+      navigation.navigate("App", { screen: Stacks.Home })
     }
   }
 
@@ -75,7 +82,7 @@ export const useActivationNavigation = (): ActivationNavigation => {
 }
 
 export type Environment = {
-  locationPermissions: LocationPermissions
+  exposureNotificationsStatus: ENPermissionStatus
   displayAcceptTermsOfService: boolean
   enableProductAnalytics: boolean
 }
@@ -83,15 +90,14 @@ export type Environment = {
 export const determineActivationSteps = ({
   displayAcceptTermsOfService,
   enableProductAnalytics,
-  locationPermissions,
+  exposureNotificationsStatus,
 }: Environment): ActivationStep[] => {
-  const isLocationRequiredAndOff = locationPermissions === "RequiredOff"
-
   const activationSteps: ActivationStep[] = []
 
   displayAcceptTermsOfService && activationSteps.push("AcceptTermsOfService")
   enableProductAnalytics && activationSteps.push("ProductAnalyticsConsent")
-  isLocationRequiredAndOff && activationSteps.push("ActivateLocation")
+  exposureNotificationsStatus === "LocationOffAndRequired" &&
+    activationSteps.push("ActivateLocation")
   activationSteps.push("ActivateExposureNotifications")
   Platform.OS === "ios" && activationSteps.push("NotificationPermissions")
   activationSteps.push("ActivationSummary")

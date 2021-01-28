@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="background_worker_notification_title">Maruziyet kontrolü yapılıyor</string>
   <string name="exposure_notification_channel_description">Maruz kalma bildirimi uyarıları</string>
   <string name="exposure_notification_channel_name">Maruz Kalma Bildirimi</string>
   <string name="exposure_notification_message">CovTracer-EN, tarih, süre ve teyit edilmiş vakayla temasının yakınlığını değerlendirdikten sonra TEYİT EDİLMİŞ BİR COVID-19 VAKASIYLA OLASI TEMASININ olduğunu tespit etmiştir.</string>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { useTranslation } from "react-i18next"
 
 import { useApplicationName } from "../Device/useApplicationInfo"
@@ -34,13 +34,13 @@ const Legal: FunctionComponent = () => {
         {applicationName}
       </Text>
       {healthAuthorityPrivacyPolicyUrl && (
-        <>
+        <View style={style.contentText}>
           <Text>{t("settings.privacy_policy_description")}</Text>
           <ExternalLink
             url={healthAuthorityPrivacyPolicyUrl}
             label={t("label.privacy_policy")}
           />
-        </>
+        </View>
       )}
       {authorityLinks?.map(({ url, label }) => {
         return <ExternalLink key={label} url={url} label={label} />
@@ -54,7 +54,6 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background.primaryLight,
     paddingTop: Spacing.large,
-    paddingBottom: Spacing.large,
     paddingHorizontal: Spacing.small,
   },
   headerContent: {
@@ -64,7 +63,7 @@ const style = StyleSheet.create({
   },
   contentText: {
     ...Typography.body.x30,
-    marginBottom: Spacing.medium,
+    marginBottom: Spacing.xxxLarge,
   },
 })
 

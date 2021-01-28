@@ -5,6 +5,7 @@ import {
   HeaderStyleInterpolators,
 } from "@react-navigation/stack"
 import { Platform } from "react-native"
+import env from "react-native-config"
 import {
   LinkingOptions,
   NavigationContainer,
@@ -16,16 +17,18 @@ import { useOnboardingContext } from "../OnboardingContext"
 import { useProductAnalyticsContext } from "../ProductAnalytics/Context"
 
 import { ModalStackScreens, HomeStackScreens } from "./index"
-import { WelcomeStackScreens, Stacks } from "./index"
+import { OnboardingRoutes, Stacks } from "./index"
 import MainTabNavigator from "./MainTabNavigator"
 import HowItWorksStack from "./HowItWorksStack"
 import ActivationStack from "./ActivationStack"
 import SettingsStack from "./SettingsStack"
-import Welcome from "../Welcome"
+import Welcome from "../Onboarding/Welcome"
+import AppTransition from "../Onboarding/AppTransition"
 import AgeVerification from "../modals/AgeVerification"
 import LanguageSelection from "../modals/LanguageSelection"
 import ProtectPrivacy from "../modals/ProtectPrivacy"
 import AffectedUserStack from "./AffectedUserFlowStack"
+import EscrowVerificationStack from "./EscrowVerification"
 import SelfAssessmentStack from "./SelfAssessmentStack"
 import ExposureDetectionStatusScreen from "../Home/ExposureDetectionStatus/Screen"
 import BluetoothInfo from "../Home/BluetoothInfo"
@@ -51,11 +54,19 @@ const settingsStackTransitionPreset = Platform.select({
   android: TransitionPresets.DefaultTransition,
 })
 
+const enxApplinksDomain = `https://${env.ENX_APPLINKS_DOMAIN}`
+const allPrefixes = ["pathcheck://", "https://*.en.express", enxApplinksDomain]
+
 const linking: LinkingOptions = {
-  prefixes: ["pathcheck://"],
+  prefixes: allPrefixes,
   config: {
     screens: {
       ExposureHistory: "exposureHistory",
+      AffectedUserStack: {
+        screens: {
+          AffectedUserCodeInput: "v",
+        },
+      },
     },
   },
 }
@@ -92,7 +103,13 @@ const MainNavigator: FunctionComponent = () => {
       <Stack.Navigator headerMode="screen" screenOptions={defaultScreenOptions}>
         {isOnboardingComplete ? (
           <>
-            <Stack.Screen name={"App"} component={MainTabNavigator} />
+            <Stack.Screen
+              name={"App"}
+              component={MainTabNavigator}
+              options={{
+                gestureEnabled: false,
+              }}
+            />
             <Stack.Screen
               name={Stacks.Settings}
               component={SettingsStack}
@@ -102,8 +119,20 @@ const MainNavigator: FunctionComponent = () => {
         ) : (
           <>
             <Stack.Screen
-              name={WelcomeStackScreens.Welcome}
+              name={OnboardingRoutes.Welcome}
               component={Welcome}
+              options={{
+                gestureEnabled: false,
+              }}
+            />
+            <Stack.Screen
+              name={OnboardingRoutes.AppTransition}
+              component={AppTransition}
+              options={{
+                ...Headers.headerMinimalOptions,
+                headerLeft: applyHeaderLeftBackButton(),
+                gestureEnabled: false,
+              }}
             />
             <Stack.Screen
               name={ModalStackScreens.AgeVerification}
@@ -149,6 +178,11 @@ const MainNavigator: FunctionComponent = () => {
         <Stack.Screen
           name={Stacks.AffectedUserStack}
           component={AffectedUserStack}
+          options={{ gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name={Stacks.EscrowVerificationStack}
+          component={EscrowVerificationStack}
           options={{ gestureEnabled: false }}
         />
         <Stack.Screen name={ModalStackScreens.HowItWorksReviewFromSettings}>

@@ -1,5 +1,11 @@
 import React, { FunctionComponent, useState } from "react"
-import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native"
+import {
+  Alert,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from "react-native"
 import { SvgXml } from "react-native-svg"
 import { useTranslation } from "react-i18next"
 import { useNavigation, useIsFocused } from "@react-navigation/native"
@@ -8,11 +14,10 @@ import { showMessage } from "react-native-flash-message"
 import { ExposureDatum } from "../../exposure"
 import { LoadingIndicator, StatusBar, Text } from "../../components"
 import { useStatusBarEffect } from "../../navigation/index"
-import { useExposureContext } from "../../ExposureContext"
-
 import DateInfoHeader from "./DateInfoHeader"
-import ExposureList from "./ExposureList"
+import HasExposures from "./HasExposures"
 import NoExposures from "./NoExposures"
+import { useExposureContext } from "../../ExposureContext"
 
 import { Icons } from "../../assets"
 import { ExposureHistoryStackScreens } from "../../navigation"
@@ -24,6 +29,8 @@ import {
   Affordances,
   Iconography,
 } from "../../styles"
+import { usePermissionsContext } from "../../Device/PermissionsContext"
+import { useRequestExposureNotifications } from "../../useRequestExposureNotifications"
 
 type Posix = number
 
@@ -40,11 +47,12 @@ const History: FunctionComponent<HistoryProps> = ({
   useStatusBarEffect("dark-content", Colors.background.primaryLight)
   const { t } = useTranslation()
   const navigation = useNavigation()
-  const { checkForNewExposures } = useExposureContext()
+  const { detectExposures } = useExposureContext()
+  const { successFlashMessageOptions } = Affordances.useFlashMessageOptions()
   const {
-    successFlashMessageOptions,
-    errorFlashMessageOptions,
-  } = Affordances.useFlashMessageOptions()
+    exposureNotifications: { status },
+  } = usePermissionsContext()
+  const requestExposureNotifications = useRequestExposureNotifications()
 
   const [checkingForExposures, setCheckingForExposures] = useState<boolean>(
     false,
@@ -54,32 +62,75 @@ const History: FunctionComponent<HistoryProps> = ({
     navigation.navigate(ExposureHistoryStackScreens.MoreInfo)
   }
 
-  const handleOnPressCheckForExposures = async () => {
+  const showEnableExposureNotificationsAlert = () => {
+    Alert.alert(
+      t("exposure_notification_alerts.cant_check_for_exposures_title"),
+      t("exposure_notification_alerts.cant_check_for_exposures_body"),
+      [
+        {
+          text: t("common.back"),
+          style: "cancel",
+        },
+        {
+          text: t(
+            "exposure_notification_alerts.cant_check_for_exposures_button",
+          ),
+          onPress: () => requestExposureNotifications(),
+        },
+      ],
+    )
+  }
+
+  const checkForExposures = async () => {
     setCheckingForExposures(true)
-    const checkResult = await checkForNewExposures()
-    if (checkResult.kind === "success") {
+    const result = await detectExposures()
+    if (result.kind === "success") {
       showMessage({
         message: t("common.success"),
         ...successFlashMessageOptions,
       })
-    } else {
-      switch (checkResult.error) {
-        case "ExceededCheckRateLimit": {
+    } else if (result.kind === "failure") {
+      switch (result.error) {
+        case "RateLimited":
           showMessage({
             message: t("common.success"),
             ...successFlashMessageOptions,
           })
           break
-        }
-        default: {
-          showMessage({
-            message: t("common.something_went_wrong"),
-            ...errorFlashMessageOptions,
-          })
-        }
+        case "NotAuthorized":
+          showAlert(
+            t(
+              "exposure_notification_alerts.share_exposure_information_ios_title",
+            ),
+            t(
+              "exposure_notification_alerts.share_exposure_information_ios_body",
+            ),
+          )
+          break
+        default:
+          showAlert(
+            t("exposure_notification_alerts.unhandled_error_title"),
+            t("exposure_notification_alerts.unhandled_error_body"),
+          )
       }
     }
     setCheckingForExposures(false)
+  }
+
+  const showAlert = (title: string, body: string) => {
+    Alert.alert(title, body, [
+      {
+        text: t("common.okay"),
+      },
+    ])
+  }
+
+  const handleOnPressCheckForExposures = async () => {
+    if (status !== "Active") {
+      showEnableExposureNotificationsAlert()
+    } else {
+      await checkForExposures()
+    }
   }
 
   const showExposureHistory = exposures.length > 0
@@ -117,7 +168,7 @@ const History: FunctionComponent<HistoryProps> = ({
         </View>
         <View style={style.listContainer}>
           {showExposureHistory ? (
-            <ExposureList exposures={exposures} />
+            <HasExposures exposures={exposures} />
           ) : (
             <NoExposures />
           )}
@@ -166,7 +217,7 @@ const style = StyleSheet.create({
     marginHorizontal: Spacing.medium,
   },
   listContainer: {
-    marginTop: Spacing.xxLarge,
+    marginTop: Spacing.medium,
     marginBottom: Spacing.large,
   },
   button: {

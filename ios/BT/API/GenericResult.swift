@@ -1,6 +1,6 @@
 import Alamofire
 
-public enum Result<T> {
+public enum GenericResult<T> {
 
   case success(T)
   case failure(Error)
@@ -10,7 +10,7 @@ public enum Result<T> {
 public enum ExposureResult {
 
   case success(Int)
-  case failure(ExposureError)
+  case failure(Error)
 
 }
 
@@ -54,6 +54,31 @@ public enum APIError: LocalizedError {
       return message  ?? String.emptyMessageError
     }
   }
+}
+
+
+public enum SubmissionError: CustomNSError {
+  case `default`(message: String?)
+  case noKeysOnDevice
+
+  public var errorDescription: String? {
+    switch self {
+    case .noKeysOnDevice:
+      return String.noKeysOnDevice
+    case .default(message: let message):
+      return message  ?? String.emptyMessageError
+    }
+  }
+
+  public var errorCode: Int {
+    switch self {
+    case .noKeysOnDevice:
+      return 999
+    default:
+      return 0
+    }
+  }
+
 }
 
 public let GenericSuccess = GenericResult.success(())

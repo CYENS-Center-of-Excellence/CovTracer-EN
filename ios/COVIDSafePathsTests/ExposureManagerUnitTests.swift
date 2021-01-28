@@ -26,7 +26,6 @@ class MockENExposureDetectionSummary: ENExposureDetectionSummary {
     return 0
   }
   
-  @available(iOS 13.7, *)
   override var daySummaries: [ENExposureDaySummary] {
     let enExposureSummary = ENExposureDaySummary()
     return [enExposureSummary]
@@ -139,27 +138,27 @@ class APIClientMock: APIClient {
     return nil
   }
   
-  func downloadRequest<T>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType : DownloadableFile {
-    completion(downloadRequestHander!(request, requestType) as! Result<T.ResponseType>)
+  func downloadRequest<T>(_ request: T, requestType: RequestType, completion: @escaping (GenericResult<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType : DownloadableFile {
+    completion(downloadRequestHander!(request, requestType) as! GenericResult<T.ResponseType>)
   }
   
   func request<T>(_ request: T, requestType: RequestType, completion: @escaping GenericCompletion) where T : APIRequest, T.ResponseType == Void {
     
   }
   
-  func request<T>(_ request: T, requestType: RequestType, completion: @escaping (Result<JSONObject>) -> Void) where T : APIRequest, T.ResponseType == JSONObject {
+  func request<T>(_ request: T, requestType: RequestType, completion: @escaping (GenericResult<JSONObject>) -> Void) where T : APIRequest, T.ResponseType == JSONObject {
   }
   
-  func request<T>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType : Decodable {
-    completion(requestHander(request, requestType) as! Result<T.ResponseType>)
+  func request<T>(_ request: T, requestType: RequestType, completion: @escaping (GenericResult<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType : Decodable {
+    completion(requestHander(request, requestType) as! GenericResult<T.ResponseType>)
   }
   
-  func requestList<T>(_ request: T, requestType: RequestType, completion: @escaping (Result<[T.ResponseType.Element]>) -> Void) where T : APIRequest, T.ResponseType : Collection, T.ResponseType.Element : Decodable {
+  func requestList<T>(_ request: T, requestType: RequestType, completion: @escaping (GenericResult<[T.ResponseType.Element]>) -> Void) where T : APIRequest, T.ResponseType : Collection, T.ResponseType.Element : Decodable {
     
   }
   
-  func requestString<T>(_ request: T, requestType: RequestType, completion: @escaping (Result<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType == String {
-    completion(requestHander(request, requestType) as! Result<T.ResponseType>)
+  func requestString<T>(_ request: T, requestType: RequestType, completion: @escaping (GenericResult<T.ResponseType>) -> Void) where T : APIRequest, T.ResponseType == String {
+    completion(requestHander(request, requestType) as! GenericResult<T.ResponseType>)
   }
   
   func cancelAllRequests() {
@@ -296,7 +295,7 @@ class ExposureManagerUnitTests: XCTestCase {
     
     let notificationCenterMock = NotificationCenterMock()
     notificationCenterMock.addObserverHandler = { (_, _, name, _) in
-      if name == Notification.Name.AuthorizationStatusDidChange {
+      if name == Notification.Name.ExposureNotificationStatusDidChange {
         registerNotificationExpectation.fulfill()
       }
     }
@@ -335,7 +334,7 @@ class ExposureManagerUnitTests: XCTestCase {
     let broadcastAuthorizationStateExpectation = self.expectation(description: "A notification is post with the current authorization and enabled stated")
     let notificationCenterMock = NotificationCenterMock()
     notificationCenterMock.postHandler = { notification in
-      if notification.name == .AuthorizationStatusDidChange {
+      if notification.name == .ExposureNotificationStatusDidChange {
         broadcastAuthorizationStateExpectation.fulfill()
       }
     }
@@ -350,14 +349,15 @@ class ExposureManagerUnitTests: XCTestCase {
     let enManagerMock = ENManagerMock()
 
     let apiClientMock = APIClientMock { (request, requestType) -> (AnyObject) in
-      return Result<String>.success(String.default) as AnyObject
+      return GenericResult<String>.success(String.default) as AnyObject
     }
     
     let btSecureStorageMock = BTSecureStorageMock(notificationCenter: NotificationCenter())
     btSecureStorageMock.userStateHandler = {
       let userState = UserState()
       userState.exposures.append(Exposure(id: "1",
-                                          date: Date().posixRepresentation))
+                                          date: Date().posixRepresentation,
+                                          weightedDurationSum: 2000))
       return userState
     }
     let exposureManager = ExposureManager(exposureNotificationManager: enManagerMock,
@@ -380,18 +380,24 @@ class ExposureManagerUnitTests: XCTestCase {
     let notificationCenterMock = NotificationCenterMock()
 
     notificationCenterMock.postHandler = { notification in
-      if notification.name == .AuthorizationStatusDidChange {
+      if notification.name == .ExposureNotificationStatusDidChange {
         broadcastAuthorizationStateExpectation.fulfill()
       }
     }
     let mockENManager = ENManagerMock()
+    mockENManager.exposureNotificationStatusHandler = {
+      .active
+    }
     mockENManager.setExposureNotificationEnabledHandler = { _, completion in
-      resolveExpectation.fulfill()
       completion(nil)
     }
     let exposureManager = ExposureManager(exposureNotificationManager: mockENManager,
                                           notificationCenter: notificationCenterMock)
-    exposureManager.requestExposureNotificationAuthorization(resolve: { _ in }) { (_, _, _) in }
+    exposureManager.requestExposureNotificationAuthorization(resolve: { _ in
+      resolveExpectation.fulfill()
+    }) { (_, _, _) in
+      rejectExpectation.fulfill()
+    }
     wait(for: [resolveExpectation,
                rejectExpectation,
                broadcastAuthorizationStateExpectation], timeout: 0)
@@ -409,18 +415,22 @@ class ExposureManagerUnitTests: XCTestCase {
     resolveExpectation.isInverted = true
 
     let mockENManager = ENManagerMock()
-    mockENManager.setExposureNotificationEnabledHandler = { _, _ in
-      rejectExpectation.fulfill()
+    mockENManager.setExposureNotificationEnabledHandler = { _, completion in
+      completion(nil)
     }
     let notificationCenterMock = NotificationCenterMock()
     notificationCenterMock.postHandler = { notification in
-      if notification.name == .AuthorizationStatusDidChange {
+      if notification.name == .ExposureNotificationStatusDidChange {
         broadcastAuthorizationStateExpectation.fulfill()
       }
     }
     let exposureManager = ExposureManager(exposureNotificationManager: mockENManager,
                                           notificationCenter: notificationCenterMock)
-    exposureManager.requestExposureNotificationAuthorization(resolve: { _ in }) { (_, _, _) in }
+    exposureManager.requestExposureNotificationAuthorization(resolve: { _ in
+      resolveExpectation.fulfill()
+    }) { (_, _, _) in
+      rejectExpectation.fulfill()
+    }
     wait(for: [resolveExpectation,
                rejectExpectation,
                broadcastAuthorizationStateExpectation], timeout: 0)

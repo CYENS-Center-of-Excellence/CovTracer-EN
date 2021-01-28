@@ -56,6 +56,8 @@ const toStatus = (data: string): ENPermissionStatus => {
       return "Disabled"
     case "BluetoothOff":
       return "BluetoothOff"
+    case "LocationOff":
+      return "LocationOffAndRequired"
     case "Restricted":
       return "Restricted"
     case "Unauthorized":
@@ -66,8 +68,6 @@ const toStatus = (data: string): ENPermissionStatus => {
 }
 
 // Permissions Module
-
-type GAENAPIError = "ExceededCheckRateLimit" | "Unknown" | "AppRestricted"
 
 const permissionsModule = NativeModules.ENPermissionsModule
 
@@ -80,35 +80,58 @@ export type RequestAuthorizationSuccess = {
   status: ENPermissionStatus
 }
 
+export type RequestAuthorizationError =
+  | "IOSUnknown"
+  | "BadParameter"
+  | "NotEntitled"
+  | "NotAuthorized"
+  | "Unsupported"
+  | "Invalidated"
+  | "BluetoothOff"
+  | "LocationOffAndRequired"
+  | "InsufficientStorage"
+  | "NotEnabled"
+  | "APIMisuse"
+  | "Internal"
+  | "InsufficientMemory"
+  | "RateLimited"
+  | "Restricted"
+  | "BadFormat"
+  | "DataInaccessible"
+  | "TravelStatusNotAvailable"
+  | "Unknown"
+
 export type RequestAuthorizationFailure = {
   kind: "failure"
-  error: GAENAPIError
+  error: RequestAuthorizationError
 }
 
-export const requestAuthorization = async (): Promise<
-  RequestAuthorizationResponse
-> => {
+export const requestAuthorization = async (): Promise<RequestAuthorizationResponse> => {
   try {
-    const status = await permissionsModule.requestExposureNotificationAuthorization()
-    const enStatus = toStatus(status)
+    const enStatus = await permissionsModule.requestExposureNotificationAuthorization()
     return {
       kind: "success",
-      status: enStatus,
+      status: toStatus(enStatus),
     }
   } catch (e) {
-    Logger.error("Failed to request ExposureNotification API Authorization", {
-      e,
-    })
-    if (e.code.includes("ENErrorDomain error 14.")) {
-      return {
-        kind: "failure",
-        error: "AppRestricted",
-      }
-    } else {
-      return {
-        kind: "failure",
-        error: "Unknown",
-      }
+    switch (e.code) {
+      case "NotEntitled":
+        return { kind: "failure", error: "NotEntitled" }
+      case "NotAuthorized":
+        return { kind: "failure", error: "NotAuthorized" }
+      case "Unsupported":
+        return { kind: "failure", error: "Unsupported" }
+      case "Invalidated":
+        return { kind: "failure", error: "Invalidated" }
+      case "BluetoothOff":
+        return { kind: "failure", error: "BluetoothOff" }
+      case "NotEnabled":
+        return { kind: "failure", error: "NotEnabled" }
+      case "Restricted":
+        return { kind: "failure", error: "Restricted" }
+      default:
+        Logger.error("Unhandled Error in requestAuthorization", { e })
+        return { kind: "failure", error: "Unknown" }
     }
   }
 }
@@ -137,26 +160,40 @@ export const fetchLastExposureDetectionDate = async (): Promise<Posix | null> =>
   }
 }
 
-type NetworkResponse = NetworkSuccess | NetworkFailure
+type DetectExposuresError =
+  | "RateLimited"
+  | "Unknown"
+  | "NotEnabled"
+  | "NotAuthorized"
 
-interface NetworkSuccess {
+export type DetectExposuresResponse =
+  | DetectExposuresResponseSuccess
+  | DetectExposuresResponseFailure
+
+interface DetectExposuresResponseSuccess {
   kind: "success"
 }
 
-interface NetworkFailure {
+interface DetectExposuresResponseFailure {
   kind: "failure"
-  error: GAENAPIError
+  error: DetectExposuresError
 }
 
-export const checkForNewExposures = async (): Promise<NetworkResponse> => {
+export const detectExposures = async (): Promise<DetectExposuresResponse> => {
   try {
     await exposureHistoryModule.detectExposures()
     return { kind: "success" }
   } catch (e) {
-    if (e.underlyingError.includes("ENErrorDomain error 13.")) {
-      return { kind: "failure", error: "ExceededCheckRateLimit" }
-    } else {
-      return { kind: "failure", error: "Unknown" }
+    switch (e.code) {
+      case "RateLimited":
+        return { kind: "failure", error: "RateLimited" }
+      case "NotEnabled":
+        return { kind: "failure", error: "NotEnabled" }
+      case "NotAuthorized":
+        return { kind: "failure", error: "NotAuthorized" }
+      default:
+        Logger.error("Unhandled Error in detectExposures", { e })
+        return { kind: "failure", error: "Unknown" }
     }
   }
 }
@@ -224,10 +261,6 @@ export const getRevisionToken = async (): Promise<string> => {
 
 // Debug Module
 const debugModule = NativeModules.DebugMenuModule
-
-export const forceAppCrash = async (): Promise<void> => {
-  return debugModule.forceAppCrash()
-}
 
 export const fetchDiagnosisKeys = async (): Promise<ENDiagnosisKey[]> => {
   return debugModule.fetchDiagnosisKeys()
