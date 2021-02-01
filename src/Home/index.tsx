@@ -27,6 +27,7 @@ import ExposureDetectionStatusCard from "./ExposureDetectionStatus/Card"
 import SectionButton from "./SectionButton"
 import ShareLink from "./ShareLink"
 import HealthCheckLink from "./HealthCheckLink"
+import CovidDataWebViewLink from "./CovidDataWebViewLink"
 import CallEmergencyServices from "./CallEmergencyServices"
 import { usePermissionsContext } from "../Device/PermissionsContext"
 
@@ -50,6 +51,7 @@ const Home: FunctionComponent = () => {
     appDownloadUrl,
     displayCallEmergencyServices,
     displayCovidData,
+    displayCovidDataWebView,
     displaySelfAssessment,
     displaySymptomHistory,
     emergencyPhoneNumber,
@@ -76,6 +78,7 @@ const Home: FunctionComponent = () => {
         {healthAuthorityHealthCheckUrl && (
           <HealthCheckLink healthCheckUrl={healthAuthorityHealthCheckUrl} />
         )}
+        {displayCovidDataWebView && <CovidDataWebViewLink />}
         {appDownloadUrl && <ShareLink appDownloadUrl={appDownloadUrl} />}
         {displaySelfAssessment && <SelfAssessment />}
         {displaySymptomHistory && <SymptomHistory />}
@@ -195,10 +198,7 @@ const VerificationFlowButton: FunctionComponent<VerificationFlowButtonProps> = (
   const { t } = useTranslation()
 
   return (
-    <TouchableOpacity
-      onPress={onPressReportTestResult}
-      style={style.floatingContainer}
-    >
+    <View style={style.floatingContainer}>
       <View style={style.cardTopContainer}>
         <Image
           source={Images.ProtectPrivacySubmitKeys}
@@ -224,8 +224,14 @@ const VerificationFlowButton: FunctionComponent<VerificationFlowButtonProps> = (
         {t("home.have_a_positive_test")}
       </Text>
       <Text style={style.sectionBodyText}>{descriptionText}</Text>
-      <SectionButton text={buttonLabelText} />
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onPressReportTestResult}
+        accessibilityRole="button"
+        accessibilityLabel={buttonLabelText}
+      >
+        <SectionButton text={buttonLabelText} />
+      </TouchableOpacity>
+    </View>
   )
 }
 

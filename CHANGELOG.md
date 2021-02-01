@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 (46)
+- Update to PC 1.10.0
+- Translation updates
+
 ## 1.3.2 (43)
 - Update tr translations
 

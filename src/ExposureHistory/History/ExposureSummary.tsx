@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from "react"
-import { View, StyleSheet } from "react-native"
-import dayjs from "dayjs"
-import { useTranslation } from "react-i18next"
+import React, { FunctionComponent } from 'react'
+import { StyleSheet, View } from 'react-native'
+import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
 
-import { Text } from "../../components"
-import * as Exposure from "../../exposure"
+import { Text } from '../../components'
+import * as Exposure from '../../exposure'
 
-import { Colors, Outlines, Spacing, Typography } from "../../styles"
+import { Colors, Outlines, Spacing, Typography } from '../../styles'
 
 type Posix = number
 
@@ -21,7 +21,7 @@ export const determineRemainingQuarantine = (
   startDate: Posix,
 ): number => {
   const firstDay = dayjs(startDate)
-  const daysSinceExposure = dayjs(today).diff(firstDay, "day")
+  const daysSinceExposure = dayjs(today).diff(firstDay, 'day')
   const daysRemaining = quarantineLength - daysSinceExposure
 
   const maxDays = Math.min(quarantineLength, daysRemaining)
@@ -31,12 +31,11 @@ export const determineRemainingQuarantine = (
 
 const ExposureSummary: FunctionComponent<ExposureSummaryProps> = ({
   exposure,
-  quarantineLength,
 }) => {
   const { t } = useTranslation()
 
   const formatDate = (posix: Posix) => {
-    return dayjs(posix).format("dddd, MMM Do")
+    return dayjs(posix).format('dddd, MMM Do')
   }
 
   const [exposureStartDate, exposureEndDate] = Exposure.toExposureRange(
@@ -45,72 +44,36 @@ const ExposureSummary: FunctionComponent<ExposureSummaryProps> = ({
   const exposureStartDateText = formatDate(exposureStartDate)
   const exposureEndDateText = formatDate(exposureEndDate)
 
-  const quarantineStartDate = dayjs(exposureEndDate)
-    .add(1, "day")
-    .startOf("day")
-    .valueOf()
-  const quarantineEndDate = dayjs(quarantineStartDate)
-    .add(quarantineLength - 1, "day")
-    .startOf("day")
-    .valueOf()
-  const quarantineEndDateText = formatDate(quarantineEndDate)
-
-  const daysOfQuarantineLeft = determineRemainingQuarantine(
-    quarantineLength,
-    Date.now(),
-    quarantineStartDate,
-  )
-
-  const quarantineInEffect = daysOfQuarantineLeft > 0
-
   return (
     <View>
       <Text style={style.summaryText}>
-        {t("exposure_history.exposure_summary", {
+        {t('exposure_history.exposure_summary', {
           startDate: exposureStartDateText,
           endDate: exposureEndDateText,
         })}
       </Text>
+
       <View style={style.recommendationContainer}>
         <View style={style.headerContainer}>
           <Text style={style.headerText}>
-            {t("exposure_history.recommended_quarantine")}
+            {t('exposure_history.exposure_detail.header_0')}
           </Text>
         </View>
-        <View style={style.recommendationContentContainer}>
-          {quarantineInEffect ? (
-            <View>
-              <View style={style.daysRemainingContainer}>
-                <View style={style.recommendationLabelContainer}>
-                  <Text style={style.recommendationLabelText}>
-                    {t("exposure_history.days_remaining")}
-                  </Text>
-                </View>
-                <View style={style.recommendationValueContainer}>
-                  <Text style={style.recommendationText}>
-                    {daysOfQuarantineLeft}
-                  </Text>
-                </View>
-              </View>
 
-              <View style={style.daysRemainingContainer}>
-                <View style={style.recommendationLabelContainer}>
-                  <Text style={style.recommendationLabelText}>
-                    {t("exposure_history.stay_quarantined_through")}
-                  </Text>
-                </View>
-                <View style={style.recommendationValueContainer}>
-                  <Text style={style.recommendationText}>
-                    {quarantineEndDateText}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          ) : (
-            <Text style={style.recommendationLabelText}>
-              {t("exposure_history.your_recommended_quarantine_is_over")}
+        <View style={style.recommendationContentContainer}>
+          <View style={style.recommendationLabelContainer}>
+            <Text style={{ ...style.recommendationLabelText, ...style.extraRecommendationLabel }}>
+              {t('exposure_history.exposure_detail.instructions_0')}
             </Text>
-          )}
+
+            <Text style={{ ...style.recommendationLabelText, ...style.extraRecommendationLabel }}>
+              {t('exposure_history.exposure_detail.instructions_1')}
+            </Text>
+
+            <Text style={{ ...style.recommendationLabelText }}>
+              {t('exposure_history.exposure_detail.instructions_2')}
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -144,15 +107,15 @@ const style = StyleSheet.create({
   },
   daysRemainingContainer: {
     marginTop: Spacing.xxSmall,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   recommendationLabelContainer: {
     flex: 1,
   },
   recommendationValueContainer: {
     flex: 2,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     marginLeft: Spacing.xSmall,
   },
   recommendationText: {
@@ -160,6 +123,9 @@ const style = StyleSheet.create({
     ...Typography.style.semibold,
     ...Typography.style.monospace,
   },
+  extraRecommendationLabel: {
+    marginBottom: Spacing.small
+  }
 })
 
 export default ExposureSummary

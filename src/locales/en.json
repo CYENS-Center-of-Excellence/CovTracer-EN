@@ -240,6 +240,7 @@
     "check_if_your_symptoms": "Enter your symptoms and get an instant recommendation on how to stay safe.",
     "complete_healthcheck": "Complete Healthcheck",
     "could_not_open_link": "Could not open link: {{url}}. Please try to open the url in your phone's browser.",
+    "covid_data": "Covid Data",
     "enter_symptoms": "Enter symptoms",
     "error": {
       "share_link_failed": "Failed to open link to share"
@@ -311,6 +312,11 @@
       "body_3": "After testing positive for COVID-19, users can share a verification code with {{applicationName}} to verify their diagnosis. Their phone’s recent random IDs are flagged and securely uploaded to the server. This verification process helps prevent false positive reports.",
       "body_4": "If a flagged ID matches with an ID stored on your phone, this indicates you may have encountered someone who has tested positive for COVID-19. This is how {{applicationName}} can determine if you may have been exposed to the virus.",
       "body_5": "If there’s a match, {{applicationName}} will notify you and provide further guidance from your health department.\n\nThis is how {{applicationName}} can empower you to make decisions about your health, and keep your community safe, all without knowing who you are or where you’ve been.",
+      "image_label_1": "An image of a man holding his phone with a nearby random ID character string.",
+      "image_label_2": "An image of two smartphones exchanging random IDs.",
+      "image_label_3": "An image of a man entering an anonymous verification code.",
+      "image_label_4": "An image of a smartphone with several Random IDs and a verification code nearby.",
+      "image_label_5": "An image of a woman using her phone.",
       "subheader_1": "When you turn on Exposure Notifications, your phone is tagged with frequently-changing, random IDs",
       "subheader_2": "Phones with Exposure Notifications enabled swap IDs with other devices they encounter",
       "subheader_3": "When a user tests positive, they can choose to anonymously share their health status",
@@ -353,6 +359,7 @@
   },
   "screen_titles": {
     "bluetooth": "Bluetooth",
+    "covid_data_webview": "Covid Data",
     "exposure_history": "Exposures",
     "exposure_notifications": "Exposure Notifications",
     "exposure_scanning": "Exposure Detection",
@@ -519,8 +526,12 @@
     "invalid_code_title": "Invalid Code",
     "network_connection_body": "You need to be connected to WiFi to submit a verification code.",
     "network_connection_title": "No Internet Connection",
-    "no_keys_on_device_body": "You do not have any exposures to submit. Please continue to isolate.",
-    "no_keys_on_device_title": "No exposures on device",
+    "no_keys_on_device_body": "You have not had the app long enough to share exposures. Please continue to isolate.",
+    "no_keys_on_device_title": "No exposures to share from device",
+    "not_authorized_body": "You did not authorize the app to share your Random IDs.",
+    "not_authorized_title": "Did not authorize",
+    "rate_limit_body": "You've reach the daily submission limit. Please try again in 24 hours.",
+    "rate_limit_title": "Max submissions reached",
     "unknown_body": "An unexpected error occurred. Please try again.",
     "unknown_title": "Something Went Wrong"
   }

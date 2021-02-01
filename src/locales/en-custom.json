@@ -43,9 +43,11 @@
   },
   "exposure_history": {
     "exposure_detail": {
+      "header_1": "General guidance",
       "disinfect_surfaces": "surface disinfection",
       "ventilation": "good ventilation of indoor spaces",
 
+      "header_0": "What do I need to do",
       "instructions_0": "In case you have symptoms  or you develop in the coming days symptoms, which are compatible with the disease, contact your Personal Physician by phone, informing him/her about the symptoms as well as of the present application message that you have received so that he/she can schedule your laboratory examination.",
       "instructions_1": "In the event that  the person who is a confirmed case, reports you to the Contact Tracing Team by name as a close contact, then you will receive  an SMS from the Unit for Surveillance and Control of Communicable Diseases(US&CCD) with detailed instructions regarding public health measures to be followed and a laboratory examination appointment.",
       "instructions_2": "If you are not notified by the US&CCD (thus point 1 does not apply) and you wish to have a laboratory examination,  please call the Coordination of Public Health Clinics (tel. 22572610), between the hours of 08:00 am - 06:00 pm, mentioning that you have been identified as a possible contact through the CovTracer-EN application. Please note that at the testing centre, prior to having your laboratory test, you will be asked to present  this application message as it appears on your mobile phone."

@@ -1,6 +1,6 @@
 export default `
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- viewBox="0 0 20 23" style="enable-background:new 0 0 20 23;" xml:space="preserve">
+ viewBox="0 0 20 23" width="24" height="24" style="enable-background:new 0 0 20 23;" xml:space="preserve">
 <g>
 <path d="M15.2,15.8c-0.4,0-0.7-0.3-0.7-0.7c0-0.2-0.2-0.4-0.4-0.4s-0.4,0.2-0.4,0.4c0,0.8,0.7,1.5,1.5,1.5c0.8,0,1.5-0.7,1.5-1.5
 s-0.7-1.5-1.5-1.5H9.8c-0.2,0-0.4,0.2-0.4,0.4s0.2,0.4,0.4,0.4h5.4c0.4,0,0.7,0.3,0.7,0.7S15.6,15.8,15.2,15.8z"/>
