@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react'
-import { StyleSheet, View } from 'react-native'
-import dayjs from 'dayjs'
-import { useTranslation } from 'react-i18next'
+import React, { FunctionComponent } from "react"
+import { StyleSheet, View } from "react-native"
+import dayjs from "dayjs"
+import { useTranslation } from "react-i18next"
 
-import { Text } from '../../components'
-import * as Exposure from '../../exposure'
+import { Text } from "../../components"
+import * as Exposure from "../../exposure"
 
-import { Colors, Outlines, Spacing, Typography } from '../../styles'
+import { Colors, Outlines, Spacing, Typography } from "../../styles"
 
 type Posix = number
 
@@ -21,7 +21,7 @@ export const determineRemainingQuarantine = (
   startDate: Posix,
 ): number => {
   const firstDay = dayjs(startDate)
-  const daysSinceExposure = dayjs(today).diff(firstDay, 'day')
+  const daysSinceExposure = dayjs(today).diff(firstDay, "day")
   const daysRemaining = quarantineLength - daysSinceExposure
 
   const maxDays = Math.min(quarantineLength, daysRemaining)
@@ -35,7 +35,7 @@ const ExposureSummary: FunctionComponent<ExposureSummaryProps> = ({
   const { t } = useTranslation()
 
   const formatDate = (posix: Posix) => {
-    return dayjs(posix).format('dddd, MMM Do')
+    return dayjs(posix).format("dddd, MMM Do")
   }
 
   const [exposureStartDate, exposureEndDate] = Exposure.toExposureRange(
@@ -47,7 +47,7 @@ const ExposureSummary: FunctionComponent<ExposureSummaryProps> = ({
   return (
     <View>
       <Text style={style.summaryText}>
-        {t('exposure_history.exposure_summary', {
+        {t("exposure_history.exposure_summary", {
           startDate: exposureStartDateText,
           endDate: exposureEndDateText,
         })}
@@ -56,22 +56,32 @@ const ExposureSummary: FunctionComponent<ExposureSummaryProps> = ({
       <View style={style.recommendationContainer}>
         <View style={style.headerContainer}>
           <Text style={style.headerText}>
-            {t('exposure_history.exposure_detail.header_0')}
+            {t("exposure_history.exposure_detail.header_0")}
           </Text>
         </View>
 
         <View style={style.recommendationContentContainer}>
           <View style={style.recommendationLabelContainer}>
-            <Text style={{ ...style.recommendationLabelText, ...style.extraRecommendationLabel }}>
-              {t('exposure_history.exposure_detail.instructions_0')}
+            <Text
+              style={{
+                ...style.recommendationLabelText,
+                ...style.extraRecommendationLabel,
+              }}
+            >
+              {t("exposure_history.exposure_detail.instructions_0")}
             </Text>
 
-            <Text style={{ ...style.recommendationLabelText, ...style.extraRecommendationLabel }}>
-              {t('exposure_history.exposure_detail.instructions_1')}
+            <Text
+              style={{
+                ...style.recommendationLabelText,
+                ...style.extraRecommendationLabel,
+              }}
+            >
+              {t("exposure_history.exposure_detail.instructions_1")}
             </Text>
 
             <Text style={{ ...style.recommendationLabelText }}>
-              {t('exposure_history.exposure_detail.instructions_2')}
+              {t("exposure_history.exposure_detail.instructions_2")}
             </Text>
           </View>
         </View>
@@ -107,15 +117,15 @@ const style = StyleSheet.create({
   },
   daysRemainingContainer: {
     marginTop: Spacing.xxSmall,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   recommendationLabelContainer: {
     flex: 1,
   },
   recommendationValueContainer: {
     flex: 2,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     marginLeft: Spacing.xSmall,
   },
   recommendationText: {
@@ -124,8 +134,8 @@ const style = StyleSheet.create({
     ...Typography.style.monospace,
   },
   extraRecommendationLabel: {
-    marginBottom: Spacing.small
-  }
+    marginBottom: Spacing.small,
+  },
 })
 
 export default ExposureSummary
