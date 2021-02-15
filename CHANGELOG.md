@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 (48)
+- Affected user flow improvements
+- Translation updates
+- EN configuration updates
+
 ## 1.4.0 (46)
 - Update to PC 1.10.0
 - Translation updates

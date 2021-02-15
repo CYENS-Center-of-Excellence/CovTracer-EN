@@ -208,8 +208,8 @@ const CodeInputForm: FunctionComponent<CodeInputFormProps> = ({ linkCode }) => {
     }
   }
 
-  const codeLengthMin = 6
-  const codeLengthMax = 16
+  const codeLengthMin = 12
+  const codeLengthMax = 12
   const codeContainsOnlyAlphanumericChars = (code: string) => {
     const alphanumericRegex = /^[a-zA-Z0-9]*$/
     return Boolean(code.match(alphanumericRegex))

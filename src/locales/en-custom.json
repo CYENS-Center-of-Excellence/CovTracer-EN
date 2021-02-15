@@ -44,8 +44,15 @@
   "exposure_history": {
     "exposure_detail": {
       "header_1": "General guidance",
+      "2m_apart": "stay 2 meters apart",
       "disinfect_surfaces": "surface disinfection",
+      "quarantine": "stay home when sick",
+      "six_feet_apart": "stay 6 feet apart",
+      "stay_home": "stay home when sick",
+      "two_meters_apart": "stay 2 meters apart",
       "ventilation": "good ventilation of indoor spaces",
+      "wash_your_hands": "wash your hands often",
+      "wear_a_mask": "wear a mask",
 
       "header_0": "What do I need to do",
       "instructions_0": "In case you have symptoms  or you develop in the coming days symptoms, which are compatible with the disease, contact your Personal Physician by phone, informing him/her about the symptoms as well as of the present application message that you have received so that he/she can schedule your laboratory examination.",

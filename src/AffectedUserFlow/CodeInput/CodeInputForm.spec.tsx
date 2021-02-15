@@ -60,7 +60,7 @@ describe("CodeInputForm", () => {
         .spyOn(API, "postTokenAndHmac")
         .mockResolvedValueOnce(certificateReponse)
 
-      const code = "12345678"
+      const code = "123123123123"
       const exposureContext = factories.exposureContext.build()
 
       const { getByTestId, getByLabelText } = render(
@@ -115,7 +115,7 @@ describe("CodeInputForm", () => {
           </AffectedUserProvider>
         </ExposureContext.Provider>,
       )
-      fireEvent.changeText(getByTestId("code-input"), "12345678")
+      fireEvent.changeText(getByTestId("code-input"), "123123123123")
       fireEvent.press(getByLabelText("Next"))
 
       await waitFor(() => {
@@ -141,7 +141,7 @@ describe("CodeInputForm", () => {
           <CodeInputForm linkCode="linkCode" />
         </AffectedUserProvider>,
       )
-      fireEvent.changeText(getByTestId("code-input"), "12345678")
+      fireEvent.changeText(getByTestId("code-input"), "12312312312a")
       fireEvent.press(getByLabelText("Next"))
 
       await waitFor(() => {
@@ -168,7 +168,7 @@ describe("CodeInputForm", () => {
           <CodeInputForm linkCode="linkCode" />
         </AffectedUserProvider>,
       )
-      fireEvent.changeText(getByTestId("code-input"), "12345678")
+      fireEvent.changeText(getByTestId("code-input"), "123123123123")
       fireEvent.press(getByLabelText("Next"))
 
       await waitFor(() => {
@@ -195,7 +195,7 @@ describe("CodeInputForm", () => {
           <CodeInputForm linkCode="linkCode" />
         </AffectedUserProvider>,
       )
-      fireEvent.changeText(getByTestId("code-input"), "12345678")
+      fireEvent.changeText(getByTestId("code-input"), "12312312312a")
       fireEvent.press(getByLabelText("Next"))
 
       await waitFor(() => {
