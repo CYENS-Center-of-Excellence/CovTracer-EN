@@ -164,12 +164,12 @@ const Settings: FunctionComponent = () => {
             <View style={style.logoRow}>
               <Image source={Images.LogoMoh} style={style.logo} />
               <Image source={Images.LogoMorni} style={style.logo} />
-            </View>
-            <View style={style.logoRow}>
+              {/*</View>*/}
+              {/*<View style={style.logoRow}>*/}
               <Image source={Images.LogoRise} style={style.logo} />
               <Image source={Images.LogoKios} style={style.logo} />
-            </View>
-            <View style={style.logoRow}>
+              {/*</View>*/}
+              {/*<View style={style.logoRow}>*/}
               <Image
                 source={Images.LogoNicosiaMunicipality}
                 style={style.logo}
@@ -233,13 +233,14 @@ const style = StyleSheet.create({
     marginTop: Spacing.small,
   },
   logoRow: {
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
   logo: {
     height: 100,
-    width: 100,
+    aspectRatio: 2 / 1,
+    // width: 100,
   },
 })
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.6 (46)
+- Supporters update
+
 ## 1.3.2 (43)
 - Update tr translations
 
