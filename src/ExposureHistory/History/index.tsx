@@ -9,7 +9,6 @@ import {
 import { SvgXml } from "react-native-svg"
 import { useTranslation } from "react-i18next"
 import { useNavigation, useIsFocused } from "@react-navigation/native"
-import { showMessage } from "react-native-flash-message"
 
 import { ExposureDatum } from "../../exposure"
 import { LoadingIndicator, StatusBar, Text } from "../../components"
@@ -21,14 +20,7 @@ import { useExposureContext } from "../../ExposureContext"
 
 import { Icons } from "../../assets"
 import { ExposureHistoryStackScreens } from "../../navigation"
-import {
-  Buttons,
-  Spacing,
-  Typography,
-  Colors,
-  Affordances,
-  Iconography,
-} from "../../styles"
+import { Buttons, Spacing, Typography, Colors, Iconography } from "../../styles"
 import { usePermissionsContext } from "../../Device/PermissionsContext"
 import { useRequestExposureNotifications } from "../../useRequestExposureNotifications"
 
@@ -48,7 +40,6 @@ const History: FunctionComponent<HistoryProps> = ({
   const { t } = useTranslation()
   const navigation = useNavigation()
   const { detectExposures } = useExposureContext()
-  const { successFlashMessageOptions } = Affordances.useFlashMessageOptions()
   const {
     exposureNotifications: { status },
   } = usePermissionsContext()
@@ -85,17 +76,14 @@ const History: FunctionComponent<HistoryProps> = ({
     setCheckingForExposures(true)
     const result = await detectExposures()
     if (result.kind === "success") {
-      showMessage({
-        message: t("common.success"),
-        ...successFlashMessageOptions,
-      })
+      showAlert(t("exposure_notification_alerts.exposure_check_complete"), "")
     } else if (result.kind === "failure") {
       switch (result.error) {
         case "RateLimited":
-          showMessage({
-            message: t("common.success"),
-            ...successFlashMessageOptions,
-          })
+          showAlert(
+            t("exposure_notification_alerts.exposure_check_complete"),
+            "",
+          )
           break
         case "NotAuthorized":
           showAlert(
@@ -105,6 +93,12 @@ const History: FunctionComponent<HistoryProps> = ({
             t(
               "exposure_notification_alerts.share_exposure_information_ios_body",
             ),
+          )
+          break
+        case "DataInaccessible":
+          showAlert(
+            t("exposure_notification_alerts.requires_network_title"),
+            t("exposure_notification_alerts.requires_network_body"),
           )
           break
         default:
@@ -120,7 +114,7 @@ const History: FunctionComponent<HistoryProps> = ({
   const showAlert = (title: string, body: string) => {
     Alert.alert(title, body, [
       {
-        text: t("common.okay"),
+        text: t("common.ok"),
       },
     ])
   }

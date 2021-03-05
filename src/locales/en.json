@@ -29,6 +29,7 @@
     "next": "Next",
     "no_thanks": "No thanks",
     "off": "OFF",
+    "ok": "Ok",
     "okay": "Okay",
     "on": "ON",
     "save": "Save",
@@ -125,6 +126,7 @@
       "body1": "If you have received a verification code from {{healthAuthorityName}} for a positive COVID-19 test, you can submit the verification code on the following screen.",
       "body2": "If you do not have a code, but you do have a positive test, you will need to get a verification code from {{healthAuthorityName}} before continuing.",
       "header": "Do you have your verification code?",
+      "title": "Verification Code Info",
       "what_is_a": "What is a verification code?"
     },
     "never_mind_button_title": "Never mind",
@@ -184,6 +186,7 @@
     "how_does_this_work_para": "When Exposure Notifications are on, your phone uses Bluetooth Low Energy to swap and save random number strings (called random IDs) from any phones it is in close contact to that also have Exposure Notifications enabled. Random IDs won’t identify you personally to other users and change many times a day to protect your privacy.",
     "last_days": "Last 14 days",
     "more_info": "Learn more about Exposure Notifications",
+    "more_info_header": "More Info",
     "next_steps": "Next Steps",
     "no_connectivity_message": "You are not connected to the internet!",
     "no_exposure_reports": "No Exposure Reports",
@@ -204,8 +207,11 @@
     "cant_check_for_exposures_body": "You must enable Exposure Notifications to check for exposures.",
     "cant_check_for_exposures_button": "Enable Exposure Notifications",
     "cant_check_for_exposures_title": "Can't Check for Exposures",
+    "exposure_check_complete": "Exposure check complete",
     "location_body": "Google requires that devices running Android 10 or below have location services enabled to use Exposure Notifications. {{applicationName}} does NOT track or keep a record of your location.",
     "location_title": "Enable Location Services",
+    "requires_network_body": "Please make sure Airplane Mode is disabled and internet access is available through mobile data or WiFi.",
+    "requires_network_title": "Can't Connect To Network",
     "set_active_region_ios_body": "Open the Settings app, navigate to the Exposure Notifications settings for this app, then press 'Set As Active Region'.",
     "set_active_region_ios_title": "Set Active Region",
     "share_exposure_information_ios_body": "Open the Settings app, then navigate to the Exposure Notifications settings for this app. Ensure 'Share Exposure Information' is turned on, then press 'Set As Active Region'.",
@@ -358,6 +364,7 @@
     "stop_sharing_data": "Stop Sharing Data"
   },
   "screen_titles": {
+    "activation": "Activation",
     "bluetooth": "Bluetooth",
     "covid_data_webview": "Covid Data",
     "exposure_history": "Exposures",
@@ -367,10 +374,14 @@
     "how_the_app_works": "How the app works",
     "legal": "Legal",
     "location": "Location",
+    "my_data": "My Data",
     "protect_privacy": "How we protect your privacy",
+    "request_callback": "Request Callback",
     "select_language": "Select Language",
     "select_symptoms": "Select Symptoms",
-    "settings": "Settings"
+    "self_assessment": "Self Assessment",
+    "settings": "Settings",
+    "welcome": "Welcome"
   },
   "self_assessment": {
     "age_range": {
