@@ -239,7 +239,7 @@ const style = StyleSheet.create({
   },
   logo: {
     height: 100,
-    aspectRatio: 2 / 1
+    aspectRatio: 2 / 1,
   },
 })
 
