@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 (49)
+- Update to PC 1.11.0
+- Fix bug with exposure date timezone
+
 ## 1.4.1 (48)
 - Affected user flow improvements
 - Translation updates
